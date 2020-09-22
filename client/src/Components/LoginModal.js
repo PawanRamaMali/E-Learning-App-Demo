@@ -51,6 +51,7 @@ function LoginModal(props) {
                     </Form.Text>
                 </Form.Group>
                 <Button className="primary-button" onClick={props.onHide}>Login</Button>
+                <Button className="homepage-buttons"onClick={props.onHide} variant="secondary">Forgot Password</Button>
             </Form>
         </Modal.Body>   
         {/* <Modal.Footer>
