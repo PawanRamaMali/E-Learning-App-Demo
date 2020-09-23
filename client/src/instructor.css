@@ -1,0 +1,8 @@
+.InsLanding-background{
+    img: 
+}
+
+.btngroup{
+    display: flex;
+    justify-content: space-around;
+}
