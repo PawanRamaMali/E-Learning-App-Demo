@@ -2,11 +2,12 @@ import React from 'react'
 import {useState, useEffect} from "react"
 import {Jumbotron, Button } from "react-bootstrap"
 import InstructorHeader from "../Components/instructorHeader";
+import "../instructor.css"
 
 
 export default function InsLanding() {
-    const [AddStu, setStudent] = useState();
-    const [AddCourses, setCourses] = useState(false);
+    const [stuList, setStudent] = useState();
+    const [coursesList, setCourses] = useState(false);
 
 
     return (
