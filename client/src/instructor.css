@@ -1,0 +1,18 @@
+.InsLanding-background{
+    background-image: url("img/element5-digital-OyCl7Y4y0Bk-unsplash.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 80vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
+
+.insBtn{
+    display: flex;
+    justify-content: space-around;
+    
+}
