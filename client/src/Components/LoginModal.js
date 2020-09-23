@@ -1,17 +1,37 @@
 import React, { useState } from 'react';
-import { Modal, Form, Button } from 'react-bootstrap';
+import { Modal, Form, Button, Alert } from 'react-bootstrap';
 import "../App.css";
 //import login attempt action
 import { loginAttempt } from "../actions";
+import { useDispatch, useSelector } from "react-redux";
 
 function LoginModal(props) {
+  //instaitating dispacther
+  const dispatch = useDispatch();
+
   //form validation state declaration -- initial form state of validation: false
   const [validated, setValidated] = useState(false);
   const [loginCreds, setLoginCreds] = useState({
-    loginEmail: "",
-    loginPassword: ""
+    email: "",
+    password: ""
   });
+  //importing global state
+  const [isAuthenticatedUser, isFetchingAuth, error] = useSelector((gState) => [
+    gState.isAuthenticatedUser,
+    gState.isFetchingAuth,
+    gState.error,
+  ]);
 
+  //Conditional Rendering
+  //----------------------
+  const renderLoginStatus = () => {
+    if(isFetchingAuth) {return <Alert variant="info">Validating...</Alert>}
+    if(isAuthenticatedUser) {return <Alert variant="success">Authenticated!</Alert>}
+    if(error) {return <Alert variant="danger">{error}</Alert>}
+  }
+
+  //event handlers
+  //----------------
   const handleInputChange = (e) => {
     //save current state
     const currState = {...loginCreds};
@@ -23,7 +43,6 @@ function LoginModal(props) {
     setLoginCreds(currState);
   }
 
-
   //handleSubmit function to send credentials
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -31,7 +50,8 @@ function LoginModal(props) {
     const form = e.currentTarget;
     //checking validation on Submit event
     if(form.checkValidity() !== false){
-      console.log("login creds", loginCreds);
+      //dispatch loginAttempt action and pass loginCreds
+      dispatch(loginAttempt(loginCreds));
     }
     setValidated(true);
   }
@@ -63,10 +83,11 @@ function LoginModal(props) {
                 </div>
             </form> */}
             <Form noValidate validated={validated} onSubmit={ handleSubmit } >
+                {renderLoginStatus()}
                 <Form.Group id="formBasicEmail">
                     <Form.Label htmlFor="login-email">Email address</Form.Label>
                     <Form.Control 
-                        name="loginEmail"
+                        name="email"
                         id="login-email" 
                         type="email" 
                         placeholder="Enter email" 
@@ -85,7 +106,7 @@ function LoginModal(props) {
                 <Form.Group id="formBasicPassword">
                     <Form.Label htmlFor="login-password">Password</Form.Label>
                     <Form.Control
-                        name="loginPassword"
+                        name="password"
                         type="password"
                         id="login-password"
                         aria-describedby="passwordHelpBlock" placeholder="Password"

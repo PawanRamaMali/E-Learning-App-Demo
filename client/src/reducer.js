@@ -20,7 +20,8 @@ export default (state = initialState, action) => {
         ...state, 
         isFetchingAuth: action.isFetchingAuth, 
         isAuthenticatedUser: action.isAuthenticatedUser, 
-        authObj: action.payload
+        authObj: action.payload,
+        error: ""
       };
     case LOGIN_FAILURE:
       return { 

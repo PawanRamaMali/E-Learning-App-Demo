@@ -13,6 +13,7 @@
 
 //importing LOGIN constants
 import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE } from "./constants";
+import { createSession } from "./utils/sessions";
 import axios from "axios";
 
 //action: LOGIN_SUCCESS once backend call is successfull
@@ -42,14 +43,20 @@ export const loginAttempt = (creds) => {
         isFetchingAuth: true, 
         isAuthenticatedUser: false 
       });
+      console.log("creds in action.js", creds);
     //use axios to query REST api for login.
     axios
       .post("/api/auth/signin", creds)
       .then( (response) => {
-        dispatch(loginSuccess(response));
+        //if request is successful, persist a session and dispatch
+        //login success action
+        if(response.status === 200){
+          createSession(response.data);
+          dispatch(loginSuccess(response.data));
+        }
       })
       .catch( (error) => {
-        dispatch(loginFailed(error));
+        dispatch(loginFailed(error.message));
       });
   }
 }
