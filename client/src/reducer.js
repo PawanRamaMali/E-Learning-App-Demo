@@ -1,17 +1,36 @@
-import { ADD_USER, DELETE_USER } from './constants';
+import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE } from "./constants";
+import { validateSession } from "./utils/sessions";
 
 export const initialState = {
-  users: [],
+  isFetchingAuth: false,
+  isAuthenticatedUser: validateSession(),
+  authObj: {},
+  error: ""
 };
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case ADD_USER:
-      return { ...state, users: state.users.concat(action.payload) };
-    case DELETE_USER:
-      return {
-        ...state,
-        users: state.users.filter((user) => user.id !== action.payload),
+    case LOGIN_REQUEST:
+      return { 
+        ...state, 
+        isFetchingAuth: action.isFetchingAuth, 
+        isAuthenticatedUser: action.isAuthenticatedUser 
+      };
+    case LOGIN_SUCCESS:
+      return { 
+        ...state, 
+        isFetchingAuth: action.isFetchingAuth, 
+        isAuthenticatedUser: action.isAuthenticatedUser, 
+        authObj: action.payload,
+        error: ""
+      };
+    case LOGIN_FAILURE:
+      return { 
+        ...state, 
+        isFetchingAuth: action.isFetchingAuth, 
+        isAuthenticatedUser: action.isAuthenticatedUser, 
+        authObj: {},
+        error: action.payload
       };
     default:
       return state;
