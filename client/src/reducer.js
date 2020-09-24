@@ -5,6 +5,7 @@ export const initialState = {
   isFetchingAuth: false,
   isAuthenticatedUser: validateSession(),
   authObj: {},
+  courses: [],
   error: ""
 };
 
