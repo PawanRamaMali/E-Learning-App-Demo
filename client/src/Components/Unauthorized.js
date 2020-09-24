@@ -6,10 +6,10 @@ import "../App.css";
 const Unauthorized = () => {
   return (
     <div className='container'>
-      <div class="four0three">
+      <div className="four0three">
         <img src={logo403} alt="403 Forbidden Access" />
       </div>
-      <div class="unauth-message">
+      <div className="unauth-message">
         {/* <h1>403 - You Shall Not Pass</h1> */}
         <p>Uh oh, it looks like your missing something!<br />We have not been able to verify your credentials. Please be sure you are logged in.</p>
         <p><Link to='/'>Back to Home</Link></p>

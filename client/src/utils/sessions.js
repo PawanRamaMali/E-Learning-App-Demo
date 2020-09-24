@@ -1,6 +1,8 @@
 //helper functions for local storage operations
 //with login sessions.
 //---------------------------------------------
+//importing config file
+const config = require("../config/config-react.json");
 
 //creating session after successful login
 export const createSession = (authObj) => {
@@ -31,10 +33,19 @@ export const validateSession = () => {
         const __session = JSON.parse(localStorage.getItem("__session"));
         //calculate difference in Hrs
         const tsDiffHrs = ((~~(Date.now() / 1000)) - __session.ts) / 3600;
-        if(tsDiffHrs >= process.env.SESSION_LENGTH) return false;
+        if(tsDiffHrs >= config.REACT_APP_SESSION_LENGTH) return false;
         return true;
     }
     else{
         return false;
     }
+}
+
+//returning session object if session is valid
+export const getSessionAuthObj = () => {
+    if (validateSession()){
+        //return session
+        return JSON.parse(localStorage.getItem("__session"));
+    }
+    return {}
 }

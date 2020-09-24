@@ -1,10 +1,10 @@
 import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE } from "./constants";
-import { validateSession } from "./utils/sessions";
+import { validateSession, getSessionAuthObj } from "./utils/sessions";
 
 export const initialState = {
   isFetchingAuth: false,
   isAuthenticatedUser: validateSession(),
-  authObj: {},
+  authObj: getSessionAuthObj(),
   error: ""
 };
 
