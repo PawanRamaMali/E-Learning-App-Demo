@@ -43,3 +43,11 @@
   justify-content: center;
 }
 
+.four0three img{
+  width: 100%;
+}
+
+.unauth-message {
+  padding: 80px 0 0 0;
+  text-align: center;
+}

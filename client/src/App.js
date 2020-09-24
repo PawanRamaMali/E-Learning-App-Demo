@@ -1,8 +1,11 @@
 import React from "react";
+import { Route, Switch } from "react-router-dom";
 import "./App.css";
 //Importing pages
 import Home from "./pages/Home";
-import { Route, Switch } from "react-router-dom";
+import Unauthorized from "./Components/Unauthorized";
+//Protected Route component
+import ProtectedRoute from "./Components/ProtectedRoute";
 
 import InsLanding from "./pages/InsLanding";
 
@@ -11,7 +14,9 @@ function App() {
     <div>
       <Switch>
         <Route exact path="/" component={Home} />
-        <Route exact path="/instructor" component={InsLanding} />
+        <ProtectedRoute exact path="/instructor" component={InsLanding} />
+        {/* <Route exact path="/instructor" component={InsLanding} /> */}
+        <Route exact path="/unauthorized" component={Unauthorized} />
       </Switch>
     </div>
   );
