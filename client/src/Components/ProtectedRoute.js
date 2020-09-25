@@ -12,13 +12,10 @@ const ProtectedRoute = ({ component: Component, path, auth, ...rest }) => {
             // props => <Component { ...rest } { ...props } /> 
             props => {
                 if(Object.keys(auth).length !== 0) {
-                    console.log("auth from Protected", auth);
-                    console.log("path from protected", path);
                     //user is logged in
                     //need to verify role
                     switch (path) {
                         case "/instructor":
-                            console.log("user role from protected", auth.role)
                             if(auth.role.toUpperCase() === "INSTRUCTOR"){
                                 return <Component {...rest} {...props} />
                             }

@@ -15,7 +15,6 @@ export const createSession = (authObj) => {
     authObj["ts"] = authObj["ts"] || ts;
     //send authObj to localStorage
     localStorage.setItem("__session", JSON.stringify(authObj));
-    console.log("__session created");
 }
 
 //destroy __session from localStorage on logout
