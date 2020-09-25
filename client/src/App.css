@@ -28,6 +28,7 @@
   background-color: #2ba6cb;
 }
 
+/* login modal */
 .login-modal {
   max-width: 100%;
   display: flex;
@@ -35,6 +36,7 @@
   align-items: center;
 }
 
+/* Signup modal */
 .modal-dialog {
   max-width: 500px;
   padding: 0;

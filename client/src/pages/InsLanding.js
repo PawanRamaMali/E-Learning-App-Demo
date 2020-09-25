@@ -1,8 +1,8 @@
 import React from 'react'
 import {useState, useEffect} from "react"
 import {Jumbotron, Button } from "react-bootstrap"
-import InstructorHeader from "../Components/instructorHeader";
-import "../instructor.css"
+import AppNavbar from "../Components/AppNavbar";
+import "../instructor.css";
 
 
 export default function InsLanding() {
@@ -14,12 +14,12 @@ export default function InsLanding() {
 
         
         <React.Fragment> 
-            <InstructorHeader />
-            <Jumbotron className="InsLanding-background">
-            <div className="InsLanding-content">
-                <h1 className="">POD | E-Learning</h1>
+            <AppNavbar />
+            <Jumbotron className="InsLanding-background homepage-background">
+            <div className="InsLanding-content homepage-content">
+                <h1 className="">POD | Instructor Portal</h1>
                 <p>
-                    Feeding the minds one video at a time.
+                    Manage Students, Courses, and Content all in one place!
                 </p>
                 <p className="btngroup">
                     <Button className="InsBtn AddStu primary-button">ADD STUDENT</Button>{' '}
