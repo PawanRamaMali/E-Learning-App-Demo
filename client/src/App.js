@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 //Importing pages
 import Home from "./pages/Home";
 import InsLanding from "./pages/InsLanding";
+import InsStudentRoster from "./pages/InsStudentRoster";
 import Unauthorized from "./Components/Unauthorized";
 //Protected Route component
 import ProtectedRoute from "./Components/ProtectedRoute";
@@ -28,6 +29,7 @@ function App() {
       <Switch>
         <Route exact path="/" component={Home} />
         <ProtectedRoute exact path="/instructor" auth={isSessionValid()} component={InsLanding} />
+        <ProtectedRoute exact path="/student-roster" auth={isSessionValid()} component={InsStudentRoster} />
         {/* <Route exact path="/instructor" component={InsLanding} /> */}
         <Route exact path="/unauthorized" component={Unauthorized} />
       </Switch>

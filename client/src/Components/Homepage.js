@@ -64,8 +64,12 @@ function Homepage(props) {
                     routePath = "/";
                     break;
             }
+           
             return (
-                <Button className="homepage-buttons" variant="secondary" onClick={() => redirectRouter(routePath)}>My Dashboard</Button>
+                < >
+                    <Button className="homepage-buttons" variant="secondary" onClick={() => redirectRouter(routePath)}>My Dashboard</Button>
+                    <Button className="homepage-buttons primary-button" variant="primary" onClick={() => redirectRouter(routePath)}>Logout</Button>
+                </>
             )
         }
     }
