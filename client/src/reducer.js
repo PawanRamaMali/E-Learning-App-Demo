@@ -1,9 +1,11 @@
-import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE } from "./constants";
+import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT_REQUEST, LOGOUT_SUCCESS, LOGOUT_FAILURE } from "./constants";
 import { validateSession, getSessionAuthObj } from "./utils/sessions";
 
 export const initialState = {
   isFetchingAuth: false,
   isAuthenticatedUser: validateSession(),
+  isLoggingOut: false,
+  isLoggedOutSuccess: false,
   authObj: getSessionAuthObj(),
   courses: [],
   error: ""
@@ -32,6 +34,32 @@ export default (state = initialState, action) => {
         isAuthenticatedUser: action.isAuthenticatedUser, 
         authObj: {},
         error: action.payload
+      };
+    case LOGOUT_REQUEST:
+      return { 
+        ...state, 
+        isLoggingOut: true
+      };
+    case LOGOUT_SUCCESS:
+      return { 
+        ...state, 
+        isLoggingOut: false,
+        isLoggedOutSuccess: true,
+        isAuthenticatedUser: false,
+        authObj: {},
+        courses: [],
+        error: "",
+      };
+    case LOGOUT_FAILURE:
+      //force state reset
+      return {
+        ...state, 
+        isLoggingOut: false,
+        isLoggedOutSuccess: false,
+        isAuthenticatedUser: false,
+        authObj: {},
+        courses: [],
+        error: action.payload,
       };
     default:
       return state;
