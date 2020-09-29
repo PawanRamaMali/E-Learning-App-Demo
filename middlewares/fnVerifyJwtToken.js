@@ -71,8 +71,27 @@ const isStudent = (req, res, next) => {
   });
 };
 
+const isAdmin = (req, res, next) => {
+  User.findByPk(req.userId).then((user) => {
+    //get the role
+    user.getRoles().then((role) => {
+      if (role[0].name === "ADMIN") {
+        next();
+        //adding return here to skip below code when user role === ADMIN
+        return;
+      }
+      //if not ADMIN
+      res.status(403).send({
+        message: "Access Denied. -- ADMIN -- Permissions Required!"
+      })
+      return;
+    })
+  })
+}
+
 JwtTokenValidator["fnVerifyToken"] = fnVerifyToken;
 JwtTokenValidator["isInstructor"] = isInstructor;
 JwtTokenValidator["isStudent"] = isStudent;
+JwtTokenValidator["isAdmin"] = isAdmin
 
 module.exports = JwtTokenValidator;
