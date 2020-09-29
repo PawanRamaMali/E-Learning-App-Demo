@@ -6,6 +6,7 @@ import Home from "./pages/Home";
 import InsLanding from "./pages/InsLanding";
 import InsStudentRoster from "./pages/InsStudentRoster";
 import Unauthorized from "./Components/Unauthorized";
+import InsCourses from "./pages/InsCoursePage";
 //Protected Route component
 import ProtectedRoute from "./Components/ProtectedRoute";
 //Importing CSS
@@ -28,6 +29,7 @@ function App() {
     <div>
       <Switch>
         <Route exact path="/" component={Home} />
+        <Route exact path="/instructor-courses" component={InsCourses} />
         <ProtectedRoute exact path="/instructor" auth={isSessionValid()} component={InsLanding} />
         <ProtectedRoute exact path="/student-roster" auth={isSessionValid()} component={InsStudentRoster} />
         {/* <Route exact path="/instructor" component={InsLanding} /> */}

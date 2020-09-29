@@ -13,6 +13,7 @@
 
 //importing LOGIN constants
 import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE } from "./constants";
+import { GET_COURSES_REQUEST, GET_COURSES_SUCCESS, GET_COURSES_FAILURE } from "./constants"
 import { createSession } from "./utils/sessions";
 import axios from "axios";
 
@@ -58,5 +59,54 @@ export const loginAttempt = (creds) => {
       .catch( (error) => {
         dispatch(loginFailed(error.message));
       });
+  }
+}
+
+///Action to load courses
+const getCourseSuccess = (courses) => ({
+  type: GET_COURSES_SUCCESS,
+  payload: courses
+})
+//When Request from API fails
+const getCourseFailure = (error) => ({
+  type: GET_COURSES_FAILURE,
+  payload: error,
+})
+
+
+//courses Api request for instructor
+export const getCourses = (token) => {
+  console.log(token)
+  return (dispatch, getState) => {
+    dispatch({type: GET_COURSES_REQUEST});
+    axios
+      .get("/api/user/instructor/courses", {
+        headers: {
+          'x-access-token': token
+        }
+      })
+      .then((response) => {
+        dispatch(getCourseSuccess(response.data))
+      })
+      .catch((error) => {
+        dispatch(getCourseFailure(error.message))
+      })
+  }
+}
+
+
+//Get Courses Student API request
+export const getStuCourses = () => {
+  return (dispatch, getState) => {
+    dispatch({type: GET_COURSES_REQUEST});
+    axios
+      .get("/api/user/student/courses")
+      .then((response) => {
+        dispatch(getCourseSuccess(response.data))
+        console.log(response.data)
+      })
+      .catch((error) => {
+        dispatch(getCourseFailure(error.message))
+      })
   }
 }
