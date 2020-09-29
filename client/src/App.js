@@ -31,7 +31,7 @@ function App() {
         <Route exact path="/" component={Home} />
         <ProtectedRoute exact path="/instructor" auth={isSessionValid()} component={InsLanding} />
         <ProtectedRoute exact path="/instructor/student-roster" auth={isSessionValid()} component={InsStudentRoster} />
-        <ProtectedRoute exact path="/instructor/courses/roster" auth={isSessionValid()} component={InsCourseRoster} />
+        <ProtectedRoute exact path="/instructor/courses/:id/roster" auth={isSessionValid()} component={InsCourseRoster} />
         {/* <Route exact path="/instructor" component={InsLanding} /> */}
         <Route exact path="/unauthorized" component={Unauthorized} />
       </Switch>
