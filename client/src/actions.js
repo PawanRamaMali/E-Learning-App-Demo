@@ -87,6 +87,7 @@ export const getCourses = (token) => {
       })
       .then((response) => {
         dispatch(getCourseSuccess(response.data))
+        console.log(typeof(response.data))
       })
       .catch((error) => {
         dispatch(getCourseFailure(error.message))
@@ -103,7 +104,7 @@ export const getStuCourses = () => {
       .get("/api/user/student/courses")
       .then((response) => {
         dispatch(getCourseSuccess(response.data))
-        console.log(response.data)
+        
       })
       .catch((error) => {
         dispatch(getCourseFailure(error.message))
