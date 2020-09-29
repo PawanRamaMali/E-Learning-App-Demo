@@ -1,17 +1,37 @@
 import React from "react";
-import "./App.css";
+import { Route, Switch } from "react-router-dom";
+import { useSelector } from "react-redux";
 //Importing pages
 import Home from "./pages/Home";
-import { Route, Switch } from "react-router-dom";
-
 import InsLanding from "./pages/InsLanding";
+import InsStudentRoster from "./pages/InsStudentRoster";
+import Unauthorized from "./Components/Unauthorized";
+//Protected Route component
+import ProtectedRoute from "./Components/ProtectedRoute";
+//Importing CSS
+import "./App.css";
 
 function App() {
+  //importing from global state
+  const [isAuthenticatedUser, authObj] = useSelector((gState) => [
+    gState.isAuthenticatedUser,
+    gState.authObj,
+  ]);
+
+  //verify __session validity if user is authenticated
+  const isSessionValid = () => {
+    if (isAuthenticatedUser) return authObj;
+    return false;
+  }
+
   return (
     <div>
       <Switch>
         <Route exact path="/" component={Home} />
-        <Route exact path="/instructor" component={InsLanding} />
+        <ProtectedRoute exact path="/instructor" auth={isSessionValid()} component={InsLanding} />
+        <ProtectedRoute exact path="/student-roster" auth={isSessionValid()} component={InsStudentRoster} />
+        {/* <Route exact path="/instructor" component={InsLanding} /> */}
+        <Route exact path="/unauthorized" component={Unauthorized} />
       </Switch>
     </div>
   );

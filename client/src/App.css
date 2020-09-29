@@ -28,6 +28,7 @@
   background-color: #2ba6cb;
 }
 
+/* login modal */
 .login-modal {
   max-width: 100%;
   display: flex;
@@ -35,6 +36,7 @@
   align-items: center;
 }
 
+/* Signup modal */
 .modal-dialog {
   max-width: 500px;
   padding: 0;
@@ -43,3 +45,11 @@
   justify-content: center;
 }
 
+.four0three img{
+  width: 100%;
+}
+
+.unauth-message {
+  padding: 80px 0 0 0;
+  text-align: center;
+}

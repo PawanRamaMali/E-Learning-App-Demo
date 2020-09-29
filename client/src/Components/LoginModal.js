@@ -6,7 +6,7 @@ import { loginAttempt } from "../actions";
 import { useDispatch, useSelector } from "react-redux";
 
 function LoginModal(props) {
-  //instaitating dispacther
+  //instantiating dispacther
   const dispatch = useDispatch();
 
   //form validation state declaration -- initial form state of validation: false
@@ -69,19 +69,6 @@ function LoginModal(props) {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-            {/* <form data-abide novalidate id="login-form">
-                <div className="login-box">
-                <div className="row collapse expanded">
-                    <div className="small-12 medium-6 column small-order-2 medium-order-1">
-                    <div className="login-box-form-section">
-                        <input className="login-box-input" type="email" name="email" placeholder="E-mail" required pattern="email" id="userID-Login"/>
-                        <span className="form-error">Please enter a valid email address</span>
-                        <input className="login-box-input" type="password" name="password" placeholder="Password" id="pwd-Login" minlength="8" required/>
-                    </div>
-                    </div>
-                </div>
-                </div>
-            </form> */}
             <Form noValidate validated={validated} onSubmit={ handleSubmit } >
                 {renderLoginStatus()}
                 <Form.Group id="formBasicEmail">
@@ -95,14 +82,10 @@ function LoginModal(props) {
                         onChange={handleInputChange}
                         required
                     />
-                    {/* <Form.Text className="text-muted">
-                    We'll never share your email with anyone else.
-                    </Form.Text> */}
                     <Form.Control.Feedback type="invalid">
                       Please verify email is entered correctly.
                     </Form.Control.Feedback>
                 </Form.Group>
-
                 <Form.Group id="formBasicPassword">
                     <Form.Label htmlFor="login-password">Password</Form.Label>
                     <Form.Control
@@ -114,22 +97,14 @@ function LoginModal(props) {
                         onChange={handleInputChange}
                         required
                     />
-                    {/* <Form.Text id="passwordHelpBlock" muted>
-                        Your password must be 8-20 characters long, contain letters and numbers, and
-                        must not contain spaces, special characters, or emoji.
-                    </Form.Text> */}
                     <Form.Control.Feedback type="invalid">
                       Please enter password
                     </Form.Control.Feedback>
                 </Form.Group>
-                {/* <Button className="primary-button" type="submit" onClick={props.onHide}>Login</Button> */}
                 <Button className="primary-button" type="submit">Login</Button>
                 <Button className="homepage-buttons"onClick={props.onHide} variant="secondary">Forgot Password</Button>
             </Form>
         </Modal.Body>   
-        {/* <Modal.Footer>
-          <Button onClick={props.onHide}>Login</Button>
-        </Modal.Footer> */}
       </Modal>
     );
   }
