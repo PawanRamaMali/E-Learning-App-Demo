@@ -21,9 +21,9 @@ export default function InsLanding() {
                     Manage Students, Courses, and Content all in one place!
                 </p>
                 <p className="btngroup">
-                    <Button className="InsBtn AddStu primary-button">ADD STUDENT</Button>{' '}
-                    <Button className="InsBtn AddCourses primary-button">ADD COURSES</Button>{' '}
-                    <Button className="InsBtn Dashboard primary-button">VIEW DASHBOARD</Button>{' '}
+                    <Button className="InsBtn AddStu primary-button">MANAGE STUDENTS</Button>{' '}
+                    <Button className="InsBtn AddCourses primary-button">MANAGE COURSES</Button>{' '}
+                    <Button className="InsBtn Dashboard primary-button">MANAGE CONTENT</Button>{' '}
                 </p>
             </div>
         </Jumbotron>

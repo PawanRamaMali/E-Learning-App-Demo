@@ -16,3 +16,18 @@
     justify-content: space-around;
     
 }
+
+.primary-button {
+    background-color: #2ba6cb;
+}
+
+.student-card-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 30px;
+}
+
+.student-card-image {
+    border-radius: 100px;
+}
