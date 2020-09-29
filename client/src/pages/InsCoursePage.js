@@ -13,7 +13,7 @@ export default function InsCoursePage() {
     const [courses, error, authObj] = useSelector((gState) => [
         gState.courses,
         gState.error,
-       gState.authObj
+        gState.authObj
 
       ]);
 
@@ -21,10 +21,7 @@ export default function InsCoursePage() {
         dispatch(getCourses(authObj.accessToken));
     },[]);
 
-    let x = courses;
-    x.map( course =>(
-        console.log(course.id)
-    ))
+    
 
     console.log(authObj.accessToken)
     console.log(courses)
@@ -32,7 +29,7 @@ export default function InsCoursePage() {
     return (
         <div>
             <AppNavbar />
-            <CourseCard courses={ courses.data } />
+            <CourseCard courses={ courses.data }  />
         </div>
     )
 }

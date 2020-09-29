@@ -14,6 +14,7 @@
 //importing LOGIN constants
 import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE } from "./constants";
 import { GET_COURSES_REQUEST, GET_COURSES_SUCCESS, GET_COURSES_FAILURE } from "./constants"
+import { GET_LESSONS_REQUEST, GET_LESSONS_SUCCESS, GET_LESSONS_FAILURE } from "./constants"
 import { createSession } from "./utils/sessions";
 import axios from "axios";
 
@@ -108,6 +109,41 @@ export const getStuCourses = () => {
       })
       .catch((error) => {
         dispatch(getCourseFailure(error.message))
+      })
+  }
+}
+
+
+//Actions to get lessons for the instructors page
+///Action to load courses
+const getLessonsSuccess = (lessons) => ({
+  type: GET_LESSONS_SUCCESS,
+  payload: lessons
+})
+//When Request from API fails
+const getLessonsFailure = (error) => ({
+  type: GET_LESSONS_FAILURE,
+  payload: error,
+})
+
+
+//courses Api request for instructor
+export const getLessons = (token, id) => {
+  console.log(token, id)
+  return (dispatch, getState) => {
+    dispatch({type: GET_LESSONS_REQUEST});
+    axios
+      .get("/api/user/instructor/lessons/:" + id , {
+        headers: {
+          'x-access-token': token
+        }
+      })
+      .then((response) => {
+        dispatch(getLessonsSuccess(response.data))
+        console.log(typeof(response.data))
+      })
+      .catch((error) => {
+        dispatch(getLessonsFailure(error.message))
       })
   }
 }
