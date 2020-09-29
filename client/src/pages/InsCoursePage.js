@@ -21,6 +21,11 @@ export default function InsCoursePage() {
         dispatch(getCourses(authObj.accessToken));
     },[]);
 
+    let x = courses;
+    x.map( course =>(
+        console.log(course.id)
+    ))
+
     console.log(authObj.accessToken)
     console.log(courses)
 
