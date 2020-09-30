@@ -29,7 +29,7 @@ export default function InsCoursePage() {
     return (
         <div>
             <AppNavbar />
-            <CourseCard courses={ courses.data }  />
+            <CourseCard courses={ courses.data } />
         </div>
     )
 }

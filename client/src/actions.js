@@ -15,6 +15,7 @@
 import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE } from "./constants";
 import { GET_COURSES_REQUEST, GET_COURSES_SUCCESS, GET_COURSES_FAILURE } from "./constants"
 import { GET_LESSONS_REQUEST, GET_LESSONS_SUCCESS, GET_LESSONS_FAILURE } from "./constants"
+import { SET_COURSE_IDREQ , SET_COURSE_IDSUCCESS , SET_COURSE_IDFAIL } from "./constants"
 import { createSession } from "./utils/sessions";
 import axios from "axios";
 
@@ -145,5 +146,30 @@ export const getLessons = (token, id) => {
       .catch((error) => {
         dispatch(getLessonsFailure(error.message))
       })
+  }
+}
+
+//SET COURSE ID ONTO GLOBAL STATE
+const setCourseIdSuccess = (id) => ({
+  type: SET_COURSE_IDSUCCESS,
+  payload: id
+})
+
+//When Request from API fails
+const setCourseIdFailure = (error) => ({
+  type: SET_COURSE_IDFAIL,
+  payload: error,
+})
+
+export const setCourseId = (id) => {
+  return (dispatch, getState) => {
+    if(id){
+      console.log("I am" + id)
+      dispatch({type: SET_COURSE_IDREQ});
+      dispatch(setCourseIdSuccess(id))
+    } else {
+      dispatch(setCourseIdFailure())
+    }
+    
   }
 }

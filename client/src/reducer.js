@@ -1,6 +1,7 @@
 import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE } from "./constants";
 import { GET_COURSES_REQUEST, GET_COURSES_SUCCESS, GET_COURSES_FAILURE } from "./constants"
 import { GET_LESSONS_REQUEST, GET_LESSONS_SUCCESS, GET_LESSONS_FAILURE } from "./constants"
+import { SET_COURSE_IDREQ , SET_COURSE_IDSUCCESS , SET_COURSE_IDFAIL } from "./constants"
 import { validateSession, getSessionAuthObj } from "./utils/sessions";
 
 export const initialState = {
@@ -9,6 +10,7 @@ export const initialState = {
   authObj: getSessionAuthObj(),
   courses: [],
   lessons: [],
+  courseId: "",
   error: ""
 };
 
@@ -50,6 +52,15 @@ export default (state = initialState, action) => {
           return {...state, lessons: action.payload, error: null}
     case GET_LESSONS_FAILURE:
           return {...state, error: action.payload}
+    
+
+    case SET_COURSE_IDREQ:
+          return {...state, courseId: "", error: null}
+    case SET_COURSE_IDSUCCESS:
+          return {...state, courseId: action.payload, error: null}
+    case SET_COURSE_IDFAIL:
+          return {...state, error: action.payload}
+
 
     default:
       return state;
