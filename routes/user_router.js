@@ -13,6 +13,7 @@ module.exports = (app) => {
     const userController = require("../controllers/user_controller");
     const instructorController = require("../controllers/instructor_controller");
     const studentController = require("../controllers/student_controller");
+    const adminController = require("../controllers/admin_controller")
 
     app.use((req, res, next) => {
         res.header(
@@ -58,4 +59,14 @@ module.exports = (app) => {
 
     //Instructor Create Lessons route
     app.post("/api/user/instructor/lessons", [JwtTokenValidator.fnVerifyToken, JwtTokenValidator.isInstructor], instructorController.addLesson);
+
+    app.get("/api/user/admin", [JwtTokenValidator.fnVerifyToken, JwtTokenValidator.isAdmin], userController.adminPortal)
+
+    app.get("/api/user/admin/view/instructors", [JwtTokenValidator.fnVerifyToken, JwtTokenValidator.isAdmin], adminController.viewInstuctors)
+
+    app.delete("/api/user/admin/delete/instuctor", [JwtTokenValidator.fnVerifyToken, JwtTokenValidator.isAdmin], adminController.deleteInstructors)
+
+    app.get("/api/user/admin/view/students", [JwtTokenValidator.fnVerifyToken, JwtTokenValidator.isAdmin], adminController.viewStudents)
+
+    app.delete("/api/user/admin/delete/student", [JwtTokenValidator.fnVerifyToken, JwtTokenValidator.isAdmin], adminController.deleteStudent)
 }

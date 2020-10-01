@@ -1,22 +1,14 @@
-// import { type } from "jquery";
-// import { ADD_USER, DELETE_USER } from './constants';
-
-// export const addUser = (user) => ({
-//   type: ADD_USER,
-//   payload: user,
-// });
-
-// export const deleteUser = (id) => ({
-//   type: DELETE_USER,
-//   payload: id,
-// });
-
 //importing LOGIN constants
 import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE } from "./constants";
+<<<<<<< HEAD
 import { GET_COURSES_REQUEST, GET_COURSES_SUCCESS, GET_COURSES_FAILURE } from "./constants"
 import { GET_LESSONS_REQUEST, GET_LESSONS_SUCCESS, GET_LESSONS_FAILURE } from "./constants"
 import { SET_COURSE_IDREQ , SET_COURSE_IDSUCCESS , SET_COURSE_IDFAIL } from "./constants"
 import { createSession } from "./utils/sessions";
+=======
+import { LOGOUT_REQUEST, LOGOUT_SUCCESS, LOGOUT_FAILURE } from "./constants";
+import { createSession, destroySession, validateSession } from "./utils/sessions";
+>>>>>>> 19ec446711934b92fe03b4cbe296cb04b4335d41
 import axios from "axios";
 
 //action: LOGIN_SUCCESS once backend call is successfull
@@ -46,7 +38,6 @@ export const loginAttempt = (creds) => {
         isFetchingAuth: true,
         isAuthenticatedUser: false
       });
-      console.log("creds in action.js", creds);
     //use axios to query REST api for login.
     axios
       .post("/api/auth/signin", creds)
@@ -64,6 +55,7 @@ export const loginAttempt = (creds) => {
   }
 }
 
+<<<<<<< HEAD
 ///Action to load courses
 const getCourseSuccess = (courses) => ({
   type: GET_COURSES_SUCCESS,
@@ -178,3 +170,35 @@ export const setCourseId = (id) => {
 
   }
 }
+=======
+const logoutSuccess = () => ({
+  type:    LOGOUT_SUCCESS,
+  isAuthenticatedUser: false,
+});
+
+const logoutFail = (error) => ({
+  type:    LOGOUT_FAILURE,
+  isAuthenticatedUser: false,
+  payload: error,
+});
+
+//action: LOGOUT_REQUEST
+export const logoutAttempt = () => {
+  //dispatch logout request
+  return (dispatch, getState) => {
+    dispatch({
+      type: LOGOUT_REQUEST
+    });
+    //call helper function to remove session from localStorage
+    destroySession();
+    //validate session to check if it was properly deleted
+    if(!validateSession()){
+      dispatch(logoutSuccess());
+    }
+    else{
+      //__session was not removed
+      dispatch(logoutFail("Error deleting existing session."))
+    }
+  }
+}
+>>>>>>> 19ec446711934b92fe03b4cbe296cb04b4335d41

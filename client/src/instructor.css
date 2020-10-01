@@ -3,7 +3,7 @@
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    height: 50vh;
+    height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -16,3 +16,18 @@
     justify-content: space-around;
     
 }
+
+.primary-button {
+    background-color: #2ba6cb;
+}
+
+.student-card-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 30px;
+}
+
+/* .student-card-image {
+    border-radius: 100px;
+} */

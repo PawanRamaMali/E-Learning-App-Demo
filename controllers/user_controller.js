@@ -14,3 +14,7 @@ exports.instructorPortal = (req, res) => {
     //TODO: placeholder for instructor view
     res.status(200).send("Welcome Instructor!");
 }
+
+exports.adminPortal = (req, res) => {
+    res.status(200).send("Welcome Admin!")
+}

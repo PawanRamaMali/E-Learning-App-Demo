@@ -1,17 +1,20 @@
 import React, {useState, useEffect} from 'react';
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import LoginModal from './LoginModal'
 import InstructorSignupModal from './InstructorSignupModal'
 import { Jumbotron, Button } from 'react-bootstrap';
 import { useHistory } from "react-router-dom";
+import { logoutAttempt } from "../actions";
 import "../App.css";
 
 function Homepage(props) {
+    const dispatch = useDispatch();
     const [loginModalShow, setLoginModalShow] = useState(false);
     const [signupModalShow, setSignupModalShow] = useState(false);
     //importing global state
-    const [isAuthenticatedUser, authObj] = useSelector((gState) => [
+    const [isAuthenticatedUser, isLoggedOutSuccess, authObj] = useSelector((gState) => [
         gState.isAuthenticatedUser,
+        gState.isLoggedOutSuccess,
         gState.authObj,
     ]);
     //useHistory hook to redirect to desired routes
@@ -23,7 +26,10 @@ function Homepage(props) {
         if (isAuthenticatedUser){
             setLoginModalShow(false);
         }
-      }, [isAuthenticatedUser]);
+        if(!isAuthenticatedUser && isLoggedOutSuccess){
+            redirectRouter("/");
+        }
+      }, [isAuthenticatedUser, isLoggedOutSuccess]);
 
     //redirecting function
     const redirectRouter = (routePath) => {
@@ -38,12 +44,12 @@ function Homepage(props) {
                     setLoginModalShow(true)}>Login</Button>
             );
         }
-        else {
-            //user authenticated. no need to show login
-            return (
-                <Button className="homepage-buttons primary-button" variant="primary">Welcome, {authObj.fname}</Button>
-            )
-        }
+        // else {
+        //     //user authenticated. no need to show login
+        //     return (
+        //         <Button className="homepage-buttons primary-button" variant="primary">Welcome, {authObj.fname}</Button>
+        //     )
+        // }
     }
 
     //function to render instructor signup or take
@@ -67,10 +73,17 @@ function Homepage(props) {
            
             return (
                 < >
-                    <Button className="homepage-buttons" variant="secondary" onClick={() => redirectRouter(routePath)}>My Dashboard</Button>
-                    <Button className="homepage-buttons primary-button" variant="primary" onClick={() => redirectRouter(routePath)}>Logout</Button>
+                    <Button className="homepage-buttons primary-button" variant="primary" onClick={() => redirectRouter(routePath)}>My Dashboard</Button>
+                    <Button className="homepage-buttons" variant="secondary" onClick={() => performUserLogout()}>Logout</Button>
                 </>
             )
+        }
+    }
+
+    const performUserLogout = () => {
+        if(isAuthenticatedUser){
+            //dispatch logout action
+            dispatch(logoutAttempt())
         }
     }
 
