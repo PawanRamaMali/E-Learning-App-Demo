@@ -16,6 +16,8 @@ const ProtectedRoute = ({ component: Component, path, auth, ...rest }) => {
                     //need to verify role
                     switch (path) {
                         case "/instructor":
+                        case "/instructor/courses":
+                        case "/instructor/courses/lessons":
                             if(auth.role.toUpperCase() === "INSTRUCTOR"){
                                 return <Component {...rest} {...props} />
                             }

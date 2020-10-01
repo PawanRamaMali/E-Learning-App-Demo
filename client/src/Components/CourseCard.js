@@ -3,21 +3,28 @@ import Card from "react-bootstrap/Card"
 import Button from "react-bootstrap/Button"
 import { useDispatch }  from "react-redux"
 import { setCourseId } from "../actions"
+import { Redirect, useHistory } from "react-router-dom"
 
 export default function CourseCard(props) {
 
     const dispatch = useDispatch();
+    const history = useHistory();
 
 
    const { courses } = props
    console.log(courses)
 
+
+    const redirectRouter = (path) => {
+        history.push(path)
+    }
+
+
+
    const viewLessons = (e) => {
     let course_Id = e.currentTarget.id
     dispatch(setCourseId(course_Id))
-   
-    window.location.href = '/instructor/courses/lessons';
-    
+      
 }
 
 
@@ -38,10 +45,10 @@ export default function CourseCard(props) {
                                  Some quick example text to build on the card title and make up the bulk of
                                  the card's content.
                                 </Card.Text>
-                                <Button variant="primary" id={ course.id } onClick={(e) => viewLessons(e)}>View Lessons</Button>
+                                <Button variant="primary" id={ course.id } onClick={(e) => {viewLessons(e) ; redirectRouter('/instructor/courses/lessons') }  }>View Lessons</Button>
                             </Card.Body>
                     </Card>
-                    )
+                    )     
         
                     )):(<p></p>)
                     

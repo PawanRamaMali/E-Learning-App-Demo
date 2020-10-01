@@ -39,12 +39,12 @@ const loginFailed = (error) => ({
 export const loginAttempt = (creds) => {
   //function receives credentials
   return (dispatch, getState) => {
-    //dispatch action to notify client 
+    //dispatch action to notify client
     //of login request in progress
-    dispatch({ 
-        type: LOGIN_REQUEST, 
-        isFetchingAuth: true, 
-        isAuthenticatedUser: false 
+    dispatch({
+        type: LOGIN_REQUEST,
+        isFetchingAuth: true,
+        isAuthenticatedUser: false
       });
       console.log("creds in action.js", creds);
     //use axios to query REST api for login.
@@ -106,7 +106,7 @@ export const getStuCourses = () => {
       .get("/api/user/student/courses")
       .then((response) => {
         dispatch(getCourseSuccess(response.data))
-        
+
       })
       .catch((error) => {
         dispatch(getCourseFailure(error.message))
@@ -134,14 +134,15 @@ export const getLessons = (token, id) => {
   return (dispatch, getState) => {
     dispatch({type: GET_LESSONS_REQUEST});
     axios
-      .get("/api/user/instructor/lessons/:" + id , {
+      .get("/api/user/instructor/lessons/" + id , {
         headers: {
           'x-access-token': token
         }
       })
       .then((response) => {
+        
         dispatch(getLessonsSuccess(response.data))
-        console.log(typeof(response.data))
+        
       })
       .catch((error) => {
         dispatch(getLessonsFailure(error.message))
@@ -149,11 +150,14 @@ export const getLessons = (token, id) => {
   }
 }
 
-//SET COURSE ID ONTO GLOBAL STATE
-const setCourseIdSuccess = (id) => ({
+
+const setCourseIdSuccess = (id) => {
+  console.log ("i am id in actions/setCourseIdSelect", id);
+return {
   type: SET_COURSE_IDSUCCESS,
   payload: id
-})
+}
+}
 
 //When Request from API fails
 const setCourseIdFailure = (error) => ({
@@ -165,11 +169,12 @@ export const setCourseId = (id) => {
   return (dispatch, getState) => {
     if(id){
       console.log("I am" + id)
-      dispatch({type: SET_COURSE_IDREQ});
+      // dispatch({type: SET_COURSE_IDREQ});
       dispatch(setCourseIdSuccess(id))
+
     } else {
       dispatch(setCourseIdFailure())
     }
-    
+
   }
 }

@@ -2,25 +2,33 @@ import React from 'react'
 import Card from "react-bootstrap/Card"
 import {useEffect, useState} from "react"
 import Button from "react-bootstrap/Button"
+import { Redirect, useHistory } from "react-router-dom"
+export default function LessonCard(props) {
+    const { lessons } = props
+    
+    
+    const history = useHistory()
 
-export default function LessonCard() {
-    // const { lessons } = props
-      
+    const videoRouter = (path) => {
+        console.log("You are supposed to watch this video")
+        history.push(path)
+    }
+
+
 
     return (
         <div>
-            {/* {lessons? (
+            {lessons? (
                     lessons.map((lesson) => (
                         <Card key={ lesson.id } style={{ width: '18rem' }}>
                             <Card.Img variant="top" src="holder.js/100px180" />
                             <Card.Body>
-                                <Card.Title>{  }</Card.Title>
+                                <Card.Title>{lesson.name}</Card.Title>
                                 <Card.Text>
-                                {lesson.name}
                                  Some quick example text to build on the card title and make up the bulk of
                                  the card's content.
                                 </Card.Text>
-                                <Button variant="primary">Watch Video</Button>
+                                <Button variant="primary" url={lesson.url} onClick={(e) => videoRouter(e.currentTarget.url)}>Watch Video</Button>
                                 <Button variant="Danger">Delete Lesson</Button>
                             </Card.Body>
                     </Card>
@@ -28,7 +36,7 @@ export default function LessonCard() {
         
                     )):(<p></p>)
                     
-            } */}
+            }
 
 
 
