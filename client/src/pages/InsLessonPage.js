@@ -16,13 +16,10 @@ export default function InsLessonPage() {
 
       ]);
 
-    console.log("I got the " + courseId)
-
     useEffect(() => {
         dispatch(getLessons(authObj.accessToken, courseId));
     },[courseId , authObj.accessToken]);
     
-    console.log(lessons)
   
     return (
         <div>

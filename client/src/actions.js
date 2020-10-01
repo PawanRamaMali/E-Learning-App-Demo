@@ -1,14 +1,10 @@
 //importing LOGIN constants
 import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE } from "./constants";
-<<<<<<< HEAD
 import { GET_COURSES_REQUEST, GET_COURSES_SUCCESS, GET_COURSES_FAILURE } from "./constants"
 import { GET_LESSONS_REQUEST, GET_LESSONS_SUCCESS, GET_LESSONS_FAILURE } from "./constants"
 import { SET_COURSE_IDREQ , SET_COURSE_IDSUCCESS , SET_COURSE_IDFAIL } from "./constants"
-import { createSession } from "./utils/sessions";
-=======
 import { LOGOUT_REQUEST, LOGOUT_SUCCESS, LOGOUT_FAILURE } from "./constants";
 import { createSession, destroySession, validateSession } from "./utils/sessions";
->>>>>>> 19ec446711934b92fe03b4cbe296cb04b4335d41
 import axios from "axios";
 
 //action: LOGIN_SUCCESS once backend call is successfull
@@ -55,7 +51,6 @@ export const loginAttempt = (creds) => {
   }
 }
 
-<<<<<<< HEAD
 ///Action to load courses
 const getCourseSuccess = (courses) => ({
   type: GET_COURSES_SUCCESS,
@@ -70,7 +65,7 @@ const getCourseFailure = (error) => ({
 
 //courses Api request for instructor
 export const getCourses = (token) => {
-  console.log(token)
+ 
   return (dispatch, getState) => {
     dispatch({type: GET_COURSES_REQUEST});
     axios
@@ -81,7 +76,7 @@ export const getCourses = (token) => {
       })
       .then((response) => {
         dispatch(getCourseSuccess(response.data))
-        console.log(typeof(response.data))
+     
       })
       .catch((error) => {
         dispatch(getCourseFailure(error.message))
@@ -122,7 +117,6 @@ const getLessonsFailure = (error) => ({
 
 //courses Api request for instructor
 export const getLessons = (token, id) => {
-  console.log(token, id)
   return (dispatch, getState) => {
     dispatch({type: GET_LESSONS_REQUEST});
     axios
@@ -144,7 +138,7 @@ export const getLessons = (token, id) => {
 
 
 const setCourseIdSuccess = (id) => {
-  console.log ("i am id in actions/setCourseIdSelect", id);
+ 
 return {
   type: SET_COURSE_IDSUCCESS,
   payload: id
@@ -160,8 +154,6 @@ const setCourseIdFailure = (error) => ({
 export const setCourseId = (id) => {
   return (dispatch, getState) => {
     if(id){
-      console.log("I am" + id)
-      // dispatch({type: SET_COURSE_IDREQ});
       dispatch(setCourseIdSuccess(id))
 
     } else {
@@ -170,7 +162,6 @@ export const setCourseId = (id) => {
 
   }
 }
-=======
 const logoutSuccess = () => ({
   type:    LOGOUT_SUCCESS,
   isAuthenticatedUser: false,
@@ -201,4 +192,3 @@ export const logoutAttempt = () => {
     }
   }
 }
->>>>>>> 19ec446711934b92fe03b4cbe296cb04b4335d41

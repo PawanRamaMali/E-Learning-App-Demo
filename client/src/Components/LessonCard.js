@@ -10,7 +10,7 @@ export default function LessonCard(props) {
     const history = useHistory()
 
     const videoRouter = (path) => {
-        console.log("You are supposed to watch this video")
+        
         history.push(path)
     }
 
