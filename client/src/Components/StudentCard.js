@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Card, Button} from "react-bootstrap";
+import {Card, Button, Image} from "react-bootstrap";
 import "../instructor.css";
 import $ from "jquery";
 
@@ -24,7 +24,7 @@ export default function StudentCard(props) {
         <div>
             <Card style={{ width: '18rem' }}>
                 <div className="student-card-content">
-                    <img className="student-card-image"src="https://randomuser.me/api/portraits/women/89.jpg"/>
+                    <Image className="student-card-image"src="https://randomuser.me/api/portraits/women/89.jpg" roundedCircle></Image>
                     <div className="list-group-flush">
                         <div>Name: {props.firstName}{props.lastName}</div>
                         <div>Email: {props.email}</div>
@@ -34,7 +34,6 @@ export default function StudentCard(props) {
                         <Button className="homepage-button" variant="danger" href="#">Delete Student</Button>
                     </Card.Body>
                 </div>
-                
             </Card>
         </div>
     )
