@@ -154,7 +154,7 @@ export const getStuLessons = (token) => {
         }
       })
       .then((response) => {
-        
+        console.log(response)
         dispatch(getLessonsSuccess(response.data))
         
       })

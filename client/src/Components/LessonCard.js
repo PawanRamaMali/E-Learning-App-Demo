@@ -3,17 +3,27 @@ import Card from "react-bootstrap/Card"
 import {useEffect, useState} from "react"
 import Button from "react-bootstrap/Button"
 import { Redirect, useHistory } from "react-router-dom"
+import {unmountComponentAtNode } from "react-dom"
+import { useDispatch, useSelector } from 'react-redux'
 export default function LessonCard(props) {
     const { lessons } = props
     
-    
+    const [authObj] = useSelector((gState) => [
+        gState.authObj
+
+      ]);   
     const history = useHistory()
 
     const videoRouter = (path) => {
         
         history.push(path)
     }
-
+    const hideDelete = () =>{
+        console.log("Am not supposed to show")
+        if (authObj.role === "STUDENT"){
+            unmountComponentAtNode(document.getElementById("delButton"))
+        }
+    }
 
 
     return (
@@ -29,7 +39,7 @@ export default function LessonCard(props) {
                                  the card's content.
                                 </Card.Text>
                                 <Button variant="primary" url={lesson.url} onClick={(e) => videoRouter(e.currentTarget.url)}>Watch Video</Button>
-                                <Button variant="Danger">Delete Lesson</Button>
+                                <Button variant="Danger" id="delButton" display={hideDelete}>Delete Lesson</Button>
                             </Card.Body>
                     </Card>
                     )
