@@ -86,13 +86,20 @@ export const getCourses = (token) => {
 
 
 //Get Courses Student API request
-export const getStuCourses = () => {
+export const getStuCourses = (token) => {
   return (dispatch, getState) => {
     dispatch({type: GET_COURSES_REQUEST});
     axios
-      .get("/api/user/student/courses")
+      .get("/api/user/student/courses", {
+        headers: {
+          'x-access-token': token
+        }
+      })
       .then((response) => {
-        dispatch(getCourseSuccess(response.data))
+        console.log(response)
+        let stuResponse = response.data.data.Courses
+        dispatch(getCourseSuccess(stuResponse))
+        console.log(response)
 
       })
       .catch((error) => {
@@ -121,6 +128,27 @@ export const getLessons = (token, id) => {
     dispatch({type: GET_LESSONS_REQUEST});
     axios
       .get("/api/user/instructor/lessons/" + id , {
+        headers: {
+          'x-access-token': token
+        }
+      })
+      .then((response) => {
+        
+        dispatch(getLessonsSuccess(response.data))
+        
+      })
+      .catch((error) => {
+        dispatch(getLessonsFailure(error.message))
+      })
+  }
+}
+
+//Get Lessons for students pages
+export const getStuLessons = (token) => {
+  return (dispatch, getState) => {
+    dispatch({type: GET_LESSONS_REQUEST});
+    axios
+      .get("/api/user/student/courses/lessons", {
         headers: {
           'x-access-token': token
         }
