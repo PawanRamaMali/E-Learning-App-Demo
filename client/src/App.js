@@ -7,10 +7,12 @@ import InsLanding from "./pages/InsLanding";
 import InsStudentRoster from "./pages/InsStudentRoster";
 import InsCourseRoster from "./pages/InsCourseRoster";
 import Unauthorized from "./Components/Unauthorized";
+import InsCourses from "./pages/InsCoursePage";
 //Protected Route component
 import ProtectedRoute from "./Components/ProtectedRoute";
 //Importing CSS
 import "./App.css";
+import InsLessonPage from "./pages/InsLessonPage";
 
 function App() {
   //importing from global state
@@ -29,6 +31,8 @@ function App() {
     <div>
       <Switch>
         <Route exact path="/" component={Home} />
+        <ProtectedRoute exact path="/instructor/courses"auth={isSessionValid()} component={InsCourses} />
+        <ProtectedRoute exact path="/instructor/courses/lessons" auth={isSessionValid()} component={InsLessonPage} />
         <ProtectedRoute exact path="/instructor" auth={isSessionValid()} component={InsLanding} />
         <ProtectedRoute exact path="/instructor/student-roster" auth={isSessionValid()} component={InsStudentRoster} />
         <ProtectedRoute exact path="/instructor/courses/:id/roster" auth={isSessionValid()} component={InsCourseRoster} />
