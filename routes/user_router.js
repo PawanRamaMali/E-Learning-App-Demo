@@ -62,7 +62,11 @@ module.exports = (app) => {
 
     app.get("/api/user/admin", [JwtTokenValidator.fnVerifyToken, JwtTokenValidator.isAdmin], userController.adminPortal)
 
-    app.get("/api/user/admin/view", [JwtTokenValidator.fnVerifyToken, JwtTokenValidator.isAdmin], adminController.viewInstuctors)
+    app.get("/api/user/admin/view/instructors", [JwtTokenValidator.fnVerifyToken, JwtTokenValidator.isAdmin], adminController.viewInstuctors)
 
-    app.delete("/api/user/admin/view/delete/", [JwtTokenValidator.fnVerifyToken, JwtTokenValidator.isAdmin], adminController.deleteInstructors)
+    app.delete("/api/user/admin/delete/instuctor", [JwtTokenValidator.fnVerifyToken, JwtTokenValidator.isAdmin], adminController.deleteInstructors)
+
+    app.get("/api/user/admin/view/students", [JwtTokenValidator.fnVerifyToken, JwtTokenValidator.isAdmin], adminController.viewStudents)
+
+    app.delete("/api/user/admin/delete/student", [JwtTokenValidator.fnVerifyToken, JwtTokenValidator.isAdmin], adminController.deleteStudent)
 }
