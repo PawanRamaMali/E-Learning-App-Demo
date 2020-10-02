@@ -31,7 +31,39 @@ exports.viewInstuctors = (req, res) => {
 
 // Activate instructor
 //==================================================
+exports.activateInstuctors = (req, res) => {
+    console.log(
+        `${
+            process.env.APP_ENV === "development"
+            ? "===== Activating Instructor By Id ====="
+            : ""
+        }`
+    );
 
+    db.User.update({
+        where: {
+            active: req.body
+        },
+        attributes : ["id", "first_name", "last_name", "email", "confirmed", "active"],
+    })
+
+
+    // db.User.findAll({
+    //     attributes : ["id", "first_name", "last_name", "email", "confirmed", "active"],
+    //     include: [{
+    //         model: db.Role,
+    //         where: {id: 2}
+    //     }]
+    // }).then((instructorData) => {
+    //     if (instructorData){
+    //         res.status(200).json({
+    //             "data": instructorData
+    //         })
+    //     }
+    // }).catch((err) => {
+    //     res.status(500).send(`Error Retrieving Instructor information -> ${err}`)
+    // })
+}
 
 // Delete Instructors
 //==================================================
