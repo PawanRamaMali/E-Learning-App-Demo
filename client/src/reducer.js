@@ -1,4 +1,14 @@
-import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT_REQUEST, LOGOUT_SUCCESS, LOGOUT_FAILURE } from "./constants";
+import { 
+  LOGIN_REQUEST, 
+  LOGIN_SUCCESS, 
+  LOGIN_FAILURE, 
+  LOGOUT_REQUEST, 
+  LOGOUT_SUCCESS, 
+  LOGOUT_FAILURE,
+  ADD_STUDENT_REQUEST,
+  ADD_STUDENT_SUCCESS,
+  ADD_STUDENT_FAILURE 
+} from "./constants";
 import { validateSession, getSessionAuthObj } from "./utils/sessions";
 
 export const initialState = {
@@ -8,6 +18,9 @@ export const initialState = {
   isLoggedOutSuccess: false,
   authObj: getSessionAuthObj(),
   courses: [],
+  isAddingNewUser: false,
+  isNewUserAdded: false,
+  stuObj: {},
   error: ""
 };
 
@@ -60,6 +73,25 @@ export default (state = initialState, action) => {
         authObj: {},
         courses: [],
         error: action.payload,
+      };
+    case ADD_STUDENT_REQUEST:
+      return {
+        ...state,
+        isNewUserAdded: false 
+      }
+    case ADD_STUDENT_SUCCESS:
+      return { 
+        ...state, 
+        isNewUserAdded: true,
+        stuObj: action.payload,
+        error: ""
+      };
+    case ADD_STUDENT_FAILURE:
+      return { 
+        ...state, 
+        isNewUserAdded: false,
+        stuObj: {},
+        error: action.payload
       };
     default:
       return state;
