@@ -16,19 +16,6 @@ function InstructorSignupModal(props) {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-            {/* <form data-abide novalidate id="login-form">
-                <div className="login-box">
-                <div className="row collapse expanded">
-                    <div className="small-12 medium-6 column small-order-2 medium-order-1">
-                    <div className="login-box-form-section">
-                        <input className="login-box-input" type="email" name="email" placeholder="E-mail" required pattern="email" id="userID-Login"/>
-                        <span className="form-error">Please enter a valid email address</span>
-                        <input className="login-box-input" type="password" name="password" placeholder="Password" id="pwd-Login" minlength="8" required/>
-                    </div>
-                    </div>
-                </div>
-                </div>
-            </form> */}
             <Form>
                 <Form.Group controlId="signup-first-name">
                     <Form.Label>First Name</Form.Label>

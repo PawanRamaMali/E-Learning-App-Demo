@@ -13,13 +13,15 @@ export const GET_COURSES_REQUEST = 'GET_COURSES_REQUEST';
 export const GET_COURSES_SUCCESS = 'GET_COURSES_SUCCESS';
 export const GET_COURSES_FAILURE = 'GET_COURSES_FAILURE';
 
+// defining Add Students Actions
+export const ADD_STUDENT_REQUEST = 'ADD_STUDENT_REQUEST';
+export const ADD_STUDENT_SUCCESS = 'ADD_STUDENT_SUCCESS';
+export const ADD_STUDENT_FAILURE = 'ADD_STUDENT_FAILURE';
 
 //Defining Action to pass course id from courseCard to global state
 export const SET_COURSE_IDSUCCESS = 'SET_COURSE_IDSUCCESS';
 export const SET_COURSE_IDFAIL = 'SET_COURSE_IDFAIL';
 export const SET_COURSE_IDREQ = 'SET_COURSE_IDREQ'
-
-
 
 //defining get lessons Actions
 export const GET_LESSONS_REQUEST = 'GET_LESSONS_REQUEST';
