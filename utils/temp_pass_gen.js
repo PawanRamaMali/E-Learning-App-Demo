@@ -10,6 +10,7 @@ const getTempPassword = () => {
         let ranChar = Math.floor(Math.random() * pswdSrc.length);
         randomPass += pswdSrc.substring(ranChar,ranChar + 1);
     }
+    return randomPass;
 }
 
 module.exports = getTempPassword;

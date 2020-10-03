@@ -1,13 +1,13 @@
 //Verify SignIn & Role verification Middleware functions
 //====================================
 const jwt = require("jsonwebtoken");
-
 const bcrypt = require("bcryptjs"); //to enconde password sent by user and compare with value in DB
 //calling in models and jwt secret to verify if sign in information already exists
 // const crypto = require("crypto")
 const db = require("../models/index");
 const config = require("../config/config.json"); // only in case there is no .env defined with SECRET
 const nodemailer = require("nodemailer"); //pkg for sending registration email
+const tempPass = require("../utils/temp_pass_gen"); // function tp generate temp password
 const User = db.User;
 const Role = db.Role;
 const Course = db.Course;
@@ -32,10 +32,11 @@ exports.signup = (req, res) => {
     first_name: req.body.first_name.toUpperCase(),
     last_name: req.body.last_name.toUpperCase(),
     email: req.body.email.toUpperCase(),
-    password: bcrypt.hashSync(req.body.password, 10),
+    password: bcrypt.hashSync(tempPass(), 10),
     confirmed: false,
   })
     .then((user) => {
+      console.log("user", user);
       Role.findAll({
         where: {
           name: {
