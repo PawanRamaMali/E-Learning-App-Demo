@@ -8,6 +8,9 @@ import InsStudentRoster from "./pages/InsStudentRoster";
 import InsCourseRoster from "./pages/InsCourseRoster";
 import Unauthorized from "./Components/Unauthorized";
 import InsCourses from "./pages/InsCoursePage";
+import AdminLandingPage from "./pages/AdminLandingPage"
+import AdminInstructorView from "./pages/AdminInstructorView"
+import AdminStudentView from "./pages/AdminStudentView"
 //Protected Route component
 import ProtectedRoute from "./Components/ProtectedRoute";
 //Importing CSS
@@ -36,6 +39,9 @@ function App() {
         <ProtectedRoute exact path="/instructor" auth={isSessionValid()} component={InsLanding} />
         <ProtectedRoute exact path="/instructor/student-roster" auth={isSessionValid()} component={InsStudentRoster} />
         <ProtectedRoute exact path="/instructor/courses/:id/roster" auth={isSessionValid()} component={InsCourseRoster} />
+        <ProtectedRoute exact path="/admin" auth={isSessionValid()} component={AdminLandingPage} />
+        <ProtectedRoute exact path="/admin/view/instructors" auth={isSessionValid()} component={AdminInstructorView} />
+        <ProtectedRoute exact path="/admin/view/students" auth={isSessionValid()} component={AdminStudentView} />
         {/* <Route exact path="/instructor" component={InsLanding} /> */}
         <Route exact path="/unauthorized" component={Unauthorized} />
       </Switch>

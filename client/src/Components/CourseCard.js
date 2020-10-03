@@ -2,7 +2,7 @@ import React from 'react'
 import Card from "react-bootstrap/Card"
 import Button from "react-bootstrap/Button"
 import { useDispatch }  from "react-redux"
-import { setCourseId } from "../actions"
+import { setCourseId } from "../utils/actions"
 import { Redirect, useHistory } from "react-router-dom"
 
 export default function CourseCard(props) {

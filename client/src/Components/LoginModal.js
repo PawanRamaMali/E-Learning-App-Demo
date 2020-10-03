@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Modal, Form, Button, Alert } from 'react-bootstrap';
 import "../App.css";
 //import login attempt action
-import { loginAttempt } from "../actions";
+import { loginAttempt } from "../utils/actions";
 import { useDispatch, useSelector } from "react-redux";
 
 function LoginModal(props) {

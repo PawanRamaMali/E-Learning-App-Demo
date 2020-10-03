@@ -32,6 +32,17 @@ const ProtectedRoute = ({ component: Component, path, auth, ...rest }) => {
                                 return <Component {...rest} {...props} />
                             }
                             break;
+                        case "/admin":
+                        case "/admin/view/students":
+                            if(auth.role.toUpperCase() === "ADMIN"){
+                                return <Component {...rest} {...props} />
+                            }
+                            break;
+                        case "/admin/view/instructors":
+                            if(auth.role.toUpperCase() === "ADMIN"){
+                                return <Component {...rest} {...props} />
+                            }
+                            break;
                     
                         default:
                             break;
