@@ -46,7 +46,7 @@ export default function StuCourseCard(props) {
                                  Some quick example text to build on the card title and make up the bulk of
                                  the card's content.
                                 </Card.Text>
-                                <Button variant="primary" id={ course.Users_Courses.courseId } onClick={(e) => {viewLessons(e) ; redirectRouter('/students/courses/lessons') }  }>View Lessons</Button>
+                                <Button variant="primary" id={ course.Users_Courses.courseId } onClick={(e) => {viewLessons(e) ; redirectRouter('/student/courses/lessons') }  }>View Lessons</Button>
                             </Card.Body>
                     </Card>
                     )     
