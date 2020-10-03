@@ -144,11 +144,11 @@ export const getLessons = (token, id) => {
 }
 
 //Get Lessons for students pages
-export const getStuLessons = (token) => {
+export const getStuLessons = (token, id) => {
   return (dispatch, getState) => {
     dispatch({type: GET_LESSONS_REQUEST});
     axios
-      .get("/api/user/student/courses/lessons", {
+      .get("/api/user/student/courses/" + id +"/lessons", {
         headers: {
           'x-access-token': token
         }
