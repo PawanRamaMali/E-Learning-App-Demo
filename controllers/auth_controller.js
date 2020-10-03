@@ -60,7 +60,7 @@ exports.signup = (req, res) => {
                 <p>Below you can find your account details:</p>
                 <ul>
                   <li>Email: ${req.body.email}</li>
-                  <li>Password: ${req.body.password}</li>
+                  <li>Define your password here: ${req.body.password}</li>
                 </ul>
                 <p>Link to the Learning App: <a href="http://localhost:8000"></a></p>
                 <h4>Happy Learning!</h4>
