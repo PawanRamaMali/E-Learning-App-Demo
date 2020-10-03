@@ -40,9 +40,7 @@ function WelcomeToastWidget (props) {
                     </Toast>
             </div>
         </>
-    )
-      
-    
+    ) 
 };
 
 export default WelcomeToastWidget;

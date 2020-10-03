@@ -4,6 +4,7 @@ import { GET_COURSES_REQUEST, GET_COURSES_SUCCESS, GET_COURSES_FAILURE } from ".
 import { GET_LESSONS_REQUEST, GET_LESSONS_SUCCESS, GET_LESSONS_FAILURE } from "./constants"
 import { SET_COURSE_IDREQ , SET_COURSE_IDSUCCESS , SET_COURSE_IDFAIL } from "./constants"
 import { LOGOUT_REQUEST, LOGOUT_SUCCESS, LOGOUT_FAILURE } from "./constants";
+import { ADD_STUDENT_REQUEST, ADD_STUDENT_SUCCESS, ADD_STUDENT_FAILURE } from "./constants";
 import { createSession, destroySession, validateSession } from "./utils/sessions";
 import axios from "axios";
 
@@ -220,3 +221,54 @@ export const logoutAttempt = () => {
     }
   }
 }
+
+//action: Add_STUDENT_FAILURE if backend call is unsuccessful
+const addStudentFailed = (error) => ({
+  type:    ADD_STUDENT_FAILURE,
+  isFetchingAuth: false,
+  isAuthenticatedUser: false,
+  payload: error,
+});
+
+//action: ADD_STUDENT_SUCCESS once backend call is successfull
+const addStudentSuccess = (stuObj) => ({
+  type:    ADD_STUDENT_SUCCESS,
+  isFetchingAuth: false,
+  isAuthenticatedUser: true,
+  payload: stuObj,
+});
+
+//action: ADD_STUDENT_REQUEST to REST API
+export const addStudentAttempt = (data, accessToken) => {
+  console.log("what data is this?", data, accessToken)
+    //function receives credentials
+    return (dispatch, getState) => {
+      //dispatch action to notify client 
+      //of add student request in progress
+      dispatch({ 
+          type: ADD_STUDENT_REQUEST, 
+          isAddingNewUser: true, 
+          isAuthenticatedUser: true 
+        });
+      //use axios to query REST api for add student.
+      axios
+        .post("/api/auth/signup", data, {
+          headers: {
+            "x-access-token": accessToken
+          }
+        })
+        .then( (response) => {
+          //if request is successful, persist a session and dispatch
+          //login success action
+          if(response.status === 200){
+            dispatch(addStudentSuccess(response.data));
+          }
+        })
+        .catch( (error) => {
+          dispatch(addStudentFailed(error.message));
+        });
+      }
+  }
+  
+
+
