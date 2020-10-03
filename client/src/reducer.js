@@ -4,7 +4,9 @@ import {
   ADD_STUDENT_REQUEST, ADD_STUDENT_SUCCESS, ADD_STUDENT_FAILURE,
   GET_COURSES_REQUEST, GET_COURSES_SUCCESS, GET_COURSES_FAILURE,
   GET_LESSONS_REQUEST, GET_LESSONS_SUCCESS, GET_LESSONS_FAILURE,
-  SET_COURSE_IDREQ , SET_COURSE_IDSUCCESS , SET_COURSE_IDFAIL
+  SET_COURSE_IDREQ , SET_COURSE_IDSUCCESS , SET_COURSE_IDFAIL,
+  GET_ALL_INSTRUCTORS_REQUEST , GET_ALL_INSTRUCTORS_SUCCESS , GET_ALL_INSTRUCTORS_FAILURE,
+  GET_ALL_STUDENTS_REQUEST , GET_ALL_STUDENTS_SUCCESS , GET_ALL_STUDENTS_FAILURE
 } from "./constants";
 
 import { validateSession, getSessionAuthObj } from "./utils/sessions";
@@ -17,6 +19,8 @@ export const initialState = {
   authObj: getSessionAuthObj(),
   courses: [],
   courseId: "",
+  allInstructors: [],
+  allStudents: [],
   lessons: [],
   isAddingNewUser: false,
   isNewUserAdded: false,
@@ -69,6 +73,20 @@ export default (state = initialState, action) => {
     case SET_COURSE_IDSUCCESS:
           return {...state, courseId: action.payload, error: null}
     case SET_COURSE_IDFAIL:
+          return {...state, error: action.payload}
+
+    case GET_ALL_INSTRUCTORS_REQUEST:
+          return {...state, allInstructors: [], error: null}
+    case GET_ALL_INSTRUCTORS_SUCCESS:
+          return {...state, AllInstructors: action.payload, error: null}
+    case GET_ALL_INSTRUCTORS_FAILURE:
+          return {...state, error: action.payload}
+
+    case GET_ALL_STUDENTS_REQUEST:
+          return {...state, allStudents: [], error: null}
+    case GET_ALL_STUDENTS_SUCCESS:
+          return {...state, allInstructors: action.payload, error: null}
+    case GET_ALL_STUDENTS_FAILURE:
           return {...state, error: action.payload}
 
 

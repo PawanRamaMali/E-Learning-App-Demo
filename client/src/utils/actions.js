@@ -1,11 +1,13 @@
 //importing LOGIN constants
-import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE } from "./constants";
-import { GET_COURSES_REQUEST, GET_COURSES_SUCCESS, GET_COURSES_FAILURE } from "./constants"
-import { GET_LESSONS_REQUEST, GET_LESSONS_SUCCESS, GET_LESSONS_FAILURE } from "./constants"
-import { SET_COURSE_IDREQ , SET_COURSE_IDSUCCESS , SET_COURSE_IDFAIL } from "./constants"
-import { LOGOUT_REQUEST, LOGOUT_SUCCESS, LOGOUT_FAILURE } from "./constants";
+import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE } from "../constants";
+import { GET_COURSES_REQUEST, GET_COURSES_SUCCESS, GET_COURSES_FAILURE } from "../constants"
+import { GET_LESSONS_REQUEST, GET_LESSONS_SUCCESS, GET_LESSONS_FAILURE } from "../constants"
+import { SET_COURSE_IDREQ , SET_COURSE_IDSUCCESS , SET_COURSE_IDFAIL } from "../constants"
+import { LOGOUT_REQUEST, LOGOUT_SUCCESS, LOGOUT_FAILURE } from "../constants";
+import { GET_ALL_INSTRUCTORS_REQUEST , GET_ALL_INSTRUCTORS_SUCCESS , GET_ALL_INSTRUCTORS_FAILURE } from "../constants"
+import { GET_ALL_STUDENTS_REQUEST , GET_ALL_STUDENTS_SUCCESS , GET_ALL_STUDENTS_FAILURE } from "../constants"
 import { ADD_STUDENT_REQUEST, ADD_STUDENT_SUCCESS, ADD_STUDENT_FAILURE } from "./constants";
-import { createSession, destroySession, validateSession } from "./utils/sessions";
+import { createSession, destroySession, validateSession } from "./sessions";
 import axios from "axios";
 
 //action: LOGIN_SUCCESS once backend call is successfull
@@ -191,6 +193,72 @@ export const setCourseId = (id) => {
 
   }
 }
+
+///Action to get all instructors
+const getAllInstructorsSuccess = (allInstructors) => ({
+  type: GET_ALL_INSTRUCTORS_SUCCESS,
+  payload: allInstructors
+})
+//When Request from API fails
+const getAllInstructorsFailure = (error) => ({
+  type: GET_ALL_INSTRUCTORS_FAILURE,
+  payload: error,
+})
+
+//view instructor Api request for admin
+export const getAllInstructors = (token) => {
+ 
+  return (dispatch, getState) => {
+    dispatch({type: GET_ALL_INSTRUCTORS_REQUEST});
+    axios
+      .get("/api/user/admin/view/instructors", {
+        headers: {
+          'x-access-token': token
+        }
+      })
+      .then((response) => {
+        dispatch(getAllInstructorsSuccess(response.data))
+     
+      })
+      .catch((error) => {
+        dispatch(getAllInstructorsFailure(error.message))
+      })
+  }
+}
+
+///Action to get all student
+const getAllStudentsSuccess = (allStudents) => ({
+  type: GET_ALL_STUDENTS_SUCCESS,
+  payload: allStudents
+})
+//When Request from API fails
+const getAllStudentsFailure = (error) => ({
+  type: GET_ALL_STUDENTS_FAILURE,
+  payload: error,
+})
+
+
+//view students Api request for admin
+export const getAllStudents = (token) => {
+ 
+  return (dispatch, getState) => {
+    dispatch({type: GET_ALL_STUDENTS_REQUEST});
+    axios
+      .get("/api/user/admin/view/students", {
+        headers: {
+          'x-access-token': token
+        }
+      })
+      .then((response) => {
+        dispatch(getAllStudentsSuccess(response.data))
+     
+      })
+      .catch((error) => {
+        dispatch(getAllStudentsFailure(error.message))
+      })
+  }
+}
+
 const logoutSuccess = () => ({
   type:    LOGOUT_SUCCESS,
   isAuthenticatedUser: false,

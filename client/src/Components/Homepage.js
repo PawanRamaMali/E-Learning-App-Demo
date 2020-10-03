@@ -5,7 +5,7 @@ import InstructorSignupModal from './InstructorSignupModal';
 import WelcomeToastWidget from './WelcomeToastWidget';
 import { Jumbotron, Button } from 'react-bootstrap';
 import { useHistory } from "react-router-dom";
-import { logoutAttempt } from "../actions";
+import { logoutAttempt } from "../utils/actions";
 import "../App.css";
 
 function Homepage(props) {
@@ -67,6 +67,9 @@ function Homepage(props) {
                 case "INSTRUCTOR":
                     routePath = "/instructor";
                     break;
+                case "ADMIN":
+                    routePath = "/admin"
+                    break
                 case "STUDENT":
                     routePath = "/student";
                     break;
