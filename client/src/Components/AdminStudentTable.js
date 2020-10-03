@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Table } from "react-bootstrap";
 import "../instructor.css";
-import { getAllStudents } from '../utils/actions'
+import { getAllStudents } from '../actions'
 
 export default function AdminStudentTable() {
   const [studentList, setStudent] = useState();

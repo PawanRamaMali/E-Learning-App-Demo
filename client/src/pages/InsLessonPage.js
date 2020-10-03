@@ -2,7 +2,7 @@ import React from 'react'
 import LessonCard from "../Components/LessonCard"
 import AppNavbar from '../Components/AppNavbar';
 import { useEffect } from "react";
-import { getLessons } from '../utils/actions';
+import { getLessons } from '../actions';
 
 import { useDispatch, useSelector } from 'react-redux';
 
