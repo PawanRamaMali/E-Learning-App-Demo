@@ -17,26 +17,22 @@ export default function InsLanding() {
 
     //useHistory hook to redirect to desired routes
     const history = useHistory();
-    let routePath = "";
 
     //redirecting function
     const redirectRouter = (routePath) => {
-        if(isAuthenticatedUser) {
-            switch (authObj.role.toUpperCase()) {
-                case "INSTRUCTOR":
-                    routePath = "/instructor/student-roster";
-                    break;
-                case "INSTRUCTOR":
-                    routePath = "/instructor/courses";
-                    break;
-                case "STUDENT":
-                    routePath = "/student/courses";
-                    break;
-                default:
-                    routePath = "/";
-                    break;
-            }
-        }
+        // if(isAuthenticatedUser) {
+        //     switch (authObj.role.toUpperCase()) {
+        //         case "INSTRUCTOR":
+        //             routePath = "/instructor/student-roster";
+        //             break;
+        //         case "INSTRUCTOR":
+        //             routePath = "/instructor/courses";
+        //             break;
+        //         default:
+        //             routePath = "/";
+        //             break;
+        //     }
+        // }
         history.push(routePath);
     }
 
@@ -51,8 +47,8 @@ export default function InsLanding() {
                         Manage Students, Courses, and Content all in one place!
                     </p>
                     <p className="btngroup">
-                        <Button className="InsBtn AddStu primary-button" onClick={redirectRouter}>MANAGE STUDENTS</Button>
-                        <Button className="InsBtn AddCourses primary-button" onClick={redirectRouter}>MANAGE COURSES</Button>
+                        <Button className="InsBtn AddStu primary-button" onClick={() => redirectRouter("/instructor/student-roster")}>MANAGE STUDENTS</Button>
+                        <Button className="InsBtn AddCourses primary-button" onClick={() => redirectRouter("/instructor/courses")}>MANAGE COURSES</Button>
                         {/* <Button className="InsBtn Dashboard primary-button" onClick={handleInstructorRoutes}>MANAGE CONTENT</Button> */}
                     </p>
                 </div>

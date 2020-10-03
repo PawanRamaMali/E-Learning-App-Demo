@@ -3,12 +3,15 @@
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    height: 50vh;
+    height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     color: white;
+}
+.portal-sublanding-background {
+    height: 50vh;
 }
 
 .insBtn{
