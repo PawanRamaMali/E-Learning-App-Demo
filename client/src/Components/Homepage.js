@@ -1,7 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import { useSelector, useDispatch } from "react-redux";
-import LoginModal from './LoginModal'
-import InstructorSignupModal from './InstructorSignupModal'
+import LoginModal from './LoginModal';
+import InstructorSignupModal from './InstructorSignupModal';
+import WelcomeToastWidget from './WelcomeToastWidget';
 import { Jumbotron, Button } from 'react-bootstrap';
 import { useHistory } from "react-router-dom";
 import { logoutAttempt } from "../actions";
@@ -29,7 +30,7 @@ function Homepage(props) {
         if(!isAuthenticatedUser && isLoggedOutSuccess){
             redirectRouter("/");
         }
-      }, [isAuthenticatedUser, isLoggedOutSuccess]);
+    }, [isAuthenticatedUser, isLoggedOutSuccess]);
 
     //redirecting function
     const redirectRouter = (routePath) => {
@@ -79,6 +80,7 @@ function Homepage(props) {
                 < >
                     <Button className="homepage-buttons primary-button" variant="primary" onClick={() => redirectRouter(routePath)}>My Dashboard</Button>
                     <Button className="homepage-buttons" variant="secondary" onClick={() => performUserLogout()}>Logout</Button>
+                    <WelcomeToastWidget />
                 </>
             )
         }
@@ -89,23 +91,25 @@ function Homepage(props) {
             //dispatch logout action
             dispatch(logoutAttempt())
         }
-    }
+    };
 
     return (
-        <Jumbotron className="homepage-background">
-            <div className="homepage-content">
-                <h1 className="">POD | E-Learning</h1>
-                <p>
-                    Revolutionizing distance learning for small format learning groups of all ages.
-                </p>
-                <p>
-                    { renderLoginLogoutBtn() }
-                    { renderInstSignupOrDash() }
-                    <LoginModal show={loginModalShow} onHide={() => setLoginModalShow(false)} />
-                    <InstructorSignupModal show={signupModalShow} onHide={() => setSignupModalShow(false)} />
-                </p>
-            </div>
-        </Jumbotron>
+        < >
+            <Jumbotron className="homepage-background">
+                <div className="homepage-content">
+                    <h1 className="">POD | E-Learning</h1>
+                    <p>
+                        Revolutionizing distance learning for small format learning groups of all ages.
+                    </p>
+                    <p>
+                        { renderLoginLogoutBtn() }
+                        { renderInstSignupOrDash() }
+                        <LoginModal show={loginModalShow} onHide={() => setLoginModalShow(false)} />
+                        <InstructorSignupModal show={signupModalShow} onHide={() => setSignupModalShow(false)} />
+                    </p>
+                </div>
+            </Jumbotron>
+        </>
     )
 }
 
