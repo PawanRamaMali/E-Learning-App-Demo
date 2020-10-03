@@ -1,7 +1,7 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from "react";
-import { getCourses } from '../utils/actions';
+import { getCourses } from '../actions';
 
 import CourseCard from '../Components/CourseCard';
 import AppNavbar from '../Components/AppNavbar';

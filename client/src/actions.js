@@ -1,13 +1,13 @@
 //importing LOGIN constants
-import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE } from "../constants";
-import { GET_COURSES_REQUEST, GET_COURSES_SUCCESS, GET_COURSES_FAILURE } from "../constants"
-import { GET_LESSONS_REQUEST, GET_LESSONS_SUCCESS, GET_LESSONS_FAILURE } from "../constants"
-import { SET_COURSE_IDREQ , SET_COURSE_IDSUCCESS , SET_COURSE_IDFAIL } from "../constants"
-import { LOGOUT_REQUEST, LOGOUT_SUCCESS, LOGOUT_FAILURE } from "../constants";
-import { GET_ALL_INSTRUCTORS_REQUEST , GET_ALL_INSTRUCTORS_SUCCESS , GET_ALL_INSTRUCTORS_FAILURE } from "../constants"
-import { GET_ALL_STUDENTS_REQUEST , GET_ALL_STUDENTS_SUCCESS , GET_ALL_STUDENTS_FAILURE } from "../constants"
+import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE } from "./constants";
+import { GET_COURSES_REQUEST, GET_COURSES_SUCCESS, GET_COURSES_FAILURE } from "./constants"
+import { GET_LESSONS_REQUEST, GET_LESSONS_SUCCESS, GET_LESSONS_FAILURE } from "./constants"
+import { SET_COURSE_IDREQ , SET_COURSE_IDSUCCESS , SET_COURSE_IDFAIL } from "./constants"
+import { LOGOUT_REQUEST, LOGOUT_SUCCESS, LOGOUT_FAILURE } from "./constants";
+import { GET_ALL_INSTRUCTORS_REQUEST , GET_ALL_INSTRUCTORS_SUCCESS , GET_ALL_INSTRUCTORS_FAILURE } from "./constants"
+import { GET_ALL_STUDENTS_REQUEST , GET_ALL_STUDENTS_SUCCESS , GET_ALL_STUDENTS_FAILURE } from "./constants"
 import { ADD_STUDENT_REQUEST, ADD_STUDENT_SUCCESS, ADD_STUDENT_FAILURE } from "./constants";
-import { createSession, destroySession, validateSession } from "./sessions";
+import { createSession, destroySession, validateSession } from "./utils/sessions";
 import axios from "axios";
 
 //action: LOGIN_SUCCESS once backend call is successfull
