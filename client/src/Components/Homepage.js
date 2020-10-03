@@ -67,6 +67,10 @@ function Homepage(props) {
                 case "INSTRUCTOR":
                     routePath = "/instructor";
                     break;
+                case "STUDENT":
+                    routePath = "/student";
+                    break;
+
                 default:
                     routePath = "/";
                     break;

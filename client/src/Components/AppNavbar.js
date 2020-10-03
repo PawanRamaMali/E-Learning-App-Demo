@@ -1,13 +1,14 @@
 import React from 'react';
 import {useState, useEffect} from "react";
+import { useSelector } from 'react-redux';
 import Navbar from "react-bootstrap/Navbar";
 
 
 export default function AppNavbar() {
-    const [user, setUser] = useState({
-        name: "",
-        isloggedIn: false
-    })
+    const [authObj] = useSelector((gState) => [
+        gState.authObj
+
+      ]);
    
     return (
         <Navbar bg="dark" expand="lg" variant="dark">
@@ -15,7 +16,7 @@ export default function AppNavbar() {
             <Navbar.Toggle />
             <Navbar.Collapse className="justify-content-end">
                 <Navbar.Text>
-                    Signed in as: <a href="#login">Mark Otto</a>
+                    Signed in as: <a href="#login">{authObj.fname}</a>
                 </Navbar.Text>
             </Navbar.Collapse>
         </Navbar>

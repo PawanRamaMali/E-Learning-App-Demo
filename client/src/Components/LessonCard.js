@@ -3,17 +3,21 @@ import Card from "react-bootstrap/Card"
 import {useEffect, useState} from "react"
 import Button from "react-bootstrap/Button"
 import { Redirect, useHistory } from "react-router-dom"
+import { useDispatch, useSelector } from 'react-redux'
 export default function LessonCard(props) {
     const { lessons } = props
     
-    
+    const [authObj] = useSelector((gState) => [
+        gState.authObj
+
+      ]);   
     const history = useHistory()
 
     const videoRouter = (path) => {
         
         history.push(path)
     }
-
+    
 
 
     return (
@@ -28,8 +32,11 @@ export default function LessonCard(props) {
                                  Some quick example text to build on the card title and make up the bulk of
                                  the card's content.
                                 </Card.Text>
-                                <Button variant="primary" url={lesson.url} onClick={(e) => videoRouter(e.currentTarget.url)}>Watch Video</Button>
-                                <Button variant="Danger">Delete Lesson</Button>
+                                <Button variant="primary" url={lesson.url} onClick={(e) => videoRouter(e.currentTarget.url)}>Watch Video</Button>{" "}
+                                 {authObj.role === "INSTRUCTOR" ? (
+                                     <Button variant="danger" id="delButton" >Delete Lesson</Button>
+                                 ):(<p></p>)}
+                                
                             </Card.Body>
                     </Card>
                     )

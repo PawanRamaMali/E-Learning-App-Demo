@@ -28,7 +28,7 @@ module.exports = (app) => {
     app.get("/api/user/student/courses", [JwtTokenValidator.fnVerifyToken, JwtTokenValidator.isStudent], studentController.Users_Courses)
 
     // Student view lessons
-    app.get("/api/user/student/courses/lessons", [JwtTokenValidator.fnVerifyToken, JwtTokenValidator.isStudent], studentController.allUsersLessons)
+    app.get("/api/user/student/courses/:id/lessons", [JwtTokenValidator.fnVerifyToken, JwtTokenValidator.isStudent], studentController.allUsersLessons)
 
     // Student view specific lessons
     app.get("/api/user/student/courses/lessons/:id", [JwtTokenValidator.fnVerifyToken, JwtTokenValidator.isStudent], studentController.userLesson)
