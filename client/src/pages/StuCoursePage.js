@@ -1,9 +1,9 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from "react";
-import { getCourses } from '../actions';
+import { getStuCourses } from '../actions';
 
-import CourseCard from '../Components/CourseCard';
+import StuCourseCard from '../Components/StuCourseCard';
 import AppNavbar from '../Components/AppNavbar';
 
 
@@ -18,8 +18,8 @@ export default function InsCoursePage() {
       ]);
 
     useEffect(() => {
-        dispatch(getCourses(authObj.accessToken));
-    },[]);
+        dispatch(getStuCourses(authObj.accessToken));
+    },[authObj.accessToken]);
 
     
 
@@ -29,7 +29,7 @@ export default function InsCoursePage() {
     return (
         <div>
             <AppNavbar />
-            <CourseCard courses={ courses.data } />
+            <StuCourseCard courses={ courses } />
         </div>
     )
 }

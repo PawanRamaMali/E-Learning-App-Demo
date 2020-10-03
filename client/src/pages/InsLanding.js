@@ -29,6 +29,9 @@ export default function InsLanding() {
                 case "INSTRUCTOR":
                     routePath = "/instructor/courses";
                     break;
+                case "STUDENT":
+                    routePath = "/student/courses";
+                    break;
                 default:
                     routePath = "/";
                     break;
@@ -40,19 +43,37 @@ export default function InsLanding() {
     return (
         <React.Fragment> 
             <AppNavbar />
-            <Jumbotron className="InsLanding-background homepage-background">
-            <div className="InsLanding-content homepage-content">
-                <h1 className="">POD | Instructor Portal</h1>
+            {authObj.role === "INSTRUCTOR" ?(
+                <Jumbotron className="InsLanding-background homepage-background">
+                <div className="InsLanding-content homepage-content">
+                    <h1 className="">POD | Instructor Portal</h1>
+                    <p>
+                        Manage Students, Courses, and Content all in one place!
+                    </p>
+                    <p className="btngroup">
+                        <Button className="InsBtn AddStu primary-button" onClick={redirectRouter}>MANAGE STUDENTS</Button>
+                        <Button className="InsBtn AddCourses primary-button" onClick={redirectRouter}>MANAGE COURSES</Button>
+                        {/* <Button className="InsBtn Dashboard primary-button" onClick={handleInstructorRoutes}>MANAGE CONTENT</Button> */}
+                    </p>
+                </div>
+            </Jumbotron>
+
+            ) :(
+                <Jumbotron className="InsLanding-background homepage-background">
+                <div className="InsLanding-content homepage-content">
+                <h1 className="">POD | Student Portal</h1>
                 <p>
-                    Manage Students, Courses, and Content all in one place!
+                    All your Courses in one place!
                 </p>
                 <p className="btngroup">
-                    <Button className="InsBtn AddStu primary-button" onClick={redirectRouter}>MANAGE STUDENTS</Button>
-                    <Button className="InsBtn AddCourses primary-button" onClick={redirectRouter}>MANAGE COURSES</Button>
+                    <Button className="MyCourses" onClick={redirectRouter}>My Courses</Button>
+                    {/* <Button className="InsBtn AddCourses primary-button" onClick={redirectRouter}>MANAGE COURSES</Button> */}
                     {/* <Button className="InsBtn Dashboard primary-button" onClick={handleInstructorRoutes}>MANAGE CONTENT</Button> */}
                 </p>
             </div>
         </Jumbotron>
+            )}
+            
         </React.Fragment>
         
         
