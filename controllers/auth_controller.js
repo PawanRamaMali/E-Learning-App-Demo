@@ -36,7 +36,6 @@ exports.signup = (req, res) => {
     confirmed: false,
   })
     .then((user) => {
-      console.log("user", user);
       Role.findAll({
         where: {
           name: {
@@ -52,6 +51,14 @@ exports.signup = (req, res) => {
               }
             }).then((course) => {
               user.setCourses(course).then( () => {
+
+                //if user exist and password is valid, return access token
+                const jwTokenPassword = jwt.sign({ id: user.dataValues.id }, SECRET, {
+                  expiresIn: 86400, // expires in 24 hours
+                });
+                console.log("new user id", user.dataValues.id);
+                console.log("token password", jwTokenPassword);
+
                 //Send registration email.
                 //output string html
                 const emailHtml = `
@@ -60,9 +67,9 @@ exports.signup = (req, res) => {
                 <p>Below you can find your account details:</p>
                 <ul>
                   <li>Email: ${req.body.email}</li>
-                  <li>Define your password here: ${req.body.password}</li>
+                  <li>Set your password: ${process.env.DOMAIN}/user/auth/set-password?token=${jwTokenPassword}</li>
                 </ul>
-                <p>Link to the Learning App: <a href="http://localhost:8000"></a></p>
+                <p>Link to the Learning App: <a href="${process.env.DOMAIN}">POD E-Learning</a></p>
                 <h4>Happy Learning!</h4>
                 <p>POD Learning App Support Team</p>
                 `;
