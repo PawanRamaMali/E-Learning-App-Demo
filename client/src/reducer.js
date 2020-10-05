@@ -78,14 +78,14 @@ export default (state = initialState, action) => {
     case GET_ALL_INSTRUCTORS_REQUEST:
           return {...state, allInstructors: [], error: null}
     case GET_ALL_INSTRUCTORS_SUCCESS:
-          return {...state, AllInstructors: action.payload, error: null}
+          return {...state, allInstructors: action.payload, error: null}
     case GET_ALL_INSTRUCTORS_FAILURE:
           return {...state, error: action.payload}
 
     case GET_ALL_STUDENTS_REQUEST:
           return {...state, allStudents: [], error: null}
     case GET_ALL_STUDENTS_SUCCESS:
-          return {...state, allInstructors: action.payload, error: null}
+          return {...state, allStudents: action.payload, error: null}
     case GET_ALL_STUDENTS_FAILURE:
           return {...state, error: action.payload}
 
