@@ -20,19 +20,6 @@ export default function InsLanding() {
 
     //redirecting function
     const redirectRouter = (routePath) => {
-        // if(isAuthenticatedUser) {
-        //     switch (authObj.role.toUpperCase()) {
-        //         case "INSTRUCTOR":
-        //             routePath = "/instructor/student-roster";
-        //             break;
-        //         case "INSTRUCTOR":
-        //             routePath = "/instructor/courses";
-        //             break;
-        //         default:
-        //             routePath = "/";
-        //             break;
-        //     }
-        // }
         history.push(routePath);
     }
 
@@ -40,13 +27,13 @@ export default function InsLanding() {
         <React.Fragment> 
             <AppNavbar />
             {authObj.role === "INSTRUCTOR" ?(
-                <Jumbotron className="InsLanding-background homepage-background">
+                <Jumbotron tag="div" className="InsLanding-background homepage-background">
                 <div className="InsLanding-content homepage-content">
-                    <h1 className="">POD | Instructor Portal</h1>
-                    <p>
+                    <h1 tag="div" className="">POD | Instructor Portal</h1>
+                    <p tag="div">
                         Manage Students, Courses, and Content all in one place!
                     </p>
-                    <p className="btngroup">
+                    <p tag="div" className="btngroup">
                         <Button className="InsBtn AddStu primary-button" onClick={() => redirectRouter("/instructor/student-roster")}>MANAGE STUDENTS</Button>
                         <Button className="InsBtn AddCourses primary-button" onClick={() => redirectRouter("/instructor/courses")}>MANAGE COURSES</Button>
                         {/* <Button className="InsBtn Dashboard primary-button" onClick={handleInstructorRoutes}>MANAGE CONTENT</Button> */}
@@ -55,13 +42,13 @@ export default function InsLanding() {
             </Jumbotron>
 
             ) :(
-                <Jumbotron className="InsLanding-background homepage-background">
+                <Jumbotron tag="div" className="InsLanding-background homepage-background">
                 <div className="InsLanding-content homepage-content">
                 <h1 className="">POD | Student Portal</h1>
-                <p>
+                <p tag="div">
                     All your Courses in one place!
                 </p>
-                <p className="btngroup">
+                <p tag="div" className="btngroup">
                     <Button className="MyCourses" onClick={redirectRouter}>My Courses</Button>
                     {/* <Button className="InsBtn AddCourses primary-button" onClick={redirectRouter}>MANAGE COURSES</Button> */}
                     {/* <Button className="InsBtn Dashboard primary-button" onClick={handleInstructorRoutes}>MANAGE CONTENT</Button> */}

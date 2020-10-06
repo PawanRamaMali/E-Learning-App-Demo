@@ -98,13 +98,13 @@ function Homepage(props) {
 
     return (
         < >
-            <Jumbotron className="homepage-background">
+            <Jumbotron className="homepage-background" tag="div">
                 <div className="homepage-content">
-                    <h1 className="">POD | E-Learning</h1>
-                    <p>
+                    <h1 tag="div" className="">POD | E-Learning</h1>
+                    <p tag="div">
                         Revolutionizing distance learning for small format learning groups of all ages.
                     </p>
-                    <p>
+                    <p tag="div">
                         { renderLoginLogoutBtn() }
                         { renderInstSignupOrDash() }
                         <LoginModal show={loginModalShow} onHide={() => setLoginModalShow(false)} />
