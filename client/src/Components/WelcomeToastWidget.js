@@ -32,10 +32,10 @@ function WelcomeToastWidget (props) {
                         right: 0,
                         backgroundColor: '#2ba6cb'
                         }} 
+                        tag="div"
                     >
-                        <Toast.Body>
-                            <img src="holder.js/20x20?text=%20" className="rounded mr-2" alt="" />
-                            <strong className="mr-auto">Welcome, {authObj.fname}!</strong>
+                        <Toast.Body tag="div">
+                            <strong tag="div" className="mr-auto">Welcome, {authObj.fname}!</strong>
                         </Toast.Body>
                     </Toast>
             </div>
