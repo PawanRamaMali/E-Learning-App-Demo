@@ -4,9 +4,29 @@ import { useHistory } from 'react-router-dom';
 import AppNavbar from "../Components/AppNavbar";
 import InstructorTable from "../Components/AdminInstructorTable";
 import "../instructor.css";
+import { getAllInstructors } from '../actions'
+import { useDispatch, useSelector } from 'react-redux'
 
 export default function AdminInstructorList() {
     const history = useHistory()
+
+    const [instructorList, setInstructor] = useState();
+
+    const dispatch = useDispatch()
+  
+    const [allInstructors, error, authObj] = useSelector((gState) => [
+      gState.allInstructors,
+      gState.error,
+      gState.authObj
+    ])
+  
+    useEffect(() => {
+      dispatch(getAllInstructors(authObj.accessToken))
+    }, [])
+  
+    // console.log(allInstructors)
+    console.log(allInstructors.data)
+    
     
     return (
         <React.Fragment> 
@@ -23,7 +43,7 @@ export default function AdminInstructorList() {
                     </p>
                 </div>
             </Jumbotron>
-            <InstructorTable />
+            <InstructorTable allInstructors={allInstructors.data} />
         </React.Fragment>
     )
 }

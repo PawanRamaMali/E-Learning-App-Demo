@@ -1,26 +1,9 @@
-import React, { useState, useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import React, { useState } from 'react'
 import { Table } from "react-bootstrap";
 import "../instructor.css";
-import { getAllStudents } from '../actions'
+
 
 export default function AdminStudentTable() {
-  const [studentList, setStudent] = useState();
-
-  const dispatch = useDispatch()
-
-  const [allStudents, error, authObj] = useSelector((gState) => [
-    gState.allStudents,
-    gState.error,
-    gState.authObj
-  ])
-
-  useEffect(() => {
-    dispatch(getAllStudents(authObj.accessToken))
-  }, [])
-
-  console.log(allStudents)
-  console.log(allStudents.data)
 
   return (
     <Table className="table-expand">

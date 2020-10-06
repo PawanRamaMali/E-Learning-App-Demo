@@ -1,12 +1,29 @@
 import React, {useState, useEffect} from 'react'
 import {Jumbotron, Button, Table } from "react-bootstrap"
+import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom';
 import AppNavbar from "../Components/AppNavbar";
 import StudentTable from "../Components/AdminStudentTable";
+import { getAllStudents } from '../actions'
 import "../instructor.css";
 
 export default function AdminStudentList() {
     const history = useHistory()
+
+    const dispatch = useDispatch()
+  
+    const [allStudents, error, authObj] = useSelector((gState) => [
+      gState.allStudents,
+      gState.error,
+      gState.authObj
+    ])
+  
+    useEffect(() => {
+      dispatch(getAllStudents(authObj.accessToken))
+    }, [])
+  
+    // console.log(allStudents)
+    // console.log(allStudents.data)
 
     return (
         <React.Fragment> 
@@ -19,7 +36,7 @@ export default function AdminStudentList() {
                     </p>
                 </div>
             </Jumbotron>
-            <StudentTable />
+            <StudentTable allStudents={allStudents.data} />
         </React.Fragment>
         
         
