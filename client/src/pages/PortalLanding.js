@@ -5,7 +5,6 @@ import AppNavbar from "../Components/AppNavbar";
 import { useHistory } from "react-router-dom";
 import "../instructor.css";
 
-
 export default function InsLanding() {
     const [stuList, setStudent] = useState();
     const [coursesList, setCourses] = useState(false);
@@ -59,8 +58,5 @@ export default function InsLanding() {
             
         </React.Fragment>
         
-        
-
-
     )
 }
