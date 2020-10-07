@@ -10,7 +10,6 @@ import { useDispatch, useSelector } from 'react-redux'
 export default function AdminInstructorList() {
     const history = useHistory()
 
-    const [instructorList, setInstructor] = useState();
 
     const dispatch = useDispatch()
   
