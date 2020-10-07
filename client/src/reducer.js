@@ -2,6 +2,7 @@ import {
   LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE, 
   LOGOUT_REQUEST, LOGOUT_SUCCESS,LOGOUT_FAILURE,
   ADD_STUDENT_REQUEST, ADD_STUDENT_SUCCESS, ADD_STUDENT_FAILURE,
+  ADD_COURSE_REQUEST, ADD_COURSE_SUCCESS, ADD_COURSE_FAILURE,
   GET_COURSES_REQUEST, GET_COURSES_SUCCESS, GET_COURSES_FAILURE,
   GET_LESSONS_REQUEST, GET_LESSONS_SUCCESS, GET_LESSONS_FAILURE,
   SET_COURSE_IDREQ , SET_COURSE_IDSUCCESS , SET_COURSE_IDFAIL,
@@ -16,6 +17,8 @@ export const initialState = {
   isLoggingOut: false,
   isLoggedOutSuccess: false,
   authObj: getSessionAuthObj(),
+  isNewCourseAdded: false,
+  courseObj: {},
   courses: [],
   courseId: "",
   allInstructors: [],
@@ -49,6 +52,23 @@ export default (state = initialState, action) => {
         isFetchingAuth: action.isFetchingAuth, 
         isAuthenticatedUser: action.isAuthenticatedUser, 
         authObj: {},
+        error: action.payload
+      };
+
+    case ADD_COURSE_REQUEST:
+        return {...state, isNewCourseAdded: false} 
+    case ADD_COURSE_SUCCESS:
+        return { 
+          ...state, 
+          isNewCourseAdded: true,
+          courseObj: action.payload,
+          error: ""
+        };
+    case ADD_COURSE_FAILURE:
+      return { 
+        ...state, 
+        isNewCourseAdded: false,
+        courseObj: {},
         error: action.payload
       };
 
@@ -115,6 +135,7 @@ export default (state = initialState, action) => {
         courses: [],
         error: action.payload,
       };
+
     case ADD_STUDENT_REQUEST:
       return {
         ...state,

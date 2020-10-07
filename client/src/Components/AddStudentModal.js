@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Modal, Form, Button, Alert } from 'react-bootstrap';
 import "../App.css";
-//import login attempt action
+//import addStudentAttempt action
 import { addStudentAttempt } from "../actions";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -38,7 +38,7 @@ function AddStudentModal(props) {
     currState[name] = value;
     //update current State backup
     setStudentData(currState);
-    console.log("This is what we entered in form", currState)
+    // console.log("This is what we entered in form", currState)
   }
 
   //handleSubmit function to send student data
@@ -48,10 +48,9 @@ function AddStudentModal(props) {
     const form = e.currentTarget;
     //checking validation on Submit event
     if(form.checkValidity() !== false && isAuthenticatedUser){
-      // console.log("Is this student data?", studentData)
       //dispatch addStudentAttempt action and pass studentData
       dispatch(addStudentAttempt(studentData, authObj.accessToken));
-      return <Alert variant="success">Authenticated!</Alert>
+      return <Alert variant="success">Student Added!</Alert>
     } 
     setValidated(true);
   
