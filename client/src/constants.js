@@ -39,7 +39,7 @@ export const GET_ALL_STUDENTS_SUCCESS = 'GET_ALL_STUDENTS_SUCCESS';
 export const GET_ALL_STUDENTS_FAILURE = 'GET_ALL_STUDENTS_FAILURE';
 
 //defining roster actions
-//defining get lessons Actions
 export const GET_ROSTER_REQUEST = 'GET_ROSTER_REQUEST';
 export const GET_ROSTER_SUCCESS = 'GET_ROSTER_SUCCESS';
 export const GET_ROSTER_FAILURE = 'GET_ROSTER_FAILURE';
+

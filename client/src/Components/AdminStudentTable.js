@@ -1,23 +1,52 @@
-import React, { useState } from 'react'
-import { Table } from "react-bootstrap";
+import React, { useState } from "react";
+import { Table, Button } from "react-bootstrap";
+import { useDispatch, useSelector } from 'react-redux'
 import "../instructor.css";
 
+export default function AdminStudentTable(props) {
+  const { allStudents } = props;
+  console.log(allStudents);
 
-export default function AdminStudentTable() {
 
   return (
-    <Table className="table-expand">
-      <thead>
-        <tr className="table-expand-row">
-          <th>First Name</th>
-          <th>Last Name</th>
-          <th>Email</th>
-          <th>Active</th>
-          <th>ID</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody id="emptyTable"></tbody>
-    </Table>
+
+    <div>
+    {allStudents ? (
+      allStudents.map((student) => (
+        <Table key={student.id}>
+          <thead>
+            <tr>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>Email</th>
+              <th>Date Created</th>
+              <th>Activate</th>
+              <th>Deactivate</th>
+              <th>Delete</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>{student["first_name"]}</td>
+              <td>{student["last_name"]}</td>
+              <td>{student["email"]}</td>
+              <td>{student["createdAt"]}</td>
+              <td>
+                <Button>Activate</Button>
+              </td>
+              <td>
+                <Button>Deactivate</Button>
+              </td>
+              <td>
+                <Button id={ student.id }>Delete</Button>
+              </td>
+            </tr>
+          </tbody>
+        </Table>
+      ))
+    ) : (
+      <p></p>
+    )}
+  </div>
   );
 }
