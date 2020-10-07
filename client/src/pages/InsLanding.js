@@ -49,7 +49,7 @@ export default function InsLanding() {
                     All your Courses in one place!
                 </p>
                 <p tag="div" className="btngroup">
-                    <Button className="MyCourses" onClick={redirectRouter}>My Courses</Button>
+                    <Button className="MyCourses" onClick={() => redirectRouter("/student/courses")}>My Courses</Button>
                     {/* <Button className="InsBtn AddCourses primary-button" onClick={redirectRouter}>MANAGE COURSES</Button> */}
                     {/* <Button className="InsBtn Dashboard primary-button" onClick={handleInstructorRoutes}>MANAGE CONTENT</Button> */}
                 </p>
