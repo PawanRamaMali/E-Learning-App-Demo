@@ -48,3 +48,8 @@ export const GET_ROSTER_REQUEST = 'GET_ROSTER_REQUEST';
 export const GET_ROSTER_SUCCESS = 'GET_ROSTER_SUCCESS';
 export const GET_ROSTER_FAILURE = 'GET_ROSTER_FAILURE';
 
+//getting URL for video player
+export const GET_URL_REQUEST = 'GET_URL_REQUEST';
+export const GET_URL_SUCCESS = 'GET_URL_SUCCESS';
+export const GET_URL_FAILURE = 'GET_URL_FAILURE';
+
