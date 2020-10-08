@@ -5,6 +5,7 @@ import {
   ADD_COURSE_REQUEST, ADD_COURSE_SUCCESS, ADD_COURSE_FAILURE,
   GET_COURSES_REQUEST, GET_COURSES_SUCCESS, GET_COURSES_FAILURE,
   GET_LESSONS_REQUEST, GET_LESSONS_SUCCESS, GET_LESSONS_FAILURE,
+  GET_ROSTER_REQUEST, GET_ROSTER_SUCCESS, GET_ROSTER_FAILURE,
   SET_COURSE_IDREQ , SET_COURSE_IDSUCCESS , SET_COURSE_IDFAIL,
   GET_ALL_INSTRUCTORS_REQUEST, GET_ALL_INSTRUCTORS_SUCCESS, GET_ALL_INSTRUCTORS_FAILURE,
   GET_ALL_STUDENTS_REQUEST, GET_ALL_STUDENTS_SUCCESS, GET_ALL_STUDENTS_FAILURE
@@ -27,6 +28,7 @@ export const initialState = {
   isAddingNewUser: false,
   isNewUserAdded: false,
   stuObj: {},
+  stuRoster: [],
   error: ""
 };
 
@@ -108,6 +110,12 @@ export default (state = initialState, action) => {
     case GET_ALL_STUDENTS_FAILURE:
           return {...state, error: action.payload}
 
+    case GET_ROSTER_REQUEST:
+            return {...state, stuRoster: [], error: null}
+    case GET_ROSTER_SUCCESS:
+            return {...state, stuRoster: action.payload, error: null}
+    case GET_ROSTER_FAILURE:
+            return {...state, error: action.payload}
 
     case LOGOUT_REQUEST:
       return { 

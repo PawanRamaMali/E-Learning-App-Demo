@@ -8,7 +8,8 @@ import {
   GET_LESSONS_REQUEST, GET_LESSONS_SUCCESS, GET_LESSONS_FAILURE,
   SET_COURSE_IDREQ , SET_COURSE_IDSUCCESS , SET_COURSE_IDFAIL,
   GET_ALL_INSTRUCTORS_REQUEST, GET_ALL_INSTRUCTORS_SUCCESS, GET_ALL_INSTRUCTORS_FAILURE,
-  GET_ALL_STUDENTS_REQUEST, GET_ALL_STUDENTS_SUCCESS, GET_ALL_STUDENTS_FAILURE
+  GET_ALL_STUDENTS_REQUEST, GET_ALL_STUDENTS_SUCCESS, GET_ALL_STUDENTS_FAILURE,
+  GET_ROSTER_REQUEST, GET_ROSTER_SUCCESS, GET_ROSTER_FAILURE
 } from "./constants";
 import { createSession, destroySession, validateSession } from "./utils/sessions";
 import axios from "axios";
@@ -194,6 +195,41 @@ export const setCourseId = (id) => {
       dispatch(setCourseIdFailure())
     }
 
+  }
+}
+
+
+//Action to get Students Roster
+const getRosterSuccess = (stuRoster) => (
+  {
+    type: GET_ROSTER_SUCCESS,
+    payload: stuRoster
+  }
+)
+const getRosterFailure = (error) => ({
+  type: GET_ROSTER_FAILURE,
+  payload: error
+})
+
+export const getStuRoster = (token) => {
+  return (dispatch, getState) => {
+    dispatch({type: GET_ROSTER_REQUEST})
+    axios
+    .get("/api/user/instructor/courses", {
+      headers: {
+        'x-access-token': token
+      }
+    })
+    .then((response) => {
+      let roster = response.data.data
+      console.log(response.data)
+      dispatch(getRosterSuccess(roster))
+
+      
+    })
+    .catch((error) => {
+      dispatch(getRosterFailure(error.message))
+    })
   }
 }
 
