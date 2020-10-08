@@ -24,9 +24,14 @@ export const ADD_STUDENT_SUCCESS = 'ADD_STUDENT_SUCCESS';
 export const ADD_STUDENT_FAILURE = 'ADD_STUDENT_FAILURE';
 
 //Defining Action to pass course id from courseCard to global state
-export const SET_COURSE_IDSUCCESS = 'SET_COURSE_IDSUCCESS';
-export const SET_COURSE_IDFAIL = 'SET_COURSE_IDFAIL';
-export const SET_COURSE_IDREQ = 'SET_COURSE_IDREQ'
+export const SET_COURSE_ID_SUCCESS = 'SET_COURSE_ID_SUCCESS';
+export const SET_COURSE_ID_FAILURE = 'SET_COURSE_ID_FAILURE';
+export const SET_COURSE_ID_REQUEST = 'SET_COURSE_ID_REQUEST';
+
+// defining Add Lesson Actions
+export const ADD_LESSON_REQUEST = 'ADD_LESSON_REQUEST';
+export const ADD_LESSON_SUCCESS = 'ADD_LESSON_SUCCESS';
+export const ADD_LESSON_FAILURE = 'ADD_LESSON_FAILURE';
 
 //defining get lessons Actions
 export const GET_LESSONS_REQUEST = 'GET_LESSONS_REQUEST';

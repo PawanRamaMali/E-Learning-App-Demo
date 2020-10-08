@@ -25,7 +25,7 @@ export default function LessonCard(props) {
             {lessons? (
                     lessons.map((lesson) => (
                         <Card key={ lesson.id } style={{ width: '18rem' }}>
-                            <Card.Img variant="top" src="holder.js/100px180" />
+                            <Card.Img variant="top" src="" />
                             <Card.Body>
                                 <Card.Title>{lesson.name}</Card.Title>
                                 <Card.Text>

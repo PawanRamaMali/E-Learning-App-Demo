@@ -5,8 +5,9 @@ import {
   ADD_STUDENT_REQUEST, ADD_STUDENT_SUCCESS, ADD_STUDENT_FAILURE,
   ADD_COURSE_REQUEST, ADD_COURSE_SUCCESS, ADD_COURSE_FAILURE,
   GET_COURSES_REQUEST, GET_COURSES_SUCCESS, GET_COURSES_FAILURE,
+  ADD_LESSON_REQUEST, ADD_LESSON_SUCCESS, ADD_LESSON_FAILURE,
   GET_LESSONS_REQUEST, GET_LESSONS_SUCCESS, GET_LESSONS_FAILURE,
-  SET_COURSE_IDREQ , SET_COURSE_IDSUCCESS , SET_COURSE_IDFAIL,
+  SET_COURSE_ID_REQUEST , SET_COURSE_ID_SUCCESS , SET_COURSE_ID_FAILURE,
   GET_ALL_INSTRUCTORS_REQUEST, GET_ALL_INSTRUCTORS_SUCCESS, GET_ALL_INSTRUCTORS_FAILURE,
   GET_ALL_STUDENTS_REQUEST, GET_ALL_STUDENTS_SUCCESS, GET_ALL_STUDENTS_FAILURE
 } from "./constants";
@@ -174,14 +175,14 @@ export const getStuLessons = (token, id) => {
 const setCourseIdSuccess = (id) => {
  
 return {
-  type: SET_COURSE_IDSUCCESS,
+  type: SET_COURSE_ID_SUCCESS,
   payload: id
 }
 }
 
 //When Request from API fails
 const setCourseIdFailure = (error) => ({
-  type: SET_COURSE_IDFAIL,
+  type: SET_COURSE_ID_FAILURE,
   payload: error,
 })
 
@@ -363,10 +364,10 @@ export const addCourseAttempt = (data, accessToken) => {
       //of add student request in progress
       dispatch({ 
           type: ADD_COURSE_REQUEST, 
-          isAddingCourseUser: true, 
+          isAddingNewCourse: true, 
           isAuthenticatedUser: true 
         });
-      //use axios to query REST api for add student.
+      //use axios to query REST api for add course.
       axios
         .post("/api/user/instructor/courses", data, {
           headers: {
@@ -382,6 +383,52 @@ export const addCourseAttempt = (data, accessToken) => {
         })
         .catch( (error) => {
           dispatch(addCourseFailed(error.message));
+        });
+      }
+  }
+//action: Add_LESSON_FAILURE if backend call is unsuccessful
+const addLessonFailed = (error) => ({
+  type: ADD_LESSON_FAILURE,
+  isFetchingAuth: false,
+  isAuthenticatedUser: false,
+  payload: error,
+});
+
+//action: ADD_LESSON_SUCCESS once backend call is successfull
+const addLessonSuccess = (lessonObj) => ({
+  type:    ADD_LESSON_SUCCESS,
+  isFetchingAuth: false,
+  isAuthenticatedUser: true,
+  payload: lessonObj,
+});
+
+//action: ADD_COURSE_REQUEST to REST API
+export const addLessonAttempt = (data, accessToken) => {
+    //function receives credentials
+    return (dispatch, getState) => {
+      //dispatch action to notify client 
+      //of add student request in progress
+      dispatch({ 
+          type: ADD_LESSON_REQUEST, 
+          isAddingNewLesson: true, 
+          isAuthenticatedUser: true 
+        });
+      //use axios to query REST api for add student.
+      axios
+        .post("/api/user/instructor/lessons", data, {
+          headers: {
+            "x-access-token": accessToken
+          }
+        })
+        .then( (response) => {
+          //if request is successful, persist a session and dispatch
+          //login success action
+          if(response.status === 200){
+            dispatch(addLessonSuccess(response.data));
+          }
+        })
+        .catch( (error) => {
+          dispatch(addLessonFailed(error.message));
         });
       }
   }

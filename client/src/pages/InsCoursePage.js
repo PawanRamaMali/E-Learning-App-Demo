@@ -1,18 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from "react-router-dom";
-import { 
-    getCourses,
-    addCourseAttempt,
-    addCourseSuccess,
-    addCourseFailed
- } from '../actions';
-import {Jumbotron, Button } from "react-bootstrap"
+import {getCourses} from '../actions';
+import {Jumbotron, Button } from "react-bootstrap";
 import CourseCard from '../Components/CourseCard';
 import AppNavbar from '../Components/AppNavbar';
 import AddCourseModal from '../Components/AddCourseModal';
 
-export default function InsCoursePage() {
+export default function InsCoursePage(props) {
     const dispatch = useDispatch();
     //importing global state
     const [isAuthenticatedUser, authObj, isNewCourseAdded, courses, error] = useSelector((gState) => [
@@ -28,16 +23,6 @@ export default function InsCoursePage() {
     useEffect(() => {
         dispatch(getCourses(authObj.accessToken));
     },[]);
-
-    
-    //using useEffect to track isNewCourseAdded changes
-    //and show add student modal if successfully logged in
-    // useEffect( () => {
-    //     if (isNewCourseAdded){
-    //         setShowCourseModal(false);
-    //     }
-    //  //if NewCourse changes, apply this effect  
-    // }, [isNewCourseAdded]);
 
     //useHistory hook to redirect to desired routes
     const history = useHistory();

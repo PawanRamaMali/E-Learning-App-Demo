@@ -4,8 +4,9 @@ import {
   ADD_STUDENT_REQUEST, ADD_STUDENT_SUCCESS, ADD_STUDENT_FAILURE,
   ADD_COURSE_REQUEST, ADD_COURSE_SUCCESS, ADD_COURSE_FAILURE,
   GET_COURSES_REQUEST, GET_COURSES_SUCCESS, GET_COURSES_FAILURE,
+  ADD_LESSON_REQUEST, ADD_LESSON_SUCCESS, ADD_LESSON_FAILURE,
   GET_LESSONS_REQUEST, GET_LESSONS_SUCCESS, GET_LESSONS_FAILURE,
-  SET_COURSE_IDREQ , SET_COURSE_IDSUCCESS , SET_COURSE_IDFAIL,
+  SET_COURSE_ID_REQUEST , SET_COURSE_ID_SUCCESS , SET_COURSE_ID_FAILURE,
   GET_ALL_INSTRUCTORS_REQUEST, GET_ALL_INSTRUCTORS_SUCCESS, GET_ALL_INSTRUCTORS_FAILURE,
   GET_ALL_STUDENTS_REQUEST, GET_ALL_STUDENTS_SUCCESS, GET_ALL_STUDENTS_FAILURE
 } from "./constants";
@@ -17,13 +18,18 @@ export const initialState = {
   isLoggingOut: false,
   isLoggedOutSuccess: false,
   authObj: getSessionAuthObj(),
+  isAddingNewCourse: false,
   isNewCourseAdded: false,
   courseObj: {},
   courses: [],
   courseId: "",
   allInstructors: [],
   allStudents: [],
+  isAddingNewLesson: false,
+  isNewLessonAdded: false,
+  lessonObj: {},
   lessons: [],
+  lessonId: "",
   isAddingNewUser: false,
   isNewUserAdded: false,
   stuObj: {},
@@ -71,13 +77,30 @@ export default (state = initialState, action) => {
         courseObj: {},
         error: action.payload
       };
-
     case GET_COURSES_REQUEST:
         return {...state, courses: [], error: null}
     case GET_COURSES_SUCCESS:
         return {...state, courses: action.payload, error: null}
     case GET_COURSES_FAILURE:
         return {...state, error: action.payload}
+
+
+    case ADD_LESSON_REQUEST:
+        return {...state, isNewLessonAdded: false} 
+    case ADD_LESSON_SUCCESS:
+        return { 
+          ...state, 
+          isNewLessonAdded: true,
+          lessonObj: action.payload,
+          error: ""
+        };
+    case ADD_LESSON_FAILURE:
+        return { 
+          ...state, 
+          isNewLessonAdded: false,
+          lessonObj: {},
+          error: action.payload
+        };
 
     case GET_LESSONS_REQUEST:
           return {...state, lessons: [], error: null}
@@ -87,11 +110,11 @@ export default (state = initialState, action) => {
           return {...state, error: action.payload}
     
 
-    case SET_COURSE_IDREQ:
+    case SET_COURSE_ID_REQUEST:
           return {...state, courseId: "", error: null}
-    case SET_COURSE_IDSUCCESS:
+    case SET_COURSE_ID_SUCCESS:
           return {...state, courseId: action.payload, error: null}
-    case SET_COURSE_IDFAIL:
+    case SET_COURSE_ID_FAILURE:
           return {...state, error: action.payload}
 
     case GET_ALL_INSTRUCTORS_REQUEST:
