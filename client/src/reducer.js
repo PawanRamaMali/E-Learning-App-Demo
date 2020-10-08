@@ -167,7 +167,7 @@ export default (state = initialState, action) => {
 
     case DELETE_INSTRUCTOR_REQUEST:
         // return {...state, allInstructors: [], error: null}
-        const allInstructorArray = Object.keys(allInstructors)
+        // const allInstructorArray = Object.keys(allInstructors)
         
         return {
           ...state,

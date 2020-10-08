@@ -4,9 +4,6 @@ import {Jumbotron, Button } from "react-bootstrap"
 import AppNavbar from "../Components/AppNavbar";
 import { useHistory } from "react-router-dom";
 import "../instructor.css";
-import axios from 'axios'
-import ReactTable from "react-table"; 
-import 'react-table/react-table.css'
 
 
 function AdminLandingPage() {
