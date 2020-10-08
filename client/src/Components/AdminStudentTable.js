@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import { deleteStudent } from '../actions'
 import "../instructor.css";
 
-
 export default function AdminStudentTable(props) {
   const { allStudents } = props;
   console.log(allStudents);
@@ -21,9 +20,8 @@ export default function AdminStudentTable(props) {
     <div>
     {allStudents ? (
       allStudents.map((student) => (
-        <Table key={student.id} id="myTable">
-          <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.."></input>
-          <thead> 
+        <Table key={student.id}>
+          <thead>
             <tr>
               <th>First Name</th>
               <th>Last Name</th>
@@ -58,25 +56,4 @@ export default function AdminStudentTable(props) {
     )}
   </div>
   );
-}
-
-function myFunction() {
-  var input, filter, table, tr, td, i, txtValue;
-  input = document.getElementById("myInput");
-  filter = input.value.toUpperCase();
-  table = document.getElementById("myTable");
-  tr = table.getElementsByTagName("tr");
-
-  // loop through table rows and hide those that do not match the search query
-  for (i = 0; i < tr.length; i++) {
-    td = tr[i].getElementsByTagName("td")[0];
-    if (td) {
-      txtValue = td.textContent || td.innerText;
-      if (txtValue.toUpperCase().indexOf(filter) > -1) {
-        tr[i].style.display = "";
-      } else {
-        tr[i].style.display = "none";
-      }
-    }
-  }
 }
