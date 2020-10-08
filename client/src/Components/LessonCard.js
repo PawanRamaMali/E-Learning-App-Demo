@@ -22,7 +22,8 @@ export default function LessonCard(props) {
 
 
    const urlGetter = (e) => {
-    console.log(e.currentTarget)
+    console.log(e.currentTarget.getAttribute("url"))
+    let url = e.currentTarget.getAttribute("url")
     dispatch(getUrl(url))
       
 }
