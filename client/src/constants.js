@@ -8,6 +8,11 @@ export const LOGOUT_REQUEST = 'LOGOUT_REQUEST';
 export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
 export const LOGOUT_FAILURE = 'LOGOUT_FAILURE';
 
+//defining Add Course Actions
+export const ADD_COURSE_REQUEST = 'ADD_COURSE_REQUEST';
+export const ADD_COURSE_SUCCESS = 'ADD_COURSE_SUCCESS';
+export const ADD_COURSE_FAILURE = 'ADD_COURSE_FAILURE';
+
 //defining get Courses Actions
 export const GET_COURSES_REQUEST = 'GET_COURSES_REQUEST';
 export const GET_COURSES_SUCCESS = 'GET_COURSES_SUCCESS';
@@ -39,7 +44,7 @@ export const GET_ALL_STUDENTS_SUCCESS = 'GET_ALL_STUDENTS_SUCCESS';
 export const GET_ALL_STUDENTS_FAILURE = 'GET_ALL_STUDENTS_FAILURE';
 
 //defining roster actions
-//defining get lessons Actions
 export const GET_ROSTER_REQUEST = 'GET_ROSTER_REQUEST';
 export const GET_ROSTER_SUCCESS = 'GET_ROSTER_SUCCESS';
 export const GET_ROSTER_FAILURE = 'GET_ROSTER_FAILURE';
+
