@@ -1,34 +1,67 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from "react";
-import { getCourses } from '../actions';
-
+import { useHistory } from "react-router-dom";
+import { 
+    getCourses,
+    addCourseAttempt,
+    addCourseSuccess,
+    addCourseFailed
+ } from '../actions';
+import {Jumbotron, Button } from "react-bootstrap"
 import CourseCard from '../Components/CourseCard';
 import AppNavbar from '../Components/AppNavbar';
-
+import AddCourseModal from '../Components/AddCourseModal';
 
 export default function InsCoursePage() {
     const dispatch = useDispatch();
-
-    const [courses, error, authObj] = useSelector((gState) => [
+    //importing global state
+    const [isAuthenticatedUser, authObj, isNewCourseAdded, courses, error] = useSelector((gState) => [
+        gState.isAuthenticatedUser,
+        gState.authObj, 
+        gState.isNewCourseAdded,
         gState.courses,
-        gState.error,
-        gState.authObj
+        gState.error 
+    ]);
 
-      ]);
+    const [showCourseModal, setShowCourseModal] = useState(false);
 
     useEffect(() => {
         dispatch(getCourses(authObj.accessToken));
     },[]);
 
     
+    //using useEffect to track isNewCourseAdded changes
+    //and show add student modal if successfully logged in
+    // useEffect( () => {
+    //     if (isNewCourseAdded){
+    //         setShowCourseModal(false);
+    //     }
+    //  //if NewCourse changes, apply this effect  
+    // }, [isNewCourseAdded]);
 
-    console.log(authObj.accessToken)
-    console.log(courses)
+    //useHistory hook to redirect to desired routes
+    const history = useHistory();
+    //redirecting function
+    const redirectRouter = (routePath) => {
+        history.push(routePath);
+    }
 
     return (
         <div>
             <AppNavbar />
+            <Jumbotron className="InsLanding-background portal-sublanding-background">
+                <div className="InsLanding-content homepage-content">
+                    <h1 className="">POD | Instructor Courses</h1>
+                    <p>
+                        View and manage your Courses and Lessons!
+                    </p>
+                    <p className="btngroup">
+                        <Button className="InsBtn primary-button" onClick={() => {setShowCourseModal(true)}}>ADD COURSE</Button>
+                        <Button className="InsBtn Dashboard primary-button" onClick={() => redirectRouter("/instructor")}>VIEW DASHBOARD</Button>
+                        <AddCourseModal show={showCourseModal} onHide={() => setShowCourseModal(false)} />
+                    </p>
+                </div>
+            </Jumbotron>
             <CourseCard courses={ courses.data } />
         </div>
     )
