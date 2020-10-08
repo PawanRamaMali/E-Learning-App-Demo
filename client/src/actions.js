@@ -9,7 +9,8 @@ import {
   SET_COURSE_IDREQ , SET_COURSE_IDSUCCESS , SET_COURSE_IDFAIL,
   GET_ALL_INSTRUCTORS_REQUEST, GET_ALL_INSTRUCTORS_SUCCESS, GET_ALL_INSTRUCTORS_FAILURE,
   GET_ALL_STUDENTS_REQUEST, GET_ALL_STUDENTS_SUCCESS, GET_ALL_STUDENTS_FAILURE,
-  GET_ROSTER_REQUEST, GET_ROSTER_SUCCESS, GET_ROSTER_FAILURE
+  GET_ROSTER_REQUEST, GET_ROSTER_SUCCESS, GET_ROSTER_FAILURE,
+  GET_URL_REQUEST, GET_URL_SUCCESS, GET_URL_FAILURE
 } from "./constants";
 import { createSession, destroySession, validateSession } from "./utils/sessions";
 import axios from "axios";
@@ -422,5 +423,57 @@ export const addCourseAttempt = (data, accessToken) => {
       }
   }
   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  const getUrlSuccess = (url) => {
+ 
+    return {
+      type: GET_URL_SUCCESS,
+      payload: url
+    }
+  }
+
+  const getUrlfailure = (error) => {
+ 
+    return {
+      type: GET_URL_FAILURE,
+      payload: error
+    }
+  }
+
+  export const getUrl = (url) => {
+    return(dispatch, getState) => {
+      if(url){
+        dispatch(getUrlSuccess(url))
+      }else {
+        dispatch(getUrlfailure())
+      }
+    }
+  }
+
+
+
 
 

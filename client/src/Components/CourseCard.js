@@ -23,6 +23,7 @@ export default function CourseCard(props) {
 
    const viewLessons = (e) => {
     let course_Id = e.currentTarget.id
+    console.log(e)
     dispatch(setCourseId(course_Id))
       
 }
