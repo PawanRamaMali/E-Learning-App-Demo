@@ -211,7 +211,7 @@ export const getAllInstructors = (token) => {
   return (dispatch, getState) => {
     dispatch({type: GET_ALL_INSTRUCTORS_REQUEST});
     axios
-      .get("/api/user/admin/view/instructors", {
+      .get("/api/user/admin/instructors", {
         headers: {
           'x-access-token': token
         }
@@ -244,7 +244,7 @@ export const getAllStudents = (token) => {
   return (dispatch, getState) => {
     dispatch({type: GET_ALL_STUDENTS_REQUEST});
     axios
-      .get("/api/user/admin/view/students", {
+      .get("/api/user/admin/students", {
         headers: {
           'x-access-token': token
         }

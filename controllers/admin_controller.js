@@ -46,7 +46,7 @@ exports.deleteInstructors = (req, res) => {
 
       db.User.destroy({
           where: {
-            id: req.body.id
+            id: req.query.id
           },
         attributes : ["id", "first_name", "last_name", "email", "confirmed", "active"],
         include: [{
@@ -106,7 +106,7 @@ exports.deleteStudent = (req, res) => {
 
       db.User.destroy({
           where: {
-            id: req.body.id
+            id: req.query.id
           },
         attributes : ["id", "first_name", "last_name", "email", "confirmed", "active"],
         include: [{
