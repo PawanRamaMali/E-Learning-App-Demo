@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom';
 import AppNavbar from "../Components/AppNavbar";
 import StudentTable from "../Components/AdminStudentTable";
-import { getAllStudents } from '../actions'
+import { getAllStudents, deleteStudent } from '../actions'
 import "../instructor.css";
 
 export default function AdminStudentList() {
@@ -21,6 +21,11 @@ export default function AdminStudentList() {
     useEffect(() => {
       dispatch(getAllStudents(authObj.accessToken))
     }, [])
+
+    // const handleDelete = (id) => (e) => {
+    //     e.preventDefault()
+    //     dispatch(deleteStudent(id))
+    // }
   
     // console.log(allStudents)
     // console.log(allStudents.data)

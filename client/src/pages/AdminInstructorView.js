@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 import AppNavbar from "../Components/AppNavbar";
 import InstructorTable from "../Components/AdminInstructorTable";
 import "../instructor.css";
-import { getAllInstructors } from '../actions'
+import { getAllInstructors, deleteInstructor } from '../actions'
 import { useDispatch, useSelector } from 'react-redux'
 
 export default function AdminInstructorList() {
@@ -22,6 +22,11 @@ export default function AdminInstructorList() {
     useEffect(() => {
       dispatch(getAllInstructors(authObj.accessToken))
     }, [])
+
+    // const handleDelete = (id) => (e) => {
+    //     e.preventDefault()
+    //     dispatch(deleteInstructor(id))
+    // }
   
     // console.log(allInstructors)
     console.log(allInstructors.data)

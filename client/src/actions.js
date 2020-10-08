@@ -9,7 +9,9 @@ import {
   SET_COURSE_IDREQ , SET_COURSE_IDSUCCESS , SET_COURSE_IDFAIL,
   GET_ALL_INSTRUCTORS_REQUEST, GET_ALL_INSTRUCTORS_SUCCESS, GET_ALL_INSTRUCTORS_FAILURE,
   GET_ALL_STUDENTS_REQUEST, GET_ALL_STUDENTS_SUCCESS, GET_ALL_STUDENTS_FAILURE,
-  GET_ROSTER_REQUEST, GET_ROSTER_SUCCESS, GET_ROSTER_FAILURE
+  GET_ROSTER_REQUEST, GET_ROSTER_SUCCESS, GET_ROSTER_FAILURE,
+  DELETE_INSTRUCTOR_REQUEST, DELETE_INSTRUCTOR_SUCCESS, DELETE_INSTRUCTOR_FAILURE,
+  DELETE_STUDENT_REQUEST, DELETE_STUDENT_SUCCESS, DELETE_STUDENT_FAILURE
 } from "./constants";
 import { createSession, destroySession, validateSession } from "./utils/sessions";
 import axios from "axios";
@@ -103,10 +105,10 @@ export const getStuCourses = (token) => {
         }
       })
       .then((response) => {
-        console.log(response)
+        // console.log(response)
         let stuResponse = response.data.data.Courses
         dispatch(getCourseSuccess(stuResponse))
-        console.log(response)
+        // console.log(response)
 
       })
       .catch((error) => {
@@ -161,7 +163,7 @@ export const getStuLessons = (token, id) => {
         }
       })
       .then((response) => {
-        console.log(response)
+        // console.log(response)
         dispatch(getLessonsSuccess(response.data))
         
       })
@@ -222,7 +224,7 @@ export const getStuRoster = (token) => {
     })
     .then((response) => {
       let roster = response.data.data
-      console.log(response.data)
+      // console.log(response.data)
       dispatch(getRosterSuccess(roster))
 
       
@@ -419,8 +421,74 @@ export const addCourseAttempt = (data, accessToken) => {
         .catch( (error) => {
           dispatch(addCourseFailed(error.message));
         });
+
+        
       }
   }
+
+///Action to delete instructor
+const deleteInstructorSuccess = (id) => ({
+  type: DELETE_INSTRUCTOR_SUCCESS,
+  payload: id
+})
+//When Request from API fails
+const deleteInstructorFailure = (error) => ({
+  type: DELETE_INSTRUCTOR_FAILURE,
+  payload: error,
+})
+
+//view instructor Api request for admin
+export const deleteInstructor = (token, id) => {
+ 
+  return (dispatch, getState) => {
+    dispatch({type: DELETE_INSTRUCTOR_REQUEST});
+    axios
+      .get("/api/user/admin/instructor" + id, {
+        headers: {
+          'x-access-token': token
+        }
+      })
+      .then((response) => {
+        dispatch(deleteInstructorSuccess(response.data))
+     
+      })
+      .catch((error) => {
+        dispatch(deleteInstructorFailure(error.message))
+      })
+  }
+}
+
+///Action to delete student
+const deleteStudentSuccess = (id) => ({
+  type: DELETE_STUDENT_SUCCESS,
+  payload: IDBDatabase
+})
+//When Request from API fails
+const deleteStudentFailure = (error) => ({
+  type: DELETE_STUDENT_FAILURE,
+  payload: error,
+})
+
+//view instructor Api request for admin
+export const deleteStudent = (token, id) => {
+ 
+  return (dispatch, getState) => {
+    dispatch({type: DELETE_STUDENT_REQUEST});
+    axios
+      .get("/api/user/admin/student" + id, {
+        headers: {
+          'x-access-token': token
+        }
+      })
+      .then((response) => {
+        dispatch(deleteStudentSuccess(response.data))
+     
+      })
+      .catch((error) => {
+        dispatch(deleteStudentFailure(error.message))
+      })
+  }
+}
   
 
 

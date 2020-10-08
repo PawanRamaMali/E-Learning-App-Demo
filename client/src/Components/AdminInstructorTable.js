@@ -1,11 +1,18 @@
 import React, { useState } from "react";
 import { Table, Button } from "react-bootstrap";
 import { useDispatch, useSelector } from 'react-redux'
+import { deleteInstructor } from '../actions'
 import "../instructor.css";
 
 export default function AdminInstructorTable(props) {
   const { allInstructors } = props;
   console.log(allInstructors);
+
+  const dispatch = useDispatch()
+
+  function handelDelete(id) {
+    dispatch(deleteInstructor(id))
+  }
 
 
   return (
@@ -38,7 +45,7 @@ export default function AdminInstructorTable(props) {
                 <Button>Deactivate</Button>
               </td>
               <td>
-                <Button id={ instructor.id }>Delete</Button>
+                <Button id={ instructor.id } onClick={() => handelDelete(instructor.id)}>Delete</Button>
               </td>
             </tr>
           </tbody>
