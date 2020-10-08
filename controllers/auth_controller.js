@@ -114,9 +114,8 @@ exports.signin = (req, res) => {
           });
       }
       //if user exist and password is valid, return access token
-      const jwToken = jwt.sign({ id: user.id }, SECRET, {
-        expiresIn: 86400, // expires in 24 hours
-      });
+      const jwToken = generateJWToken({id: user.id}, 86400);
+      
       //getting user role
       user.getRoles().then((role) => {
         res.status(200).send({ auth: true, role: role[0].name, fname: user.first_name, accessToken: jwToken });

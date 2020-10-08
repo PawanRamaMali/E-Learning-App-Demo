@@ -10,6 +10,9 @@
     justify-content: center;
     color: white;
 }
+.portal-sublanding-background {
+    height: 50vh;
+}
 
 .insBtn{
     display: flex;

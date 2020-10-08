@@ -1,8 +1,15 @@
-
-import { GET_COURSES_REQUEST, GET_COURSES_SUCCESS, GET_COURSES_FAILURE } from "./constants"
-import { GET_LESSONS_REQUEST, GET_LESSONS_SUCCESS, GET_LESSONS_FAILURE } from "./constants"
-import { SET_COURSE_IDREQ , SET_COURSE_IDSUCCESS , SET_COURSE_IDFAIL } from "./constants"
-import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT_REQUEST, LOGOUT_SUCCESS, LOGOUT_FAILURE } from "./constants";
+import { 
+  LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE, 
+  LOGOUT_REQUEST, LOGOUT_SUCCESS,LOGOUT_FAILURE,
+  ADD_STUDENT_REQUEST, ADD_STUDENT_SUCCESS, ADD_STUDENT_FAILURE,
+  ADD_COURSE_REQUEST, ADD_COURSE_SUCCESS, ADD_COURSE_FAILURE,
+  GET_COURSES_REQUEST, GET_COURSES_SUCCESS, GET_COURSES_FAILURE,
+  GET_LESSONS_REQUEST, GET_LESSONS_SUCCESS, GET_LESSONS_FAILURE,
+  GET_ROSTER_REQUEST, GET_ROSTER_SUCCESS, GET_ROSTER_FAILURE,
+  SET_COURSE_IDREQ , SET_COURSE_IDSUCCESS , SET_COURSE_IDFAIL,
+  GET_ALL_INSTRUCTORS_REQUEST, GET_ALL_INSTRUCTORS_SUCCESS, GET_ALL_INSTRUCTORS_FAILURE,
+  GET_ALL_STUDENTS_REQUEST, GET_ALL_STUDENTS_SUCCESS, GET_ALL_STUDENTS_FAILURE
+} from "./constants";
 import { validateSession, getSessionAuthObj } from "./utils/sessions";
 
 export const initialState = {
@@ -11,9 +18,17 @@ export const initialState = {
   isLoggingOut: false,
   isLoggedOutSuccess: false,
   authObj: getSessionAuthObj(),
+  isNewCourseAdded: false,
+  courseObj: {},
   courses: [],
-  lessons: [],
   courseId: "",
+  allInstructors: [],
+  allStudents: [],
+  lessons: [],
+  isAddingNewUser: false,
+  isNewUserAdded: false,
+  stuObj: {},
+  stuRoster: [],
   error: ""
 };
 
@@ -42,6 +57,23 @@ export default (state = initialState, action) => {
         error: action.payload
       };
 
+    case ADD_COURSE_REQUEST:
+        return {...state, isNewCourseAdded: false} 
+    case ADD_COURSE_SUCCESS:
+        return { 
+          ...state, 
+          isNewCourseAdded: true,
+          courseObj: action.payload,
+          error: ""
+        };
+    case ADD_COURSE_FAILURE:
+      return { 
+        ...state, 
+        isNewCourseAdded: false,
+        courseObj: {},
+        error: action.payload
+      };
+
     case GET_COURSES_REQUEST:
         return {...state, courses: [], error: null}
     case GET_COURSES_SUCCESS:
@@ -64,6 +96,26 @@ export default (state = initialState, action) => {
     case SET_COURSE_IDFAIL:
           return {...state, error: action.payload}
 
+    case GET_ALL_INSTRUCTORS_REQUEST:
+          return {...state, allInstructors: [], error: null}
+    case GET_ALL_INSTRUCTORS_SUCCESS:
+          return {...state, allInstructors: action.payload, error: null}
+    case GET_ALL_INSTRUCTORS_FAILURE:
+          return {...state, error: action.payload}
+
+    case GET_ALL_STUDENTS_REQUEST:
+          return {...state, allStudents: [], error: null}
+    case GET_ALL_STUDENTS_SUCCESS:
+          return {...state, allStudents: action.payload, error: null}
+    case GET_ALL_STUDENTS_FAILURE:
+          return {...state, error: action.payload}
+
+    case GET_ROSTER_REQUEST:
+            return {...state, stuRoster: [], error: null}
+    case GET_ROSTER_SUCCESS:
+            return {...state, stuRoster: action.payload, error: null}
+    case GET_ROSTER_FAILURE:
+            return {...state, error: action.payload}
 
     case LOGOUT_REQUEST:
       return { 
@@ -90,6 +142,26 @@ export default (state = initialState, action) => {
         authObj: {},
         courses: [],
         error: action.payload,
+      };
+
+    case ADD_STUDENT_REQUEST:
+      return {
+        ...state,
+        isNewUserAdded: false 
+      }
+    case ADD_STUDENT_SUCCESS:
+      return { 
+        ...state, 
+        isNewUserAdded: true,
+        stuObj: action.payload,
+        error: ""
+      };
+    case ADD_STUDENT_FAILURE:
+      return { 
+        ...state, 
+        isNewUserAdded: false,
+        stuObj: {},
+        error: action.payload
       };
     default:
       return state;
