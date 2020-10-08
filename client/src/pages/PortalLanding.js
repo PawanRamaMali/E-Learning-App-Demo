@@ -5,7 +5,6 @@ import AppNavbar from "../Components/AppNavbar";
 import { useHistory } from "react-router-dom";
 import "../instructor.css";
 
-
 export default function InsLanding() {
     const [stuList, setStudent] = useState();
     const [coursesList, setCourses] = useState(false);
@@ -49,7 +48,7 @@ export default function InsLanding() {
                     All your Courses in one place!
                 </p>
                 <p tag="div" className="btngroup">
-                    <Button className="MyCourses" onClick={redirectRouter}>My Courses</Button>
+                    <Button className="MyCourses" onClick={() => redirectRouter("/student/courses")}>My Courses</Button>
                     {/* <Button className="InsBtn AddCourses primary-button" onClick={redirectRouter}>MANAGE COURSES</Button> */}
                     {/* <Button className="InsBtn Dashboard primary-button" onClick={handleInstructorRoutes}>MANAGE CONTENT</Button> */}
                 </p>
@@ -59,8 +58,5 @@ export default function InsLanding() {
             
         </React.Fragment>
         
-        
-
-
     )
 }
