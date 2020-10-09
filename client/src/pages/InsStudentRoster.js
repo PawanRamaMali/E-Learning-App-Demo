@@ -12,12 +12,10 @@ export default function InsStudentRoster() {
     const dispatch = useDispatch();
     const [showStudentModal, setShowStudentModal] = useState(false);
     //importing global state
-    const [isAuthenticatedUser, authObj, isNewUserAdded, stuRoster, error] = useSelector((gState) => [
-        gState.isAuthenticatedUser,
+    const [authObj, isNewUserAdded, stuRoster] = useSelector((gState) => [
         gState.authObj, 
         gState.isNewUserAdded,
         gState.stuRoster,
-        gState.error
         //added StuRoster and error///Samir
     ]);
    

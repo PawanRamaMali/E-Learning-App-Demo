@@ -1,13 +1,14 @@
 //Verify SignIn & Role verification Middleware functions
 //====================================
 const jwt = require("jsonwebtoken");
-
 const bcrypt = require("bcryptjs"); //to enconde password sent by user and compare with value in DB
 //calling in models and jwt secret to verify if sign in information already exists
 // const crypto = require("crypto")
 const db = require("../models/index");
 const config = require("../config/config.json"); // only in case there is no .env defined with SECRET
-const nodemailer = require("nodemailer"); //pkg for sending registration email
+const tempPass = require("../utils/temp_pass_gen"); // function tp generate temp password
+const emailTemplates = require("../utils/email_templates");
+const mailer = require("../utils/app_mailer");
 const User = db.User;
 const Role = db.Role;
 const Course = db.Course;
@@ -32,7 +33,7 @@ exports.signup = (req, res) => {
     first_name: req.body.first_name.toUpperCase(),
     last_name: req.body.last_name.toUpperCase(),
     email: req.body.email.toUpperCase(),
-    password: bcrypt.hashSync(req.body.password, 10),
+    password: bcrypt.hashSync(tempPass(), 10),
     confirmed: false,
   })
     .then((user) => {
@@ -50,57 +51,23 @@ exports.signup = (req, res) => {
                 id: req.body.crsid
               }
             }).then((course) => {
-              user.setCourses(course).then( () => {
-                //Send registration email.
-                //output string html
-                const emailHtml = `
-                <h3>Hello, ${req.body.first_name.toUpperCase()}</h3>
-                <p>One of your Instructors has created an account for our E-Learning App: POD.</p>
-                <p>Below you can find your account details:</p>
-                <ul>
-                  <li>Email: ${req.body.email}</li>
-                  <li>Password: ${req.body.password}</li>
-                </ul>
-                <p>Link to the Learning App: <a href="http://localhost:8000"></a></p>
-                <h4>Happy Learning!</h4>
-                <p>POD Learning App Support Team</p>
-                `;
-                //NODE MAILER SECTION
-                //===========================
-                // create reusable transporter object using the SMTP transport
-                let transporter = nodemailer.createTransport({
-                  host: "gator4144.hostgator.com",
-                  port: 465,
-                  secure: true, 
-                  auth: {
-                    user: "test@nxtlevelbeauty.com", // user
-                    pass: process.env.EMAIL_PASS || config.development.secret, // password
-                  },
-                  tls: {
-                    rejectUnauthorized: false
-                  }
+              user.setCourses(course).then(async () => {
+                //Define registration email template
+                const regEmailTemplate = emailTemplates.registration_template({
+                  first_name: req.body.first_name,
+                  email: req.body.email,
+                  token: generateJWToken({
+                          id: user.dataValues.id,
+                          fname: req.body.first_name
+                          }, 86400)
                 });
-
-                //setup email data
-                let mailOptions = {
-                  from: '"POD E-Learning" <test@nxtlevelbeauty.com>', // sender address
-                  to: req.body.email, // list of receivers
-                  subject: "Welcome to POD E-Learning", // Subject line
-                  text: "Welcome to POD E-Learning", // plain text body
-                  html: emailHtml, // html body
-                };
-
-                // send mail with defined transport object
-                transporter.sendMail(mailOptions, (error, info) => {
-                  if(error) return console.log(error);
-                  console.log("Message sent: %s", info.messageId);
-                  // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
-                  res.status(200).send("User registered successfully!");
-                });
-                //===========================
+                //send email
+                const mailerResponse = await mailer(req.body.email, regEmailTemplate);
+                if(!mailerResponse.sent) {res.status(500).send("Error sending registration email")}
+                else {res.status(200).send("User registered successfully!");}
               });
-              })
             })
+          })
         })
         .catch((err) => {
           res.status(500).send("Error -> " + err);
@@ -147,9 +114,8 @@ exports.signin = (req, res) => {
           });
       }
       //if user exist and password is valid, return access token
-      const jwToken = jwt.sign({ id: user.id }, SECRET, {
-        expiresIn: 86400, // expires in 24 hours
-      });
+      const jwToken = generateJWToken({id: user.id}, 86400);
+      
       //getting user role
       user.getRoles().then((role) => {
         res.status(200).send({ auth: true, role: role[0].name, fname: user.first_name, accessToken: jwToken });
@@ -200,5 +166,16 @@ exports.userContent = (req, res) => {
 }
 
 exports.tokenValidation = (req, res) => {
-  if (req.userId) res.status(200).json({"auth": true});
+  if (req.userId) res.status(200).json({"auth": true, "userId": req.userId});
 } 
+
+/**
+ * jwToken Generator Function
+ * Receives Payload as object and
+ * expiration time in seconds
+ */
+const generateJWToken = (payload, expTime) => {
+  return jwt.sign(payload, SECRET, {
+    expiresIn: expTime,
+  });
+}
