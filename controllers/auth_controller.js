@@ -166,7 +166,7 @@ exports.userContent = (req, res) => {
 }
 
 exports.tokenValidation = (req, res) => {
-  if (req.userId) res.status(200).json({"auth": true});
+  if (req.userId) res.status(200).json({"auth": true, "userId": req.userId});
 } 
 
 /**
