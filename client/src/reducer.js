@@ -10,7 +10,8 @@ import {
   GET_ALL_INSTRUCTORS_REQUEST, GET_ALL_INSTRUCTORS_SUCCESS, GET_ALL_INSTRUCTORS_FAILURE,
   GET_ALL_STUDENTS_REQUEST, GET_ALL_STUDENTS_SUCCESS, GET_ALL_STUDENTS_FAILURE,
   DELETE_INSTRUCTOR_REQUEST, DELETE_INSTRUCTOR_SUCCESS, DELETE_INSTRUCTOR_FAILURE,
-  DELETE_STUDENT_REQUEST, DELETE_STUDENT_SUCCESS, DELETE_STUDENT_FAILURE
+  DELETE_STUDENT_REQUEST, DELETE_STUDENT_SUCCESS, DELETE_STUDENT_FAILURE,
+  GET_URL_REQUEST, GET_URL_SUCCESS, GET_URL_FAILURE
 } from "./constants";
 import { validateSession, getSessionAuthObj } from "./utils/sessions";
 
@@ -31,6 +32,7 @@ export const initialState = {
   isNewUserAdded: false,
   stuObj: {},
   stuRoster: [],
+  url: "",
   error: ""
 };
 
@@ -165,7 +167,14 @@ export default (state = initialState, action) => {
         error: action.payload
       };
 
-    case DELETE_INSTRUCTOR_REQUEST:
+    case GET_URL_REQUEST:
+       return {...state, url: '', error:null}
+    case GET_URL_SUCCESS:
+       return {...state, url: action.payload, error:null}
+    case GET_URL_FAILURE:
+       return {...state, error: action.payload}
+
+       case DELETE_INSTRUCTOR_REQUEST:
         // return {...state, allInstructors: [], error: null}
         // const allInstructorArray = Object.keys(allInstructors)
         

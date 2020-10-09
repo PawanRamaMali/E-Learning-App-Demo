@@ -11,7 +11,8 @@ import {
   GET_ALL_STUDENTS_REQUEST, GET_ALL_STUDENTS_SUCCESS, GET_ALL_STUDENTS_FAILURE,
   GET_ROSTER_REQUEST, GET_ROSTER_SUCCESS, GET_ROSTER_FAILURE,
   DELETE_INSTRUCTOR_REQUEST, DELETE_INSTRUCTOR_SUCCESS, DELETE_INSTRUCTOR_FAILURE,
-  DELETE_STUDENT_REQUEST, DELETE_STUDENT_SUCCESS, DELETE_STUDENT_FAILURE
+  DELETE_STUDENT_REQUEST, DELETE_STUDENT_SUCCESS, DELETE_STUDENT_FAILURE,
+  GET_URL_REQUEST, GET_URL_SUCCESS, GET_URL_FAILURE
 } from "./constants";
 import { createSession, destroySession, validateSession } from "./utils/sessions";
 import axios from "axios";
@@ -490,5 +491,33 @@ export const deleteStudent = (token, id) => {
   }
 }
   
+  const getUrlSuccess = (url) => {
+ 
+    return {
+      type: GET_URL_SUCCESS,
+      payload: url
+    }
+  }
+
+  const getUrlfailure = (error) => {
+ 
+    return {
+      type: GET_URL_FAILURE,
+      payload: error
+    }
+  }
+
+  export const getUrl = (url) => {
+    return(dispatch, getState) => {
+      if(url){
+        dispatch(getUrlSuccess(url))
+      }else {
+        dispatch(getUrlfailure())
+      }
+    }
+  }
+
+
+
 
 
