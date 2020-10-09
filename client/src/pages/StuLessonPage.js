@@ -10,10 +10,9 @@ import { useDispatch, useSelector } from 'react-redux';
 
 export default function StuLessonPage() {
     const dispatch = useDispatch()
-    const [courseId, lessons, error, authObj, url] = useSelector((gState) => [
+    const [courseId, lessons, authObj, url] = useSelector((gState) => [
         gState.courseId,
         gState.lessons,
-        gState.error,
         gState.authObj,
         gState.url
 
