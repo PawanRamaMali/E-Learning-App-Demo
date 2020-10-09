@@ -1,7 +1,6 @@
 import React from 'react'
-import Card from "react-bootstrap/Card"
+import {Card, Button, CardGroup} from "react-bootstrap"
 import {useEffect, useState} from "react"
-import Button from "react-bootstrap/Button"
 import { Redirect, useHistory } from "react-router-dom"
 import { useDispatch, useSelector } from 'react-redux'
 export default function LessonCard(props) {
@@ -18,19 +17,16 @@ export default function LessonCard(props) {
         history.push(path)
     }
     
-
-
     return (
-        <div>
-            {lessons? (
+        <CardGroup className="card-container">
+            {lessons ? (
                     lessons.map((lesson) => (
-                        <Card key={ lesson.id } style={{ width: '18rem' }}>
+                        <Card key={ lesson.id } className="lesson-card">
                             <Card.Img variant="top" src="" />
                             <Card.Body>
                                 <Card.Title>{lesson.name}</Card.Title>
                                 <Card.Text>
-                                 Some quick example text to build on the card title and make up the bulk of
-                                 the card's content.
+                                {lesson.description}
                                 </Card.Text>
                                 <Button variant="primary" url={lesson.url} onClick={(e) => videoRouter(e.currentTarget.url)}>Watch Video</Button>{" "}
                                  {authObj.role === "INSTRUCTOR" ? (
@@ -38,17 +34,14 @@ export default function LessonCard(props) {
                                  ):(<p></p>)}
                                 
                             </Card.Body>
-                    </Card>
+                        </Card>
                     )
         
                     )):(<p></p>)
                     
             }
 
-
-
-
-        </div>
+        </CardGroup>
     )
 
 }

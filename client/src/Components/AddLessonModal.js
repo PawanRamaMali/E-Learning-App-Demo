@@ -19,10 +19,9 @@ function AddLessonModal(props) {
   });
 
   //importing global state
-  const [isAuthenticatedUser, authObj, lessonObj,error] = useSelector((gState) => [
+  const [isAuthenticatedUser, authObj, error] = useSelector((gState) => [
     gState.isAuthenticatedUser,
     gState.authObj,
-    gState.lessonObj,
     gState.error
    
   ]);
@@ -37,7 +36,7 @@ function AddLessonModal(props) {
     currState[name] = value;
     //update current State backup
     setLessonData(currState);
-    // console.log("This is what we entered in form", currState)
+    console.log("This is what we entered in form", currState)
   }
 
   //handleSubmit function to send student data
@@ -75,14 +74,27 @@ function AddLessonModal(props) {
             <Form noValidate validated={validated}>
                 <Form.Group className="lesson-name" >
                     <Form.Control id="lessonName" type="text" placeholder="Lesson Name" 
-                        name="lesson_name"
+                        name="name"
                         value={lessonData.name}
                         onChange={handleInputChange}
                         required />
                 </Form.Group>
                 <Form.Group className="lesson-description">
-                    <Form.Label>Enter Lesson Description</Form.Label>
-                    <Form.Control as="textarea" rows="3" />
+                    {/* <Form.Label>Enter Lesson Description</Form.Label> */}
+                    <Form.Control 
+                        name="description"
+                        value={lessonData.description}
+                        as="textarea" 
+                        rows="3" 
+                        placeholder="Enter Lesson Description"
+                        onChange={handleInputChange}/>
+                </Form.Group>
+                <Form.Group className="lesson-url" >
+                    <Form.Control id="lessonUrl" type="text" placeholder="Lesson URL" 
+                        name="url"
+                        value={lessonData.url}
+                        onChange={handleInputChange}
+                        required />
                 </Form.Group>
                 <Button className="primary-button add-lesson" onClick={ handleSubmit } >Add Lesson</Button>
             </Form>

@@ -54,3 +54,13 @@
   padding: 80px 0 0 0;
   text-align: center;
 }
+
+.card-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.lesson-card {
+  width: 18rem;
+}

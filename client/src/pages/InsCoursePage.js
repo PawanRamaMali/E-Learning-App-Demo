@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from "react-router-dom";
 import {getCourses} from '../actions';
-import {Jumbotron, Button } from "react-bootstrap";
+import {Jumbotron, Button, CardGroup } from "react-bootstrap";
 import CourseCard from '../Components/CourseCard';
 import AppNavbar from '../Components/AppNavbar';
 import AddCourseModal from '../Components/AddCourseModal';
@@ -30,6 +30,7 @@ export default function InsCoursePage(props) {
     const redirectRouter = (routePath) => {
         history.push(routePath);
     }
+
 
     return (
         <div>

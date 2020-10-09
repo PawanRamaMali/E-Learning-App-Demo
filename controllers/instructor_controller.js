@@ -184,7 +184,7 @@ exports.updLesson = (req, res) => {
     //logging into console in dev env
     console.log(
       `${
-        process.env.APP_ENV === "developement"
+        process.env.APP_ENV === "development"
           ? "===== Delete Lesson ===="
           : ""
       }`
@@ -196,7 +196,7 @@ exports.updLesson = (req, res) => {
       }
     }).then((lesson) => {
       if (lesson) {
-        res.status(200).send("Lesson Delteted")
+        res.status(200).send("Lesson Deleted")
       }
     }).catch((err) => {
       res.status(500).send(`Error deleting lesson -> ${err}`)
@@ -209,7 +209,7 @@ exports.updLesson = (req, res) => {
     //logging into console in dev env
     console.log(
       `${
-        process.env.APP_ENV === "developement"
+        process.env.APP_ENV === "development"
           ? "===== Delete Course ===="
           : ""
       }`
