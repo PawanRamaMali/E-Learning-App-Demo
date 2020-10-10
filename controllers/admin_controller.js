@@ -29,10 +29,6 @@ exports.viewInstuctors = (req, res) => {
     })
 }
 
-// Activate instructor
-//==================================================
-
-
 // Delete Instructors
 //==================================================
 exports.deleteInstructors = (req, res) => {
@@ -46,7 +42,7 @@ exports.deleteInstructors = (req, res) => {
 
       db.User.destroy({
           where: {
-            id: req.body.id
+            id: req.query.id
           },
         attributes : ["id", "first_name", "last_name", "email", "confirmed", "active"],
         include: [{
@@ -106,7 +102,7 @@ exports.deleteStudent = (req, res) => {
 
       db.User.destroy({
           where: {
-            id: req.body.id
+            id: req.query.id
           },
         attributes : ["id", "first_name", "last_name", "email", "confirmed", "active"],
         include: [{
@@ -121,5 +117,66 @@ exports.deleteStudent = (req, res) => {
         }
     }).catch((err) => {
         res.status(500).send(`Error Retrieving Student information -> ${err}`)
+      })
+}
+
+
+// Activate User
+//==================================================
+exports.activateUser = (req, res) => {
+    console.log(
+        `${
+          process.env.APP_ENV === "developement"
+            ? "===== User Student ===="
+            : ""
+        }`
+      )
+
+      db.User.update({
+          active: true
+      },{
+          where: {
+              id: req.query.id,
+              active: false
+          }
+        })
+      .then((userData) => {
+        if (userData){
+            res.status(200).json({
+                "data": "User Activated"
+        })
+        }
+    }).catch((err) => {
+        res.status(500).send(`Error Activating User -> ${err}`)
+      })
+}
+
+// Dectivate User
+//==================================================
+exports.deactivateUser = (req, res) => {
+    console.log(
+        `${
+          process.env.APP_ENV === "developement"
+            ? "===== Deactivate User ===="
+            : ""
+        }`
+      )
+
+      db.User.update({
+          active: false
+      },{
+          where: {
+              id: req.query.id,
+              active: true
+          }
+        })
+      .then((userData) => {
+        if (userData){
+            res.status(200).json({
+                "data": "User Dectivated"
+        })
+        }
+    }).catch((err) => {
+        res.status(500).send(`Error Dectivating User -> ${err}`)
       })
 }

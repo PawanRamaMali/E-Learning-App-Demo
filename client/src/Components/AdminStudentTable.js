@@ -1,15 +1,13 @@
 import React from "react";
 import { Table, Button } from "react-bootstrap";
-// import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux';
+import { useTable, useSortBy } from 'react-table';
 import "../instructor.css";
 
 export default function AdminStudentTable(props) {
   const { allStudents } = props;
-  console.log(allStudents);
-
 
   return (
-
     <div>
     {allStudents ? (
       allStudents.map((student) => (
@@ -19,10 +17,11 @@ export default function AdminStudentTable(props) {
               <th>First Name</th>
               <th>Last Name</th>
               <th>Email</th>
-              <th>Date Created</th>
               <th>Activate</th>
               <th>Deactivate</th>
               <th>Delete</th>
+              <th>Active</th>
+              <th>ID</th>
             </tr>
           </thead>
           <tbody>
@@ -30,16 +29,17 @@ export default function AdminStudentTable(props) {
               <td>{student["first_name"]}</td>
               <td>{student["last_name"]}</td>
               <td>{student["email"]}</td>
-              <td>{student["createdAt"]}</td>
               <td>
-                <Button>Activate</Button>
+                <Button variant="success" value={student.active} onClick={props.handleActivate(student.id)}>Activate</Button>
               </td>
               <td>
-                <Button>Deactivate</Button>
+                <Button variant="secondary" value={student.active} onClick={props.handleDeactivate(student.id)}>Deactivate</Button>
               </td>
               <td>
-                <Button id={ student.id }>Delete</Button>
+                <Button id={ student.id } onClick={props.handleDelete(student.id)} variant="danger">Delete</Button>
               </td>
+              <td>{student.active}</td>
+              <td>{student.id}</td>
             </tr>
           </tbody>
         </Table>
