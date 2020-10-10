@@ -12,7 +12,8 @@ import {
   GET_ALL_STUDENTS_REQUEST, GET_ALL_STUDENTS_SUCCESS, GET_ALL_STUDENTS_FAILURE,
   GET_ROSTER_REQUEST, GET_ROSTER_SUCCESS, GET_ROSTER_FAILURE,
   PASSRESTOK_VALIDATION_REQUEST, PASSRESTOK_VALIDATION_SUCCESS, PASSRESTOK_VALIDATION_FAILURE,
-  GET_URL_REQUEST, GET_URL_SUCCESS, GET_URL_FAILURE
+  GET_URL_REQUEST, GET_URL_SUCCESS, GET_URL_FAILURE,
+  UPDATE_STUDENT_REQUEST, UPDATE_STUDENT_SUCCESS, UPDATE_STUDENT_FAILURE
 } from "./constants";
 import { createSession, destroySession, validateSession } from "./utils/sessions";
 import axios from "axios";
@@ -378,6 +379,7 @@ export const addStudentAttempt = (data, accessToken) => {
         });
       }
   }
+
 //action: Add_COURSE_FAILURE if backend call is unsuccessful
 const addCourseFailed = (error) => ({
   type:    ADD_COURSE_FAILURE,
@@ -541,6 +543,53 @@ export const validateResetPassToken = (tempToken) => {
         dispatch(getUrlfailure())
       }
     }
+  }
+
+  //action: Add_STUDENT_FAILURE if backend call is unsuccessful
+const updateStudentFailed = (error) => ({
+  type:    UPDATE_STUDENT_FAILURE,
+  isFetchingAuth: false,
+  isAuthenticatedUser: false,
+  payload: error,
+});
+
+//action: ADD_STUDENT_SUCCESS once backend call is successfull
+const updateStudentSuccess = (stuObj) => ({
+  type:    UPDATE_STUDENT_SUCCESS,
+  isFetchingAuth: false,
+  isAuthenticatedUser: true,
+  payload: stuObj,
+});
+
+//action: ADD_STUDENT_REQUEST to REST API
+export const updateStudentAttempt = (data, accessToken) => {
+    //function receives credentials
+    return (dispatch, getState) => {
+      //dispatch action to notify client 
+      //of add student request in progress
+      dispatch({ 
+          type: UPDATE_STUDENT_REQUEST, 
+          isUpdatingUser: true, 
+          isAuthenticatedUser: true 
+        });
+      //use axios to query REST api for add student.
+      axios
+        .post("/api/auth/signup", data, {
+          headers: {
+            "x-access-token": accessToken
+          }
+        })
+        .then( (response) => {
+          //if request is successful, persist a session and dispatch
+          //login success action
+          if(response.status === 200){
+            dispatch(addStudentSuccess(response.data));
+          }
+        })
+        .catch( (error) => {
+          dispatch(addStudentFailed(error.message));
+        });
+      }
   }
 
 

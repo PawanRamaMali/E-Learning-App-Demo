@@ -10,7 +10,9 @@ import {
   GET_ROSTER_REQUEST, GET_ROSTER_SUCCESS, GET_ROSTER_FAILURE,
   GET_ALL_INSTRUCTORS_REQUEST, GET_ALL_INSTRUCTORS_SUCCESS, GET_ALL_INSTRUCTORS_FAILURE,
   PASSRESTOK_VALIDATION_REQUEST, PASSRESTOK_VALIDATION_SUCCESS, PASSRESTOK_VALIDATION_FAILURE,
-  GET_ALL_STUDENTS_REQUEST, GET_ALL_STUDENTS_SUCCESS, GET_ALL_STUDENTS_FAILURE, GET_URL_REQUEST, GET_URL_SUCCESS, GET_URL_FAILURE
+  GET_ALL_STUDENTS_REQUEST, GET_ALL_STUDENTS_SUCCESS, GET_ALL_STUDENTS_FAILURE, 
+  GET_URL_REQUEST, GET_URL_SUCCESS, GET_URL_FAILURE,
+  UPDATE_STUDENT_REQUEST, UPDATE_STUDENT_SUCCESS, UPDATE_STUDENT_FAILURE
 } from "./constants";
 import { validateSession, getSessionAuthObj } from "./utils/sessions";
 
@@ -38,6 +40,7 @@ export const initialState = {
   isNewUserAdded: false,
   stuObj: {},
   stuRoster: [],
+  isUserUpdated: false,
   resPassUid: {},
   url: "",
   error: ""
@@ -225,8 +228,29 @@ export default (state = initialState, action) => {
     case GET_URL_SUCCESS:
        return {...state, url: action.payload, error:null}
     case GET_URL_FAILURE:
-       return {...state, error: action.payload}   
+       return {...state, error: action.payload} 
+    
+    case UPDATE_STUDENT_REQUEST:
+      return {
+        ...state,
+        isUserUpdated: false
+      }; 
+    case UPDATE_STUDENT_SUCCESS:
+      return { 
+        ...state, 
+        isUserUpdated: true,
+        stuObj: action.payload,
+        error: ""
+      };
+    case UPDATE_STUDENT_FAILURE:
+      return { 
+        ...state, 
+        isUserUpdated: false,
+        stuObj: {},
+        error: action.payload
+      };
     default:
       return state;
-  }
+  };
+  
 };

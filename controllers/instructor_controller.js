@@ -267,9 +267,9 @@ exports.addLesson = (req, res) => {
             : ""
         }`
       );
-    //using Course model to save information
+    //using Lesson model to save information
   db.Lesson.create({
-    name: req.body.lesson_name.toUpperCase(),
+    name: req.body.name.toUpperCase(),
     url: req.body.url.toUpperCase(),
     CourseId: req.body.course_id,
   })

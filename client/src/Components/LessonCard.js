@@ -38,10 +38,16 @@ export default function LessonCard(props) {
                                 <Card.Text>
                                 {lesson.description}
                                 </Card.Text>
-                                <Button className="primary-button" variant="primary" url={ lesson.url } onClick={(e) => {urlGetter(e) ; videoRouter("/student/courses/lessons")} }>Watch Video</Button>{" "}
-                                 {authObj.role === "INSTRUCTOR" ? (
-                                <Button variant="danger" id="delButton">Delete Lesson</Button>
-                                 ):(<p></p>)}
+                                <div>
+                                    {authObj.role === "STUDENT" ? (
+                                        <Button className="primary-button" variant="primary" url={ lesson.url } onClick={(e) => {urlGetter(e) ; videoRouter("/student/courses/lessons")} }>Watch Video</Button>
+                                    ): authObj.role === "INSTRUCTOR" ? (
+                                        <div>
+                                            <Button className="primary-button" variant="primary" url={ lesson.url } onClick={(e) => {urlGetter(e) ; videoRouter("/instructor/courses/lessons")} }>Watch Video</Button>{" "}
+                                            <Button variant="danger" id="delButton">Delete Lesson</Button>
+                                        </div>
+                                    ):(<p></p>)}
+                                 </div>
                                 
                             </Card.Body>
                         </Card>
