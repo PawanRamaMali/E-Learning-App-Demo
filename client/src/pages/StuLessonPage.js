@@ -47,6 +47,7 @@ export default function StuLessonPage(props) {
                 url ? (
                     <div className="video-container">
                         <div><Player/></div>
+                        <div><br></br></div>
                         <div><LessonCard lessons={lessons.data} /> </div>
                     </div> 
                 ) : (

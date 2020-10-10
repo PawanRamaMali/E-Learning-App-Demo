@@ -261,6 +261,7 @@ const getAllInstructorsFailure = (error) => ({
 export const getAllInstructors = (token) => {
  
   return (dispatch) => {
+    console.log("token",token)
     dispatch({type: GET_ALL_INSTRUCTORS_REQUEST});
     axios
       .get("/api/user/admin/instructors", {

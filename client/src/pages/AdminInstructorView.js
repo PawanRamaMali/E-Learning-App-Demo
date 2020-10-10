@@ -5,7 +5,7 @@ import AppNavbar from "../Components/AppNavbar";
 import InstructorTable from "../Components/AdminInstructorTable";
 import "../instructor.css";
 import { getAllInstructors, deleteInstructor, activateInstructor, deactivateInstructor } from '../actions'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux';
 
 export default function AdminInstructorList() {
     const history = useHistory()
@@ -15,11 +15,11 @@ export default function AdminInstructorList() {
   
     const [allInstructors, authObj] = useSelector((gState) => [
       gState.allInstructors,
-      gState.error,
       gState.authObj
     ])
   
     useEffect(() => {
+        console.log("auth", authObj)
       dispatch(getAllInstructors(authObj.accessToken))
     }, [])
 
