@@ -19,7 +19,7 @@ export default function InsCoursePage(props) {
 
     useEffect(() => {
         dispatch(getCourses(authObj.accessToken));
-    },[]);
+    },[authObj.accessToken]);
 
     //useHistory hook to redirect to desired routes
     const history = useHistory();

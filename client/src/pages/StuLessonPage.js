@@ -32,7 +32,7 @@ export default function StuLessonPage(props) {
     return (
         <div>
             <AppNavbar />
-            <Jumbotron className="InsLanding-background portal-sublanding-background">
+            <Jumbotron className="stu-lessons-hero portal-sublanding-background">
                 <div className="InsLanding-content homepage-content">
                     <h1 className="">POD | {props.courseName}Student Lessons</h1>
                     <p>
@@ -46,8 +46,8 @@ export default function StuLessonPage(props) {
             {
                 url ? (
                     <div className="video-container">
-                        <div><LessonCard lessons={lessons.data} /> </div>
                         <div><Player/></div>
+                        <div><LessonCard lessons={lessons.data} /> </div>
                     </div> 
                 ) : (
                     <div className="noVideo"><LessonCard lessons={lessons.data} /></div>

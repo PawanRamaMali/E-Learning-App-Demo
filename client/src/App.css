@@ -80,9 +80,9 @@
   background-size: cover;
   color: white;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  justify-content: center;
   align-items: center;
-  justify-content: space-between;
 }
 
 .ins-courses-hero {
@@ -92,9 +92,9 @@
   background-size: cover;
   color: white;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  justify-content: center;
   align-items: center;
-  justify-content: space-between;
 }
 
 .ins-lessons-hero {
@@ -104,9 +104,20 @@
   background-size: cover;
   color: white;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  justify-content: center;
   align-items: center;
-  justify-content: space-between;
+}
+.stu-lessons-hero {
+  background-image: url("img/dolphins9.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  color: white;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 }
 
 .instructor-landing-content .student-landing-content {
@@ -120,9 +131,9 @@
   background-size: cover;
   color: white;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  justify-content: center;
   align-items: center;
-  justify-content: space-between;
 }
 
 .card-container {

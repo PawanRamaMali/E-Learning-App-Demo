@@ -23,9 +23,9 @@ export default function LessonCard(props) {
 
 
    const urlGetter = (e) => {
-    console.log(e.currentTarget.getAttribute("url"))
-    let url = e.currentTarget.getAttribute("url")
-    dispatch(getUrl(url))
+    // console.log(e.currentTarget.getAttribute("url"))
+    let url = e.currentTarget.getAttribute("url");
+    dispatch(getUrl(url));
       
 }
 
@@ -34,8 +34,6 @@ export default function LessonCard(props) {
         history.push(path)
     }
     
-
-
     return (
         <div className="card-container">
             {lessons? (

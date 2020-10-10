@@ -5,15 +5,18 @@ import AddLessonModal from "../Components/AddLessonModal";
 import LessonCard from "../Components/LessonCard";
 import AppNavbar from '../Components/AppNavbar';
 import {getLessons} from '../actions';
-import {Jumbotron, Button } from "react-bootstrap"
+import {Jumbotron, Button } from "react-bootstrap";
+import Player from "../Components/Player";
+
 
 export default function InsLessonPage(props) {
     const dispatch = useDispatch()
     //importing global state
-    const [courseId, lessons, authObj] = useSelector((gState) => [
+    const [courseId, lessons, authObj, url] = useSelector((gState) => [
         gState.courseId,
         gState.lessons,
-        gState.authObj
+        gState.authObj,
+        gState.url
       ]);
 
     const [showLessonModal, setShowLessonModal] = useState(false);
@@ -45,7 +48,16 @@ export default function InsLessonPage(props) {
                     </p>
                 </div>
             </Jumbotron>
-            <LessonCard lessons={lessons.data} />
+            {
+                url ? (
+                    <div className="video-container">
+                        <div><Player/></div>
+                        <div><LessonCard lessons={lessons.data} /> </div>
+                    </div> 
+                ) : (
+                    <div className="noVideo"><LessonCard lessons={lessons.data} /></div>
+                )
+            }
         </div>
     )
 }

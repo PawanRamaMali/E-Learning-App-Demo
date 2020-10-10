@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React, {useEffect} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from "react-router-dom";
 import {Jumbotron, Button} from "react-bootstrap";
@@ -7,7 +7,7 @@ import StuCourseCard from '../Components/StuCourseCard';
 import AppNavbar from '../Components/AppNavbar';
 
 
-export default function InsCoursePage() {
+export default function StuCoursePage() {
     const dispatch = useDispatch();
 
     const [courses, authObj] = useSelector((gState) => [
