@@ -46,8 +46,8 @@ export default function InsStudentRoster() {
     return (
         <React.Fragment> 
             <AppNavbar />
-            <Jumbotron className="InsLanding-background portal-sublanding-background">
-                <div className="InsLanding-content homepage-content">
+            <Jumbotron className="ins-student-roster-hero portal-sublanding-background">
+                <div className="instructor-landing-content homepage-content">
                     <h1 className="">POD | Student Roster</h1>
                     <p>
                         View and manage your Student Roster globally and by course!
