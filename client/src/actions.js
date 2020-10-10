@@ -11,7 +11,8 @@ import {
   GET_ALL_STUDENTS_REQUEST, GET_ALL_STUDENTS_SUCCESS, GET_ALL_STUDENTS_FAILURE,
   GET_ROSTER_REQUEST, GET_ROSTER_SUCCESS, GET_ROSTER_FAILURE,
   PASSRESTOK_VALIDATION_REQUEST, PASSRESTOK_VALIDATION_SUCCESS, PASSRESTOK_VALIDATION_FAILURE,
-  GET_URL_REQUEST, GET_URL_SUCCESS, GET_URL_FAILURE
+  GET_URL_REQUEST, GET_URL_SUCCESS, GET_URL_FAILURE,
+  PASSWORD_RESET_REQUEST, PASSWORD_RESET_SUCCESS, PASSWORD_RESET_FAILURE
 } from "./constants";
 import { createSession, destroySession, validateSession } from "./utils/sessions";
 import axios from "axios";
@@ -460,11 +461,9 @@ export const validateResetPassToken = (tempToken) => {
           //login success action
           if(response.status === 200){
             dispatch(resetPassTokenSuccess(response.data.userId));
-            console.log("token validated", response.data.userId);
           }
         })
         .catch( (error) => {
-          console.log("error validating token");
           dispatch(resetPassTokenFailed(error.message));
         });
       }
@@ -498,5 +497,45 @@ export const validateResetPassToken = (tempToken) => {
 
 
 
+//Password reset transactions
+const passwordResetSuccess = () => ({
+  type:    PASSWORD_RESET_SUCCESS,
+  isResetingPassword: false,
+  isPasswordResetSuccess: true,
+});
 
+const passwordResetFailure = (error) => ({
+  type:    PASSWORD_RESET_FAILURE,
+  isResetingPassword: false,
+  isPasswordResetSuccess: false,
+  payload: error,
+});
+
+export const passwordResetAttempt = (password, userId, tempToken) => {
+    //function receives credentials
+    return (dispatch, getState) => {
+      dispatch({
+        type:    PASSWORD_RESET_REQUEST,
+        isResetingPassword: true,
+        isPasswordResetSuccess: false
+      })
+      //use axios to query REST api for add student.
+      axios
+        .post("/api/auth/pwdreset", {password, userId}, {
+          headers: {
+            "x-access-token": tempToken
+          }
+        })
+        .then( (response) => {
+          //if request is successful, persist a session and dispatch
+          //login success action
+          if(response.status === 200){
+            dispatch(passwordResetSuccess());
+          }
+        })
+        .catch( (error) => {
+          dispatch(passwordResetFailure(error.message));
+        });
+      }
+  }
 

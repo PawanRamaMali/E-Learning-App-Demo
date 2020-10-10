@@ -2,7 +2,7 @@ import React, { useState, useEffect} from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { Alert, Container, Row, Col, Form, Button } from "react-bootstrap";
 import { parse } from "query-string";
-import { validateResetPassToken } from "../actions";
+import { validateResetPassToken, passwordResetAttempt } from "../actions";
 import "../instructor.css";
 
 
@@ -92,8 +92,7 @@ export default function ResetPassword(props) {
             else {
                 setValidationError("");
                 //dispatch loginAttempt action and pass loginCreds
-                //dispatch(loginAttempt(loginCreds));
-                console.log("newCreds", newPass);
+                dispatch(passwordResetAttempt(newPass.password, resPassUid, parseToken(props.location.search)));
             }
         }
         setValidated(true);
