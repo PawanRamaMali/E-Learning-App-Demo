@@ -1,5 +1,5 @@
-import React, {useState, useEffect} from 'react'
-import {Jumbotron, Button, Table } from "react-bootstrap"
+import React, {useEffect} from 'react'
+import {Jumbotron, Button} from "react-bootstrap"
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom';
 import AppNavbar from "../Components/AppNavbar";
@@ -12,7 +12,7 @@ export default function AdminStudentList() {
 
     const dispatch = useDispatch()
   
-    const [allStudents, error, authObj] = useSelector((gState) => [
+    const [allStudents, authObj] = useSelector((gState) => [
       gState.allStudents,
       gState.error,
       gState.authObj

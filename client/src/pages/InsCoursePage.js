@@ -1,43 +1,25 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from "react-router-dom";
-import { 
-    getCourses,
-    addCourseAttempt,
-    addCourseSuccess,
-    addCourseFailed
- } from '../actions';
-import {Jumbotron, Button } from "react-bootstrap"
+import {getCourses} from '../actions';
+import {Jumbotron, Button} from "react-bootstrap";
 import CourseCard from '../Components/CourseCard';
 import AppNavbar from '../Components/AppNavbar';
 import AddCourseModal from '../Components/AddCourseModal';
 
-export default function InsCoursePage() {
+export default function InsCoursePage(props) {
     const dispatch = useDispatch();
     //importing global state
-    const [isAuthenticatedUser, authObj, isNewCourseAdded, courses, error] = useSelector((gState) => [
-        gState.isAuthenticatedUser,
+    const [authObj, courses] = useSelector((gState) => [
         gState.authObj, 
-        gState.isNewCourseAdded,
-        gState.courses,
-        gState.error 
+        gState.courses 
     ]);
 
     const [showCourseModal, setShowCourseModal] = useState(false);
 
     useEffect(() => {
         dispatch(getCourses(authObj.accessToken));
-    },[]);
-
-    
-    //using useEffect to track isNewCourseAdded changes
-    //and show add student modal if successfully logged in
-    // useEffect( () => {
-    //     if (isNewCourseAdded){
-    //         setShowCourseModal(false);
-    //     }
-    //  //if NewCourse changes, apply this effect  
-    // }, [isNewCourseAdded]);
+    },[authObj.accessToken]);
 
     //useHistory hook to redirect to desired routes
     const history = useHistory();
@@ -46,11 +28,12 @@ export default function InsCoursePage() {
         history.push(routePath);
     }
 
+
     return (
         <div>
             <AppNavbar />
-            <Jumbotron className="InsLanding-background portal-sublanding-background">
-                <div className="InsLanding-content homepage-content">
+            <Jumbotron className="ins-courses-hero portal-sublanding-background">
+                <div className="instructor-landing-content homepage-content">
                     <h1 className="">POD | Instructor Courses</h1>
                     <p>
                         View and manage your Courses and Lessons!

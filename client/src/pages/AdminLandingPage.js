@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React from 'react'
 import { useSelector } from "react-redux";
 import {Jumbotron, Button } from "react-bootstrap"
 import AppNavbar from "../Components/AppNavbar";
@@ -15,7 +15,6 @@ function AdminLandingPage() {
 
     //useHistory hook to redirect to desired routes
     const history = useHistory();
-    let routePath = "";
 
     //redirecting function
     const redirectRouter = (routePath) => {

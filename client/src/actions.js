@@ -5,13 +5,15 @@ import {
   ADD_STUDENT_REQUEST, ADD_STUDENT_SUCCESS, ADD_STUDENT_FAILURE,
   ADD_COURSE_REQUEST, ADD_COURSE_SUCCESS, ADD_COURSE_FAILURE,
   GET_COURSES_REQUEST, GET_COURSES_SUCCESS, GET_COURSES_FAILURE,
+  ADD_LESSON_REQUEST, ADD_LESSON_SUCCESS, ADD_LESSON_FAILURE,
   GET_LESSONS_REQUEST, GET_LESSONS_SUCCESS, GET_LESSONS_FAILURE,
-  SET_COURSE_IDREQ , SET_COURSE_IDSUCCESS , SET_COURSE_IDFAIL,
+  SET_COURSE_ID_SUCCESS , SET_COURSE_ID_FAILURE,
   GET_ALL_INSTRUCTORS_REQUEST, GET_ALL_INSTRUCTORS_SUCCESS, GET_ALL_INSTRUCTORS_FAILURE,
   GET_ALL_STUDENTS_REQUEST, GET_ALL_STUDENTS_SUCCESS, GET_ALL_STUDENTS_FAILURE,
   GET_ROSTER_REQUEST, GET_ROSTER_SUCCESS, GET_ROSTER_FAILURE,
   PASSRESTOK_VALIDATION_REQUEST, PASSRESTOK_VALIDATION_SUCCESS, PASSRESTOK_VALIDATION_FAILURE,
   GET_URL_REQUEST, GET_URL_SUCCESS, GET_URL_FAILURE,
+  UPDATE_STUDENT_REQUEST, UPDATE_STUDENT_SUCCESS, UPDATE_STUDENT_FAILURE,
   PASSWORD_RESET_REQUEST, PASSWORD_RESET_SUCCESS, PASSWORD_RESET_FAILURE,
   DELETE_INSTRUCTOR_SUCCESS, DELETE_INSTRUCTOR_FAILURE,
   DELETE_STUDENT_SUCCESS, DELETE_STUDENT_FAILURE,
@@ -20,7 +22,7 @@ import {
   // STUDENT_ACTIVATION_REQUEST,STUDENT_ACTIVATION_SUCCESS,STUDENT_ACTIVATION_FAILURE,
   // STUDENT_DEACTIVATION_REQUEST,STUDENT_DEACTIVATION_SUCCESS,STUDENT_DEACTIVATION_FAILURE,
   USER_ACTIVATION_SUCCESS, USER_ACTIVATION_FAILURE,
-  USER_DEACTIVATION_SUCCESS, USER_DEACTIVATION_FAILURE,
+  USER_DEACTIVATION_SUCCESS, USER_DEACTIVATION_FAILURE
 } from "./constants";
 import { createSession, destroySession, validateSession } from "./utils/sessions";
 import axios from "axios";
@@ -44,7 +46,7 @@ const loginFailed = (error) => ({
 //action: LOGIN_REQUEST  to backend REST api
 export const loginAttempt = (creds) => {
   //function receives credentials
-  return (dispatch, getState) => {
+  return (dispatch) => {
     //dispatch action to notify client
     //of login request in progress
     dispatch({
@@ -84,7 +86,7 @@ const getCourseFailure = (error) => ({
 //courses Api request for instructor
 export const getCourses = (token) => {
  
-  return (dispatch, getState) => {
+  return (dispatch) => {
     dispatch({type: GET_COURSES_REQUEST});
     axios
       .get("/api/user/instructor/courses", {
@@ -105,7 +107,7 @@ export const getCourses = (token) => {
 
 //Get Courses Student API request
 export const getStuCourses = (token) => {
-  return (dispatch, getState) => {
+  return (dispatch) => {
     dispatch({type: GET_COURSES_REQUEST});
     axios
       .get("/api/user/student/courses", {
@@ -142,7 +144,7 @@ const getLessonsFailure = (error) => ({
 
 //courses Api request for instructor
 export const getLessons = (token, id) => {
-  return (dispatch, getState) => {
+  return (dispatch) => {
     dispatch({type: GET_LESSONS_REQUEST});
     axios
       .get("/api/user/instructor/lessons/" + id , {
@@ -163,7 +165,7 @@ export const getLessons = (token, id) => {
 
 //Get Lessons for students pages
 export const getStuLessons = (token, id) => {
-  return (dispatch, getState) => {
+  return (dispatch) => {
     dispatch({type: GET_LESSONS_REQUEST});
     axios
       .get("/api/user/student/courses/" + id +"/lessons", {
@@ -186,19 +188,19 @@ export const getStuLessons = (token, id) => {
 const setCourseIdSuccess = (id) => {
  
 return {
-  type: SET_COURSE_IDSUCCESS,
+  type: SET_COURSE_ID_SUCCESS,
   payload: id
 }
 }
 
 //When Request from API fails
 const setCourseIdFailure = (error) => ({
-  type: SET_COURSE_IDFAIL,
+  type: SET_COURSE_ID_FAILURE,
   payload: error,
 })
 
 export const setCourseId = (id) => {
-  return (dispatch, getState) => {
+  return (dispatch) => {
     if(id){
       dispatch(setCourseIdSuccess(id))
 
@@ -223,7 +225,7 @@ const getRosterFailure = (error) => ({
 })
 
 export const getStuRoster = (token) => {
-  return (dispatch, getState) => {
+  return (dispatch) => {
     dispatch({type: GET_ROSTER_REQUEST})
     axios
     .get("/api/user/instructor/courses", {
@@ -258,7 +260,7 @@ const getAllInstructorsFailure = (error) => ({
 //view instructor Api request for admin
 export const getAllInstructors = (token) => {
  
-  return (dispatch, getState) => {
+  return (dispatch) => {
     dispatch({type: GET_ALL_INSTRUCTORS_REQUEST});
     axios
       .get("/api/user/admin/instructors", {
@@ -291,7 +293,7 @@ const getAllStudentsFailure = (error) => ({
 //view students Api request for admin
 export const getAllStudents = (token) => {
  
-  return (dispatch, getState) => {
+  return (dispatch) => {
     dispatch({type: GET_ALL_STUDENTS_REQUEST});
     axios
       .get("/api/user/admin/students", {
@@ -323,7 +325,7 @@ const logoutFail = (error) => ({
 //action: LOGOUT_REQUEST
 export const logoutAttempt = () => {
   //dispatch logout request
-  return (dispatch, getState) => {
+  return (dispatch) => {
     dispatch({
       type: LOGOUT_REQUEST
     });
@@ -359,7 +361,7 @@ const addStudentSuccess = (stuObj) => ({
 //action: ADD_STUDENT_REQUEST to REST API
 export const addStudentAttempt = (data, accessToken) => {
     //function receives credentials
-    return (dispatch, getState) => {
+    return (dispatch) => {
       //dispatch action to notify client 
       //of add student request in progress
       dispatch({ 
@@ -386,6 +388,7 @@ export const addStudentAttempt = (data, accessToken) => {
         });
       }
   }
+
 //action: Add_COURSE_FAILURE if backend call is unsuccessful
 const addCourseFailed = (error) => ({
   type:    ADD_COURSE_FAILURE,
@@ -405,15 +408,15 @@ const addCourseSuccess = (courseObj) => ({
 //action: ADD_COURSE_REQUEST to REST API
 export const addCourseAttempt = (data, accessToken) => {
     //function receives credentials
-    return (dispatch, getState) => {
+    return (dispatch) => {
       //dispatch action to notify client 
       //of add student request in progress
       dispatch({ 
           type: ADD_COURSE_REQUEST, 
-          isAddingCourseUser: true, 
+          isAddingNewCourse: true, 
           isAuthenticatedUser: true 
         });
-      //use axios to query REST api for add student.
+      //use axios to query REST api for add course.
       axios
         .post("/api/user/instructor/courses", data, {
           headers: {
@@ -432,6 +435,52 @@ export const addCourseAttempt = (data, accessToken) => {
         });
 
         
+      }
+  }
+//action: Add_LESSON_FAILURE if backend call is unsuccessful
+const addLessonFailed = (error) => ({
+  type: ADD_LESSON_FAILURE,
+  isFetchingAuth: false,
+  isAuthenticatedUser: false,
+  payload: error,
+});
+
+//action: ADD_LESSON_SUCCESS once backend call is successfull
+const addLessonSuccess = (lessonObj) => ({
+  type:    ADD_LESSON_SUCCESS,
+  isFetchingAuth: false,
+  isAuthenticatedUser: true,
+  payload: lessonObj,
+});
+
+//action: ADD_COURSE_REQUEST to REST API
+export const addLessonAttempt = (data, accessToken) => {
+    //function receives credentials
+    return (dispatch) => {
+      //dispatch action to notify client 
+      //of add student request in progress
+      dispatch({ 
+          type: ADD_LESSON_REQUEST, 
+          isAddingNewLesson: true, 
+          isAuthenticatedUser: true 
+        });
+      //use axios to query REST api for add student.
+      axios
+        .post("/api/user/instructor/lessons", data, {
+          headers: {
+            "x-access-token": accessToken
+          }
+        })
+        .then( (response) => {
+          //if request is successful, persist a session and dispatch
+          //login success action
+          if(response.status === 200){
+            dispatch(addLessonSuccess(response.data));
+          }
+        })
+        .catch( (error) => {
+          dispatch(addLessonFailed(error.message));
+        });
       }
   }
   
@@ -453,7 +502,7 @@ const resetPassTokenFailed = (error) => ({
 
 export const validateResetPassToken = (tempToken) => {
     //function receives credentials
-    return (dispatch, getState) => {
+    return (dispatch) => {
       dispatch({
         type:    PASSRESTOK_VALIDATION_REQUEST,
         isValidatingPassResTok: true,
@@ -480,7 +529,6 @@ export const validateResetPassToken = (tempToken) => {
   }
 
   const getUrlSuccess = (url) => {
- 
     return {
       type: GET_URL_SUCCESS,
       payload: url
@@ -488,7 +536,6 @@ export const validateResetPassToken = (tempToken) => {
   }
 
   const getUrlfailure = (error) => {
- 
     return {
       type: GET_URL_FAILURE,
       payload: error
@@ -496,13 +543,60 @@ export const validateResetPassToken = (tempToken) => {
   }
 
   export const getUrl = (url) => {
-    return(dispatch, getState) => {
+    return(dispatch) => {
       if(url){
         dispatch(getUrlSuccess(url))
       }else {
         dispatch(getUrlfailure())
       }
     }
+  }
+
+  //action: UPDATE_STUDENT_FAILURE if backend call is unsuccessful
+const updateStudentFailed = (error) => ({
+  type:    UPDATE_STUDENT_FAILURE,
+  isFetchingAuth: false,
+  isAuthenticatedUser: false,
+  payload: error,
+});
+
+//action: UPDATE_STUDENT_SUCCESS once backend call is successfull
+const updateStudentSuccess = (stuObj) => ({
+  type:    UPDATE_STUDENT_SUCCESS,
+  isFetchingAuth: false,
+  isAuthenticatedUser: true,
+  payload: stuObj,
+});
+
+//action: UPDATE_STUDENT_REQUEST to REST API
+export const updateStudentAttempt = (data, accessToken) => {
+    //function receives credentials
+    return (dispatch) => {
+      //dispatch action to notify client 
+      //of add student request in progress
+      dispatch({ 
+          type: UPDATE_STUDENT_REQUEST, 
+          isUpdatingUser: true, 
+          isAuthenticatedUser: true 
+        });
+      //use axios to query REST api for add student.
+      axios
+        .post("/api/auth/update", data, {
+          headers: {
+            "x-access-token": accessToken
+          }
+        })
+        .then( (response) => {
+          //if request is successful, persist a session and dispatch
+          //login success action
+          if(response.status === 200){
+            dispatch(updateStudentSuccess(response.data));
+          }
+        })
+        .catch( (error) => {
+          dispatch(updateStudentFailed(error.message));
+        });
+      }
   }
 
 //Password reset transactions

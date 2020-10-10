@@ -80,11 +80,11 @@ function Homepage(props) {
             }
            
             return (
-                < >
+                <div as="div">
                     <Button className="homepage-buttons primary-button" variant="primary" onClick={() => redirectRouter(routePath)}>My Dashboard</Button>
                     <Button className="homepage-buttons" variant="secondary" onClick={() => performUserLogout()}>Logout</Button>
                     <WelcomeToastWidget />
-                </>
+                </div>
             )
         }
     }
