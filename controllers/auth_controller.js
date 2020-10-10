@@ -165,6 +165,43 @@ exports.userContent = (req, res) => {
   });
 }
 
+//password reset routes
+//===========================
+exports.passwordReset = (req, res) => {
+  //logging to console if in dev env
+console.log(
+  `${
+    process.env.APP_ENV === "development"
+      ? "===== Password Reset ====="
+      : ""
+  }`
+);
+
+//encrypting new password
+const newPassEnc = bcrypt.hashSync(req.body.password, 10);
+User.findOne({
+    where: {
+        id: req.userId //this id comes from middleware after decoding JWT
+    }
+}).then((user) => {
+    if (user){
+      user.update({password: newPassEnc}).then(() => {
+        console.log("password changed");
+        res.status(200).json({
+          "msg": "Password Updated"
+        })
+      })
+    }
+    else{
+      res.status(403).json({
+        "msg": "User not found"
+      })
+    }
+}).catch((err) => {
+    res.status(500).send(`Error Updating user's password -> ${err}`);
+});
+}
+
 exports.tokenValidation = (req, res) => {
   if (req.userId) res.status(200).json({"auth": true, "userId": req.userId});
 } 

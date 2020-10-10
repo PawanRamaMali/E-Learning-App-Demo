@@ -1,8 +1,9 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect} from 'react';
 import { useDispatch, useSelector } from "react-redux";
-import AppNavbar from "../Components/AppNavbar";
+import { Alert, Container, Row, Col, Form, Button } from "react-bootstrap";
 import { parse } from "query-string";
-import { validateResetPassToken } from "../actions";
+import { useHistory } from "react-router-dom";
+import { validateResetPassToken, passwordResetAttempt } from "../actions";
 import "../instructor.css";
 
 
@@ -35,11 +36,24 @@ function parseToken(queryToken) {
 
 export default function ResetPassword(props) {
     const dispatch = useDispatch();
-    const [isValidPassResTok, isValidatingPassResTok, resPassUid] = useSelector((gState) => [
+    //useHistory hook to redirect to desired routes
+    const history = useHistory();
+    const [isValidPassResTok, isValidatingPassResTok, isResetingPassword, isPasswordResetSuccess, resPassUid, appMsg, error] = useSelector((gState) => [
         gState.isValidPassResTok,
         gState.isValidatingPassResTok,
-        gState.resPassUid
+        gState.isResetingPassword,
+        gState.isPasswordResetSuccess,
+        gState.resPassUid,
+        gState.appMsg,
+        gState.error
     ]);
+    //form validation state declaration -- initial form state of validation: false
+    const [validated, setValidated] = useState(false);
+    const [validationError, setValidationError] = useState("");
+    const [newPass, setNewPass] = useState({
+        password: "",
+        confirm: ""
+    });
 
     useEffect(() => {
         const _token = parseToken(props.location.search);
@@ -55,12 +69,115 @@ export default function ResetPassword(props) {
                 break;
         }
     }, []);
+
+    //event handlers
+    //----------------
+    const handleInputChange = (e) => {
+        //save current state
+        const currState = {...newPass};
+        //retrieve values form input changed
+        const {name, value} = e.target;
+        //update current State backup
+        currState[name] = value;
+        //set state
+        setNewPass(currState);
+    }
+    //handleSubmit function to send credentials
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        const form = e.currentTarget;
+        //checking validation on Submit event
+        if(form.checkValidity() !== false){
+            // check password criteria
+            if(newPass.password.length < 8 || newPass.password.length > 20){
+                setValidationError("Password does not meet length criteria.");
+            }
+            else if(newPass.password !== newPass.confirm){
+                setValidationError("Passwords do not match.");
+            }
+            else {
+                setValidationError("");
+                //dispatch loginAttempt action and pass loginCreds
+                dispatch(passwordResetAttempt(newPass.password, resPassUid, parseToken(props.location.search)));
+            }
+        }
+        setValidated(true);
+    }
+
+    const msgRender = () => {
+        if (validationError !== ""){
+            return (
+                <Alert variant="danger">{validationError}</Alert>
+            )
+        }
+        if (isResetingPassword) {
+            return (
+                <Alert variant="info">Processing...</Alert>
+            )
+        }
+        else{
+            if(isPasswordResetSuccess) {
+                //call function to redirect to homepage
+                //after a couple of seconds
+                setTimeout( () => { history.push("/") }, 2000);
+               return (
+                <Alert variant="success">{appMsg}</Alert>
+               ) 
+            }
+            else if(!isPasswordResetSuccess && error !== ""){
+               return (
+                <Alert variant="danger">{error}</Alert>
+               )
+            }
+        }
+    }
     
     const returnFrag = () => {
         //conditional rendering
         if (isValidPassResTok){
            return (
-                <h1 className="">Reset Password Form</h1>
+                <>
+                    <h4 className="">New Password Form</h4>
+                    <Form noValidate validated={validated} onSubmit={ handleSubmit }>
+                        <Form.Group controlId="rstPassMain">
+                            <Form.Label>Password</Form.Label>
+                            <Form.Control 
+                                name="password"
+                                type="password" 
+                                placeholder="Password" 
+                                value={newPass.password}
+                                onChange={handleInputChange}
+                                required
+                            />
+                            <Form.Text className="text-muted">
+                                Must be 8-20 characters long.
+                            </Form.Text>
+                            <Form.Control.Feedback type="invalid">
+                                Please enter new password
+                            </Form.Control.Feedback>
+                        </Form.Group>
+
+                        <Form.Group controlId="rstPassConfirm">
+                            <Form.Label>Confirm Password</Form.Label>
+                            <Form.Control 
+                                type="password" 
+                                name="confirm"
+                                placeholder="Confirm Password" 
+                                value={newPass.confirm}
+                                onChange={handleInputChange}
+                                required
+                            />
+                            <Form.Control.Feedback type="invalid">
+                                Passwords must match.
+                            </Form.Control.Feedback>
+                        </Form.Group>
+                        {msgRender()}
+                        <Button variant="primary" type="submit" disabled={isPasswordResetSuccess}>
+                            Submit
+                        </Button>
+                    </Form>
+                </>
            ) 
         }
         else if(!isValidPassResTok && isValidatingPassResTok){
@@ -82,8 +199,15 @@ export default function ResetPassword(props) {
         
     return (
         <React.Fragment> 
-            <AppNavbar />
-            { returnFrag() }
+            <Container>
+                <Row>
+                    <Col></Col>
+                    <Col>
+                    { returnFrag() }
+                    </Col>
+                    <Col></Col>
+                </Row>
+            </Container>
         </React.Fragment>
     )
 }

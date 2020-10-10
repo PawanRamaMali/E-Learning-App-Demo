@@ -9,7 +9,9 @@ import {
   SET_COURSE_IDREQ , SET_COURSE_IDSUCCESS , SET_COURSE_IDFAIL,
   GET_ALL_INSTRUCTORS_REQUEST, GET_ALL_INSTRUCTORS_SUCCESS, GET_ALL_INSTRUCTORS_FAILURE,
   PASSRESTOK_VALIDATION_REQUEST, PASSRESTOK_VALIDATION_SUCCESS, PASSRESTOK_VALIDATION_FAILURE,
-  GET_ALL_STUDENTS_REQUEST, GET_ALL_STUDENTS_SUCCESS, GET_ALL_STUDENTS_FAILURE, GET_URL_REQUEST, GET_URL_SUCCESS, GET_URL_FAILURE
+  GET_ALL_STUDENTS_REQUEST, GET_ALL_STUDENTS_SUCCESS, GET_ALL_STUDENTS_FAILURE, 
+  GET_URL_REQUEST, GET_URL_SUCCESS, GET_URL_FAILURE,
+  PASSWORD_RESET_REQUEST, PASSWORD_RESET_SUCCESS, PASSWORD_RESET_FAILURE
 } from "./constants";
 import { validateSession, getSessionAuthObj } from "./utils/sessions";
 
@@ -20,6 +22,8 @@ export const initialState = {
   isLoggedOutSuccess: false,
   isValidatingPassResTok: false,
   isValidPassResTok: false,
+  isResetingPassword: false,
+  isPasswordResetSuccess: false,
   authObj: getSessionAuthObj(),
   isNewCourseAdded: false,
   courseObj: {},
@@ -34,6 +38,7 @@ export const initialState = {
   stuRoster: [],
   resPassUid: {},
   url: "",
+  appMsg:"",
   error: ""
 };
 
@@ -194,6 +199,37 @@ export default (state = initialState, action) => {
         isValidatingPassResTok: action.isValidatingPassResTok, 
         isValidPassResTok: action.isValidPassResTok, 
         error: action.payload, 
+        resPassUid: "" 
+      }
+
+      //password reset
+    case PASSWORD_RESET_REQUEST:
+      return { 
+        ...state, 
+        isResetingPassword: action.isResetingPassword,
+        isPasswordResetSuccess: action.isPasswordResetSuccess,
+        appMsg: "",
+        error: ""
+      }
+
+    //password reset
+    case PASSWORD_RESET_SUCCESS:
+      return { 
+        ...state, 
+        isResetingPassword: action.isResetingPassword,
+        isPasswordResetSuccess: action.isPasswordResetSuccess,
+        appMsg: action.payload,
+        error: "" 
+      }
+
+    //password reset
+    case PASSWORD_RESET_FAILURE:
+      return { 
+        ...state, 
+        isResetingPassword: action.isResetingPassword,
+        isPasswordResetSuccess: action.isPasswordResetSuccess,
+        error: action.payload, 
+        appMsg: "",
         resPassUid: "" 
       }
 
