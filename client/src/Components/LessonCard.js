@@ -16,19 +16,14 @@ export default function LessonCard(props) {
     const history = useHistory()
     const dispatch = useDispatch()
 
-    
-
-
-
-   const urlGetter = (e) => {
-    console.log(e.currentTarget.getAttribute("url"))
-    let url = e.currentTarget.getAttribute("url")
-    dispatch(getUrl(url))
-      
-}
+    const urlGetter = (e) => {
+        // console.log(e.currentTarget.getAttribute("url"))
+        let url = e.currentTarget.getAttribute("url")
+        dispatch(getUrl(url))
+        
+    }
 
     const videoRouter = (path) => {
-        
         history.push(path)
     }
     
@@ -43,19 +38,16 @@ export default function LessonCard(props) {
                                 <Card.Text>
                                 {lesson.description}
                                 </Card.Text>
-                                <Button variant="primary" url={ lesson.url } onClick={(e) => {urlGetter(e) ; videoRouter("/student/courses/lessons")} }>Watch Video</Button>{" "}
+                                <Button className="primary-button" variant="primary" url={ lesson.url } onClick={(e) => {urlGetter(e) ; videoRouter("/student/courses/lessons")} }>Watch Video</Button>{" "}
                                  {authObj.role === "INSTRUCTOR" ? (
-                                     <Button variant="danger" id="delButton" >Delete Lesson</Button>
+                                <Button variant="danger" id="delButton">Delete Lesson</Button>
                                  ):(<p></p>)}
                                 
                             </Card.Body>
                         </Card>
                     )
-        
-                    )):(<p>NO LESSONS UPLOADED BY INSTRUCTOR</p>)
-                    
+                )):(<p>NO LESSONS UPLOADED BY INSTRUCTOR</p>)    
             }
-
         </CardGroup>
     )
 

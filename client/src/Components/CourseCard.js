@@ -35,7 +35,7 @@ export default function CourseCard(props) {
                                     Some quick example text to build on the card title and make up the bulk of
                                     the card's content.
                                 </Card.Text>
-                                <Button variant="primary" id={ course.id } onClick={(e) => {viewLessons(e) ; redirectRouter('/instructor/courses/lessons/')} }>View Lessons</Button>
+                                <Button className="primary-button" variant="primary" id={ course.id } onClick={(e) => {viewLessons(e) ; redirectRouter('/instructor/courses/lessons/')} }>View Lessons</Button>
                             </Card.Body>
                         </Card>
                     )     

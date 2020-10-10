@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from "react-router-dom";
 import {getCourses} from '../actions';
-import {Jumbotron, Button, CardGroup } from "react-bootstrap";
+import {Jumbotron, Button} from "react-bootstrap";
 import CourseCard from '../Components/CourseCard';
 import AppNavbar from '../Components/AppNavbar';
 import AddCourseModal from '../Components/AddCourseModal';
@@ -10,12 +10,9 @@ import AddCourseModal from '../Components/AddCourseModal';
 export default function InsCoursePage(props) {
     const dispatch = useDispatch();
     //importing global state
-    const [isAuthenticatedUser, authObj, isNewCourseAdded, courses, error] = useSelector((gState) => [
-        gState.isAuthenticatedUser,
+    const [authObj, courses] = useSelector((gState) => [
         gState.authObj, 
-        gState.isNewCourseAdded,
-        gState.courses,
-        gState.error 
+        gState.courses 
     ]);
 
     const [showCourseModal, setShowCourseModal] = useState(false);

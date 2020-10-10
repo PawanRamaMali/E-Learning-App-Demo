@@ -29,8 +29,9 @@ export default function StuLessonPage() {
             <AppNavbar />
             {
                 url ? (
-                    <div className="container video">
-                        <div><LessonCard lessons={lessons.data} /> </div><div><Player/></div>
+                    <div className="video-container">
+                        <div><LessonCard lessons={lessons.data} /> </div>
+                        <div><Player/></div>
                     </div> 
                 ) : (
                     <div className="noVideo"><LessonCard lessons={lessons.data} /></div>
