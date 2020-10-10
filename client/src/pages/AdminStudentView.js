@@ -14,7 +14,6 @@ export default function AdminStudentList() {
   
     const [allStudents, authObj] = useSelector((gState) => [
       gState.allStudents,
-      gState.error,
       gState.authObj
     ])
   
