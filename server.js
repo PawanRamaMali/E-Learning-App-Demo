@@ -23,13 +23,21 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json()); //request body parser
 
 //Static Resources
-app.use(express.static(path.join(__dirname, "client/public"))); //TODO: need to change to client/build for production
+// Serve up static assets (usually on heroku)
+if (process.env.NODE_ENV === "production") { app.use(express.static("client/build"));}
+// app.use(express.static(path.join(__dirname, "client/public")));
 
 // Routes
 // =============================================================
 require("./routes/auth_router.js")(app); //authentication and login api routes
 require("./routes/user_router.js")(app); //student and instructor portals
 require("./routes/html-routes")(app);
+
+// Send every request to the React app
+// Define any API routes before this runs
+app.get("*", function(req, res) {
+  res.sendFile(path.join(__dirname, "./client/build/index.html"));
+});
 
 // Syncing DB models and then starting express server
 // =============================================================

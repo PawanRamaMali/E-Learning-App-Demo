@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 import AppNavbar from "../Components/AppNavbar";
 import InstructorTable from "../Components/AdminInstructorTable";
 import "../instructor.css";
-import { getAllInstructors, deleteInstructor } from '../actions'
+import { getAllInstructors, deleteInstructor, activateInstructor, deactivateInstructor } from '../actions'
 import { useDispatch, useSelector } from 'react-redux'
 
 export default function AdminInstructorList() {
@@ -27,6 +27,16 @@ export default function AdminInstructorList() {
         e.preventDefault()
         dispatch(deleteInstructor(authObj.accessToken, id))
     }
+
+    const handleActivate = (id) => (e) => {
+        e.preventDefault()
+        dispatch(activateInstructor(authObj.accessToken, id))
+    }
+
+    const handleDeactivate = (id) => (e) => {
+        e.preventDefault()
+        dispatch(deactivateInstructor(authObj.accessToken, id))
+    }
     
     
     return (
@@ -35,16 +45,12 @@ export default function AdminInstructorList() {
             <Jumbotron className="InsLanding-background">
                 <div className="InsLanding-content homepage-content">
                     <h1 className="">POD | Instructor View</h1>
-                    {/* <p className="btngroup">
-                        <Button className="InsBtn AddStu primary-button">ADD STUDENTS</Button>{' '}
-                        <Button className="InsBtn Dashboard primary-button">VIEW DASHBOARD</Button>{' '}
-                    </p> */}
                     <p className="btngroup">
                         <Button className="InsBtn Dashboard primary-button" onClick={() => {history.push(`/admin`)}}>DASHBOARD</Button>{' '}
                     </p>
                 </div>
             </Jumbotron>
-            <InstructorTable allInstructors={allInstructors.data} handleDelete={handleDelete} />
+            <InstructorTable allInstructors={allInstructors.data} handleDelete={handleDelete} handleActivate={handleActivate} handleDeactivate={handleDeactivate} />
         </React.Fragment>
     )
 }

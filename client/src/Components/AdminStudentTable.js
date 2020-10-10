@@ -21,6 +21,7 @@ export default function AdminStudentTable(props) {
               <th>Activate</th>
               <th>Deactivate</th>
               <th>Delete</th>
+              <th>Active</th>
               <th>ID</th>
             </tr>
           </thead>
@@ -38,6 +39,7 @@ export default function AdminStudentTable(props) {
               <td>
                 <Button id={ student.id } onClick={props.handleDelete(student.id)} variant="danger">Delete</Button>
               </td>
+              <td>{student.active}</td>
               <td>{student.id}</td>
             </tr>
           </tbody>

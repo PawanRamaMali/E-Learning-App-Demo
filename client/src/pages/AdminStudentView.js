@@ -30,7 +30,6 @@ export default function AdminStudentList() {
     const handleActivate = (id) => (e) => {
         e.preventDefault()
         dispatch(activateStudent(authObj.accessToken, id))
-        console.log(authObj.accessToken)
     }
 
     const handleDeactivate = (id) => (e) => {

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {Card, Button, Image} from "react-bootstrap";
 import "../instructor.css";
 import $ from "jquery";
@@ -9,15 +9,15 @@ export default function StudentCard(props) {
 
 // })
 
-   const randomUser = function() {
-        $.ajax({
-            url: 'https://randomuser.me/api/',
-            dataType: 'json',
-            success: function(data) {
-                console.log(data);
-            }
-        });
-   }
+//    const randomUser = function() {
+//         $.ajax({
+//             url: 'https://randomuser.me/api/',
+//             dataType: 'json',
+//             success: function(data) {
+//                 console.log(data);
+//             }
+//         });
+//    }
 
 
     return (

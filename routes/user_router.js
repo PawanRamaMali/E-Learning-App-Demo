@@ -76,14 +76,8 @@ module.exports = (app) => {
     app.delete("/api/user/admin/student/", [JwtTokenValidator.fnVerifyToken, JwtTokenValidator.isAdmin], adminController.deleteStudent)
 
     //admin activate User
-    app.put("/api/user/admin/user/instructor/activate/", [JwtTokenValidator.fnVerifyToken, JwtTokenValidator.isAdmin], adminController.activateInstructor)
+    app.put("/api/user/admin/user/activate/", [JwtTokenValidator.fnVerifyToken, JwtTokenValidator.isAdmin], adminController.activateUser)
 
     //admin deactivate User
-    app.put("/api/user/admin/user/instructor/deactivate/", [JwtTokenValidator.fnVerifyToken, JwtTokenValidator.isAdmin], adminController.deactivateInstructor)
-
-    //admin activate User
-    app.put("/api/user/admin/user/student/activate/", [JwtTokenValidator.fnVerifyToken, JwtTokenValidator.isAdmin], adminController.activateStudent)
-
-    //admin deactivate User
-    app.put("/api/user/admin/user/student/deactivate/", [JwtTokenValidator.fnVerifyToken, JwtTokenValidator.isAdmin], adminController.deactivateStudent)
+    app.put("/api/user/admin/user/deactivate/", [JwtTokenValidator.fnVerifyToken, JwtTokenValidator.isAdmin], adminController.deactivateUser)
 }

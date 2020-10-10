@@ -30,8 +30,8 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false,
         },
         active: {
-          type: DataTypes.BOOLEAN,
-          defaultValue: 0,
+          type: DataTypes.STRING,
+          defaultValue: false,
           allowNull: false,
         }
     });

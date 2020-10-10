@@ -20,5 +20,6 @@ module.exports = (app) => {
     //token validation only
     app.get("/api/auth/token", JwtTokenValidator.fnVerifyToken, authController.tokenValidation);
 
-
+    //password reset
+    app.post("/api/auth/pwdreset", JwtTokenValidator.fnVerifyToken, authController.passwordReset);
 }

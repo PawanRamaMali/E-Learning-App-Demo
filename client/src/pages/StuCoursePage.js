@@ -10,9 +10,8 @@ import AppNavbar from '../Components/AppNavbar';
 export default function InsCoursePage() {
     const dispatch = useDispatch();
 
-    const [courses, error, authObj] = useSelector((gState) => [
+    const [courses, authObj] = useSelector((gState) => [
         gState.courses,
-        gState.error,
         gState.authObj
 
       ]);

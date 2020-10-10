@@ -20,6 +20,7 @@ export default function AdminInstructorTable(props) {
               <th>Activate</th>
               <th>Deactivate</th>
               <th>Delete</th>
+              <th>Activated</th>
               <th>ID</th>
             </tr>
           </thead>
@@ -29,14 +30,15 @@ export default function AdminInstructorTable(props) {
               <td>{instructor["last_name"]}</td>
               <td>{instructor["email"]}</td>
               <td>
-                <Button variant="success">Activate</Button>
+                <Button variant="success" value={instructor.active} onClick={props.handleActivate(instructor.id)}>Activate</Button>
               </td>
               <td>
-                <Button variant="secondary">Deactivate</Button>
+                <Button variant="secondary" value={instructor.active} onClick={props.handleDeactivate(instructor.id)}>Deactivate</Button>
               </td>
               <td>
                 <Button id={ instructor.id } onClick={props.handleDelete(instructor.id)} variant="danger">Delete</Button>
               </td>
+              <td>{instructor.active}</td>
               <td>{instructor.id}</td>
             </tr>
           </tbody>

@@ -8,14 +8,14 @@ import {
   GET_ROSTER_REQUEST, GET_ROSTER_SUCCESS, GET_ROSTER_FAILURE,
   SET_COURSE_IDREQ , SET_COURSE_IDSUCCESS , SET_COURSE_IDFAIL,
   GET_ALL_INSTRUCTORS_REQUEST, GET_ALL_INSTRUCTORS_SUCCESS, GET_ALL_INSTRUCTORS_FAILURE,
-  GET_ALL_STUDENTS_REQUEST, GET_ALL_STUDENTS_SUCCESS, GET_ALL_STUDENTS_FAILURE,
+  PASSRESTOK_VALIDATION_REQUEST, PASSRESTOK_VALIDATION_SUCCESS, PASSRESTOK_VALIDATION_FAILURE,
+  GET_ALL_STUDENTS_REQUEST, GET_ALL_STUDENTS_SUCCESS, GET_ALL_STUDENTS_FAILURE, 
+  GET_URL_REQUEST, GET_URL_SUCCESS, GET_URL_FAILURE,
+  PASSWORD_RESET_REQUEST, PASSWORD_RESET_SUCCESS, PASSWORD_RESET_FAILURE,
   DELETE_INSTRUCTOR_SUCCESS, DELETE_INSTRUCTOR_FAILURE,
   DELETE_STUDENT_SUCCESS, DELETE_STUDENT_FAILURE,
-  GET_URL_REQUEST, GET_URL_SUCCESS, GET_URL_FAILURE,
- INSTRUCTOR_ACTIVATION_REQUEST,INSTRUCTOR_ACTIVATION_SUCCESS,INSTRUCTOR_ACTIVATION_FAILURE,
- INSTRUCTOR_DEACTIVATION_REQUEST,INSTRUCTOR_DEACTIVATION_SUCCESS,INSTRUCTOR_DEACTIVATION_FAILURE,
- STUDENT_ACTIVATION_REQUEST,STUDENT_ACTIVATION_SUCCESS,STUDENT_ACTIVATION_FAILURE,
- STUDENT_DEACTIVATION_REQUEST,STUDENT_DEACTIVATION_SUCCESS,STUDENT_DEACTIVATION_FAILURE,
+  USER_ACTIVATION_SUCCESS, USER_ACTIVATION_FAILURE,
+  USER_DEACTIVATION_SUCCESS,USER_DEACTIVATION_FAILURE,
 } from "./constants";
 import { validateSession, getSessionAuthObj } from "./utils/sessions";
 
@@ -24,6 +24,10 @@ export const initialState = {
   isAuthenticatedUser: validateSession(),
   isLoggingOut: false,
   isLoggedOutSuccess: false,
+  isValidatingPassResTok: false,
+  isValidPassResTok: false,
+  isResetingPassword: false,
+  isPasswordResetSuccess: false,
   authObj: getSessionAuthObj(),
   isNewCourseAdded: false,
   courseObj: {},
@@ -36,7 +40,9 @@ export const initialState = {
   isNewUserAdded: false,
   stuObj: {},
   stuRoster: [],
+  resPassUid: {},
   url: "",
+  appMsg:"",
   error: ""
 };
 
@@ -171,6 +177,65 @@ export default (state = initialState, action) => {
         error: action.payload
       };
 
+    //password reset
+    case PASSRESTOK_VALIDATION_REQUEST:
+      return { 
+        ...state, 
+        isValidatingPassResTok: action.isValidatingPassResTok, 
+        isValidPassResTok: action.isValidPassResTok 
+      }
+
+    //password reset
+    case PASSRESTOK_VALIDATION_SUCCESS:
+      return { 
+        ...state, 
+        isValidatingPassResTok: action.isValidatingPassResTok, 
+        isValidPassResTok: action.isValidPassResTok, 
+        resPassUid: action.payload, 
+        error: "" 
+      }
+
+    //password reset
+    case PASSRESTOK_VALIDATION_FAILURE:
+      return { 
+        ...state, 
+        isValidatingPassResTok: action.isValidatingPassResTok, 
+        isValidPassResTok: action.isValidPassResTok, 
+        error: action.payload, 
+        resPassUid: "" 
+      }
+
+      //password reset
+    case PASSWORD_RESET_REQUEST:
+      return { 
+        ...state, 
+        isResetingPassword: action.isResetingPassword,
+        isPasswordResetSuccess: action.isPasswordResetSuccess,
+        appMsg: "",
+        error: ""
+      }
+
+    //password reset
+    case PASSWORD_RESET_SUCCESS:
+      return { 
+        ...state, 
+        isResetingPassword: action.isResetingPassword,
+        isPasswordResetSuccess: action.isPasswordResetSuccess,
+        appMsg: action.payload,
+        error: "" 
+      }
+
+    //password reset
+    case PASSWORD_RESET_FAILURE:
+      return { 
+        ...state, 
+        isResetingPassword: action.isResetingPassword,
+        isPasswordResetSuccess: action.isPasswordResetSuccess,
+        error: action.payload, 
+        appMsg: "",
+        resPassUid: "" 
+      }
+
     case GET_URL_REQUEST:
        return {...state, url: '', error:null}
     case GET_URL_SUCCESS:
@@ -188,32 +253,14 @@ export default (state = initialState, action) => {
     case DELETE_STUDENT_FAILURE:
         return { ...state, error: action.payload }
 
-    case INSTRUCTOR_ACTIVATION_REQUEST:
-      return {...state, allInstructors: [], error:null}
-    case INSTRUCTOR_ACTIVATION_SUCCESS:
-      return {...state, allInstructors: action.payload, error:null}
-    case INSTRUCTOR_ACTIVATION_FAILURE:
+    case USER_ACTIVATION_SUCCESS:
+      return state
+    case USER_ACTIVATION_FAILURE:
       return {...state, error: action.payload}
 
-    case INSTRUCTOR_DEACTIVATION_REQUEST:
-      return {...state, allInstructors: [], error:null}
-    case INSTRUCTOR_DEACTIVATION_SUCCESS:
-      return {...state, allInstructors: action.payload, error:null}
-    case INSTRUCTOR_DEACTIVATION_FAILURE:
-      return {...state, error: action.payload}
-
-    case STUDENT_ACTIVATION_REQUEST:
-      return {...state, allStudents: [], error:null}
-    case STUDENT_ACTIVATION_SUCCESS:
-      return {...state, allStudents: action.payload, error:null}
-    case STUDENT_ACTIVATION_FAILURE:
-      return {...state, error: action.payload}
-
-    case STUDENT_DEACTIVATION_REQUEST:
-      return {...state, allStudents: [], error:null}
-    case STUDENT_DEACTIVATION_SUCCESS:
-      return {...state, allStudents: action.payload, error:null}
-    case STUDENT_DEACTIVATION_FAILURE:
+    case USER_DEACTIVATION_SUCCESS:
+      return state
+    case USER_DEACTIVATION_FAILURE:
       return {...state, error: action.payload}
     
     default:
