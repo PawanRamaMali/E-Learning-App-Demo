@@ -498,10 +498,11 @@ export const validateResetPassToken = (tempToken) => {
 
 
 //Password reset transactions
-const passwordResetSuccess = () => ({
+const passwordResetSuccess = (response) => ({
   type:    PASSWORD_RESET_SUCCESS,
   isResetingPassword: false,
   isPasswordResetSuccess: true,
+  payload: response
 });
 
 const passwordResetFailure = (error) => ({
@@ -530,7 +531,7 @@ export const passwordResetAttempt = (password, userId, tempToken) => {
           //if request is successful, persist a session and dispatch
           //login success action
           if(response.status === 200){
-            dispatch(passwordResetSuccess());
+            dispatch(passwordResetSuccess(response.data.msg));
           }
         })
         .catch( (error) => {

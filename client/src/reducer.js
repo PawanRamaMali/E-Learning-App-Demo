@@ -38,6 +38,7 @@ export const initialState = {
   stuRoster: [],
   resPassUid: {},
   url: "",
+  appMsg:"",
   error: ""
 };
 
@@ -206,7 +207,8 @@ export default (state = initialState, action) => {
       return { 
         ...state, 
         isResetingPassword: action.isResetingPassword,
-        isPasswordResetSuccess: action.isResetingPassword,
+        isPasswordResetSuccess: action.isPasswordResetSuccess,
+        appMsg: "",
         error: ""
       }
 
@@ -215,7 +217,8 @@ export default (state = initialState, action) => {
       return { 
         ...state, 
         isResetingPassword: action.isResetingPassword,
-        isPasswordResetSuccess: action.isResetingPassword,
+        isPasswordResetSuccess: action.isPasswordResetSuccess,
+        appMsg: action.payload,
         error: "" 
       }
 
@@ -224,8 +227,9 @@ export default (state = initialState, action) => {
       return { 
         ...state, 
         isResetingPassword: action.isResetingPassword,
-        isPasswordResetSuccess: action.isResetingPassword,
+        isPasswordResetSuccess: action.isPasswordResetSuccess,
         error: action.payload, 
+        appMsg: "",
         resPassUid: "" 
       }
 

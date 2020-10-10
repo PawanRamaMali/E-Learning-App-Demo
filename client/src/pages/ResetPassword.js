@@ -2,6 +2,7 @@ import React, { useState, useEffect} from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { Alert, Container, Row, Col, Form, Button } from "react-bootstrap";
 import { parse } from "query-string";
+import { useHistory } from "react-router-dom";
 import { validateResetPassToken, passwordResetAttempt } from "../actions";
 import "../instructor.css";
 
@@ -35,10 +36,16 @@ function parseToken(queryToken) {
 
 export default function ResetPassword(props) {
     const dispatch = useDispatch();
-    const [isValidPassResTok, isValidatingPassResTok, resPassUid] = useSelector((gState) => [
+    //useHistory hook to redirect to desired routes
+    const history = useHistory();
+    const [isValidPassResTok, isValidatingPassResTok, isResetingPassword, isPasswordResetSuccess, resPassUid, appMsg, error] = useSelector((gState) => [
         gState.isValidPassResTok,
         gState.isValidatingPassResTok,
-        gState.resPassUid
+        gState.isResetingPassword,
+        gState.isPasswordResetSuccess,
+        gState.resPassUid,
+        gState.appMsg,
+        gState.error
     ]);
     //form validation state declaration -- initial form state of validation: false
     const [validated, setValidated] = useState(false);
@@ -97,6 +104,34 @@ export default function ResetPassword(props) {
         }
         setValidated(true);
     }
+
+    const msgRender = () => {
+        if (validationError !== ""){
+            return (
+                <Alert variant="danger">{validationError}</Alert>
+            )
+        }
+        if (isResetingPassword) {
+            return (
+                <Alert variant="info">Processing...</Alert>
+            )
+        }
+        else{
+            if(isPasswordResetSuccess) {
+                //call function to redirect to homepage
+                //after a couple of seconds
+                setTimeout( () => { history.push("/") }, 2000);
+               return (
+                <Alert variant="success">{appMsg}</Alert>
+               ) 
+            }
+            else if(!isPasswordResetSuccess && error !== ""){
+               return (
+                <Alert variant="danger">{error}</Alert>
+               )
+            }
+        }
+    }
     
     const returnFrag = () => {
         //conditional rendering
@@ -137,9 +172,8 @@ export default function ResetPassword(props) {
                                 Passwords must match.
                             </Form.Control.Feedback>
                         </Form.Group>
-                        { validationError !== "" ? 
-                            <Alert variant="danger">{validationError}</Alert> : ""}
-                        <Button variant="primary" type="submit">
+                        {msgRender()}
+                        <Button variant="primary" type="submit" disabled={isPasswordResetSuccess}>
                             Submit
                         </Button>
                     </Form>
