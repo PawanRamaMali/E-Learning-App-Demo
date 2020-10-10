@@ -10,9 +10,13 @@ import {
   GET_ALL_INSTRUCTORS_REQUEST, GET_ALL_INSTRUCTORS_SUCCESS, GET_ALL_INSTRUCTORS_FAILURE,
   GET_ALL_STUDENTS_REQUEST, GET_ALL_STUDENTS_SUCCESS, GET_ALL_STUDENTS_FAILURE,
   GET_ROSTER_REQUEST, GET_ROSTER_SUCCESS, GET_ROSTER_FAILURE,
-  DELETE_INSTRUCTOR_REQUEST, DELETE_INSTRUCTOR_SUCCESS, DELETE_INSTRUCTOR_FAILURE,
-  DELETE_STUDENT_REQUEST, DELETE_STUDENT_SUCCESS, DELETE_STUDENT_FAILURE,
-  GET_URL_REQUEST, GET_URL_SUCCESS, GET_URL_FAILURE
+  DELETE_INSTRUCTOR_SUCCESS, DELETE_INSTRUCTOR_FAILURE,
+  DELETE_STUDENT_SUCCESS, DELETE_STUDENT_FAILURE,
+  GET_URL_REQUEST, GET_URL_SUCCESS, GET_URL_FAILURE,
+  INSTRUCTOR_ACTIVATION_REQUEST,INSTRUCTOR_ACTIVATION_SUCCESS,INSTRUCTOR_ACTIVATION_FAILURE,
+  INSTRUCTOR_DEACTIVATION_REQUEST,INSTRUCTOR_DEACTIVATION_SUCCESS,INSTRUCTOR_DEACTIVATION_FAILURE,
+  STUDENT_ACTIVATION_REQUEST,STUDENT_ACTIVATION_SUCCESS,STUDENT_ACTIVATION_FAILURE,
+  STUDENT_DEACTIVATION_REQUEST,STUDENT_DEACTIVATION_SUCCESS,STUDENT_DEACTIVATION_FAILURE,
 } from "./constants";
 import { createSession, destroySession, validateSession } from "./utils/sessions";
 import axios from "axios";
@@ -427,70 +431,6 @@ export const addCourseAttempt = (data, accessToken) => {
       }
   }
 
-///Action to delete instructor
-const deleteInstructorSuccess = (id) => ({
-  type: DELETE_INSTRUCTOR_SUCCESS,
-  payload: id
-})
-//When Request from API fails
-const deleteInstructorFailure = (error) => ({
-  type: DELETE_INSTRUCTOR_FAILURE,
-  payload: error,
-})
-
-//view instructor Api request for admin
-export const deleteInstructor = (token, id) => {
- 
-  return (dispatch, getState) => {
-    dispatch({type: DELETE_INSTRUCTOR_REQUEST});
-    axios
-      .get("/api/user/admin/instructor" + id, {
-        headers: {
-          'x-access-token': token
-        }
-      })
-      .then((response) => {
-        dispatch(deleteInstructorSuccess(response.data))
-     
-      })
-      .catch((error) => {
-        dispatch(deleteInstructorFailure(error.message))
-      })
-  }
-}
-
-///Action to delete student
-const deleteStudentSuccess = (id) => ({
-  type: DELETE_STUDENT_SUCCESS,
-  payload: IDBDatabase
-})
-//When Request from API fails
-const deleteStudentFailure = (error) => ({
-  type: DELETE_STUDENT_FAILURE,
-  payload: error,
-})
-
-//view instructor Api request for admin
-export const deleteStudent = (token, id) => {
- 
-  return (dispatch, getState) => {
-    dispatch({type: DELETE_STUDENT_REQUEST});
-    axios
-      .get("/api/user/admin/student" + id, {
-        headers: {
-          'x-access-token': token
-        }
-      })
-      .then((response) => {
-        dispatch(deleteStudentSuccess(response.data))
-     
-      })
-      .catch((error) => {
-        dispatch(deleteStudentFailure(error.message))
-      })
-  }
-}
-  
   const getUrlSuccess = (url) => {
  
     return {
@@ -518,6 +458,192 @@ export const deleteStudent = (token, id) => {
   }
 
 
+///Action to delete instructor
+const deleteInstructorSuccess = (id) => ({
+  type: DELETE_INSTRUCTOR_SUCCESS,
+  payload: id
+})
+//When Request from API fails
+const deleteInstructorFailure = (error) => ({
+  type: DELETE_INSTRUCTOR_FAILURE,
+  payload: error,
+})
 
+//delete instructor Api request for admin
+export const deleteInstructor = (token, id) => {
 
+  return (dispatch, gState) => {
+   axios.delete('/api/user/admin/instructor/?id=' + id, {
+      headers: {
+        'x-access-token': token
+      }
+    }).then((id) => {
+      dispatch(deleteInstructorSuccess(id))
+      dispatch(getAllInstructors(token))
+    }).catch((err) => {
+      dispatch(deleteInstructorFailure(err))
+    })
+  }
+}
 
+///Action to delete student
+const deleteStudentSuccess = (id) => ({
+  type: DELETE_STUDENT_SUCCESS,
+  payload: id
+})
+//When Request from API fails
+const deleteStudentFailure = (error) => ({
+  type: DELETE_STUDENT_FAILURE,
+  payload: error,
+})
+
+//delete student Api request for admin
+export const deleteStudent = (token, id) => {
+
+  return (dispatch, getState) => {
+  axios.delete("/api/user/admin/student/?id=" + id, {
+    headers: {
+     'x-access-token': token
+    }
+  })
+  .then((id) => {
+    dispatch(deleteStudentSuccess(id))
+    dispatch(getAllStudents(token))
+  }).catch((err) => {
+    dispatch(deleteStudentFailure(err))
+  })
+  }
+
+}
+
+///Action to delete student
+const activateInstructorSuccess = (id) => ({
+  type: INSTRUCTOR_ACTIVATION_SUCCESS,
+  payload: id
+})
+//When Request from API fails
+const activateInstructorFailure = (error) => ({
+  type: INSTRUCTOR_ACTIVATION_FAILURE,
+  payload: error,
+})
+
+//view instructor Api request for admin
+export const activateInstructor = (token, id) => {
+
+  return (dispatch, getState) => {
+    dispatch({type: INSTRUCTOR_ACTIVATION_REQUEST})
+  axios
+  .put("/api/user/admin/user/instructor/activate/?id=" + id, {
+    headers: {
+     'x-access-token': token
+    }
+  })
+  .then((id) => {
+    dispatch(activateInstructorSuccess(id))
+    dispatch(getAllInstructors(token))
+    console.log(token)
+  }).catch((err) => {
+    dispatch(activateInstructorFailure(err))
+  })
+  }
+
+}
+
+///Action to delete student
+const deactivateInstructorSuccess = (id) => ({
+  type: INSTRUCTOR_DEACTIVATION_SUCCESS,
+  payload: id
+})
+//When Request from API fails
+const deactivateInstructorFailure = (error) => ({
+  type: INSTRUCTOR_DEACTIVATION_FAILURE,
+  payload: error,
+})
+
+//view instructor Api request for admin
+export const deactivateInstructor = (token, id) => {
+
+  return (dispatch, getState) => {
+    dispatch({type: INSTRUCTOR_DEACTIVATION_REQUEST})
+  axios
+  .put("/api/user/admin/user/instructor/deactivate/?id=" + id, {
+    headers: {
+     'x-access-token': token
+    }
+  })
+  .then((id) => {
+    dispatch(deactivateInstructorSuccess(id))
+    dispatch(getAllInstructors(token))
+    console.log(token)
+  }).catch((err) => {
+    dispatch(deactivateInstructorFailure(err))
+  })
+  }
+
+}
+
+///Action to delete student
+const deactivateStudentSuccess = (id) => ({
+  type: STUDENT_DEACTIVATION_SUCCESS,
+  payload: id
+})
+//When Request from API fails
+const deactivateStudentFailure = (error) => ({
+  type: STUDENT_DEACTIVATION_FAILURE,
+  payload: error,
+})
+
+//view instructor Api request for admin
+export const deactivateStudent = (token, id) => {
+
+  return (dispatch, getState) => {
+    dispatch({type: STUDENT_DEACTIVATION_REQUEST})
+  axios
+  .put("/api/user/admin/user/student/deactivate/?id=" + id, {
+    headers: {
+     'x-access-token': token
+    }
+  })
+  .then((id) => {
+    dispatch(deactivateStudentSuccess(id))
+    dispatch(getAllStudents(token))
+    console.log(token)
+  }).catch((err) => {
+    dispatch(deactivateStudentFailure(err))
+  })
+  }
+
+}
+
+///Action to delete student
+const activateStudentSuccess = (id) => ({
+  type: STUDENT_ACTIVATION_SUCCESS,
+  payload: id
+})
+//When Request from API fails
+const activateStudentFailure = (error) => ({
+  type: STUDENT_ACTIVATION_FAILURE,
+  payload: error,
+})
+
+//view instructor Api request for admin
+export const activateStudent = (token, id) => {
+  console.log(token)
+
+  return (dispatch, getState) => {
+    dispatch({type: STUDENT_ACTIVATION_REQUEST})
+  axios
+  .put("/api/user/admin/user/student/activate/?id=" + id, {
+    headers: {
+     'x-access-token': token
+    }
+  })
+  .then((id) => {
+    dispatch(activateStudentSuccess(id))
+    dispatch(getAllStudents(token))
+  }).catch((err) => {
+    dispatch(activateStudentFailure(err))
+  })
+  }
+
+}

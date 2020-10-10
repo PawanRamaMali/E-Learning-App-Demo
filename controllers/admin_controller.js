@@ -29,8 +29,65 @@ exports.viewInstuctors = (req, res) => {
     })
 }
 
-// Activate instructor
+// Activate Instructor
 //==================================================
+exports.activateInstructor = (req, res) => {
+    console.log(
+        `${
+          process.env.APP_ENV === "developement"
+            ? "===== Activate Instructor ===="
+            : ""
+        }`
+      )
+
+      db.User.update({
+          active: true
+      },{
+          where: {
+              id: req.query.id,
+            //   active:0
+          }
+        })
+      .then((instructorData) => {
+        if (instructorData){
+            res.status(200).json({
+                "data": "Instructor Activated"
+        })
+        }
+    }).catch((err) => {
+        res.status(500).send(`Error Activating Instructor -> ${err}`)
+      })
+}
+
+// Dectivate Instructor
+//==================================================
+exports.deactivateInstructor = (req, res) => {
+    console.log(
+        `${
+          process.env.APP_ENV === "developement"
+            ? "===== Deactivate Instructor ===="
+            : ""
+        }`
+      )
+
+      db.User.update({
+          active: false
+      },{
+          where: {
+              id: req.query.id,
+            //   active:0
+          }
+        })
+      .then((instructorData) => {
+        if (instructorData){
+            res.status(200).json({
+                "data": "Instructor Dectivated"
+        })
+        }
+    }).catch((err) => {
+        res.status(500).send(`Error Dectivating Instructor -> ${err}`)
+      })
+}
 
 
 // Delete Instructors
@@ -121,5 +178,66 @@ exports.deleteStudent = (req, res) => {
         }
     }).catch((err) => {
         res.status(500).send(`Error Retrieving Student information -> ${err}`)
+      })
+}
+
+
+// Activate Student
+//==================================================
+exports.activateStudent = (req, res) => {
+    console.log(
+        `${
+          process.env.APP_ENV === "developement"
+            ? "===== Activate Student ===="
+            : ""
+        }`
+      )
+
+      db.User.update({
+          active: "true"
+      },{
+          where: {
+              id: req.query.id,
+            //   active:0
+          }
+        })
+      .then((studentData) => {
+        if (studentData){
+            res.status(200).json({
+                "data": "Student Activated"
+        })
+        }
+    }).catch((err) => {
+        res.status(500).send(`Error Activating Student -> ${err}`)
+      })
+}
+
+// Dectivate Student
+//==================================================
+exports.deactivateStudent = (req, res) => {
+    console.log(
+        `${
+          process.env.APP_ENV === "developement"
+            ? "===== Deactivate Student ===="
+            : ""
+        }`
+      )
+
+      db.User.update({
+          active: "false"
+      },{
+          where: {
+              id: req.query.id,
+            //   active:0
+          }
+        })
+      .then((studentData) => {
+        if (studentData){
+            res.status(200).json({
+                "data": "Student Dectivated"
+        })
+        }
+    }).catch((err) => {
+        res.status(500).send(`Error Dectivating Student -> ${err}`)
       })
 }

@@ -23,13 +23,10 @@ export default function AdminInstructorList() {
       dispatch(getAllInstructors(authObj.accessToken))
     }, [])
 
-    // const handleDelete = (id) => (e) => {
-    //     e.preventDefault()
-    //     dispatch(deleteInstructor(id))
-    // }
-  
-    // console.log(allInstructors)
-    console.log(allInstructors.data)
+    const handleDelete = (id) => (e) => {
+        e.preventDefault()
+        dispatch(deleteInstructor(authObj.accessToken, id))
+    }
     
     
     return (
@@ -47,7 +44,7 @@ export default function AdminInstructorList() {
                     </p>
                 </div>
             </Jumbotron>
-            <InstructorTable allInstructors={allInstructors.data} />
+            <InstructorTable allInstructors={allInstructors.data} handleDelete={handleDelete} />
         </React.Fragment>
     )
 }

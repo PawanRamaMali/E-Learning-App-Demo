@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom';
 import AppNavbar from "../Components/AppNavbar";
 import StudentTable from "../Components/AdminStudentTable";
-import { getAllStudents, deleteStudent } from '../actions'
+import { getAllStudents, deleteStudent, activateStudent, deactivateStudent } from '../actions'
 import "../instructor.css";
 
 export default function AdminStudentList() {
@@ -22,13 +22,24 @@ export default function AdminStudentList() {
       dispatch(getAllStudents(authObj.accessToken))
     }, [])
 
-    // const handleDelete = (id) => (e) => {
-    //     e.preventDefault()
-    //     dispatch(deleteStudent(id))
-    // }
+    const handleDelete = (id) => (e) => {
+        e.preventDefault()
+        dispatch(deleteStudent(authObj.accessToken, id))
+    }
+
+    const handleActivate = (id) => (e) => {
+        e.preventDefault()
+        dispatch(activateStudent(authObj.accessToken, id))
+        console.log(authObj.accessToken)
+    }
+
+    const handleDeactivate = (id) => (e) => {
+        e.preventDefault()
+        dispatch(deactivateStudent(authObj.accessToken, id))
+    }
   
     // console.log(allStudents)
-    // console.log(allStudents.data)
+    console.log(allStudents.data)
 
     return (
         <React.Fragment> 
@@ -41,7 +52,7 @@ export default function AdminStudentList() {
                     </p>
                 </div>
             </Jumbotron>
-            <StudentTable allStudents={allStudents.data} />
+            <StudentTable allStudents={allStudents.data} handleDelete={handleDelete} handleActivate={handleActivate} handleDeactivate={handleDeactivate} />
         </React.Fragment>
         
         
