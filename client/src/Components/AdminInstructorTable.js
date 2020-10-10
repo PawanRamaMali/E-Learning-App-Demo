@@ -5,8 +5,6 @@ import "../instructor.css";
 
 export default function AdminInstructorTable(props) {
   const { allInstructors } = props;
-  console.log(allInstructors);
-
 
   return (
 
@@ -19,10 +17,11 @@ export default function AdminInstructorTable(props) {
               <th>First Name</th>
               <th>Last Name</th>
               <th>Email</th>
-              <th>Date Created</th>
               <th>Activate</th>
               <th>Deactivate</th>
               <th>Delete</th>
+              <th>Activated</th>
+              <th>ID</th>
             </tr>
           </thead>
           <tbody>
@@ -30,16 +29,17 @@ export default function AdminInstructorTable(props) {
               <td>{instructor["first_name"]}</td>
               <td>{instructor["last_name"]}</td>
               <td>{instructor["email"]}</td>
-              <td>{instructor["createdAt"]}</td>
               <td>
-                <Button>Activate</Button>
+                <Button variant="success" value={instructor.active} onClick={props.handleActivate(instructor.id)}>Activate</Button>
               </td>
               <td>
-                <Button>Deactivate</Button>
+                <Button variant="secondary" value={instructor.active} onClick={props.handleDeactivate(instructor.id)}>Deactivate</Button>
               </td>
               <td>
-                <Button id={ instructor.id }>Delete</Button>
+                <Button id={ instructor.id } onClick={props.handleDelete(instructor.id)} variant="danger">Delete</Button>
               </td>
+              <td>{instructor.active}</td>
+              <td>{instructor.id}</td>
             </tr>
           </tbody>
         </Table>

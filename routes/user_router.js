@@ -60,13 +60,24 @@ module.exports = (app) => {
     //Instructor Create Lessons route
     app.post("/api/user/instructor/lessons", [JwtTokenValidator.fnVerifyToken, JwtTokenValidator.isInstructor], instructorController.addLesson);
 
+    //admin route
     app.get("/api/user/admin", [JwtTokenValidator.fnVerifyToken, JwtTokenValidator.isAdmin], userController.adminPortal)
 
-    app.get("/api/user/admin/view/instructors", [JwtTokenValidator.fnVerifyToken, JwtTokenValidator.isAdmin], adminController.viewInstuctors)
+    //admin Get all instructors
+    app.get("/api/user/admin/instructors", [JwtTokenValidator.fnVerifyToken, JwtTokenValidator.isAdmin], adminController.viewInstuctors)
 
-    app.delete("/api/user/admin/delete/instuctor", [JwtTokenValidator.fnVerifyToken, JwtTokenValidator.isAdmin], adminController.deleteInstructors)
+    //admin delete instructor
+    app.delete("/api/user/admin/instuctor/", [JwtTokenValidator.fnVerifyToken, JwtTokenValidator.isAdmin], adminController.deleteInstructors)
 
-    app.get("/api/user/admin/view/students", [JwtTokenValidator.fnVerifyToken, JwtTokenValidator.isAdmin], adminController.viewStudents)
+    //admin Get all students
+    app.get("/api/user/admin/students", [JwtTokenValidator.fnVerifyToken, JwtTokenValidator.isAdmin], adminController.viewStudents)
 
-    app.delete("/api/user/admin/delete/student", [JwtTokenValidator.fnVerifyToken, JwtTokenValidator.isAdmin], adminController.deleteStudent)
+    //admin delete students
+    app.delete("/api/user/admin/student/", [JwtTokenValidator.fnVerifyToken, JwtTokenValidator.isAdmin], adminController.deleteStudent)
+
+    //admin activate User
+    app.put("/api/user/admin/user/activate/", [JwtTokenValidator.fnVerifyToken, JwtTokenValidator.isAdmin], adminController.activateUser)
+
+    //admin deactivate User
+    app.put("/api/user/admin/user/deactivate/", [JwtTokenValidator.fnVerifyToken, JwtTokenValidator.isAdmin], adminController.deactivateUser)
 }

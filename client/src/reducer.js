@@ -11,7 +11,11 @@ import {
   PASSRESTOK_VALIDATION_REQUEST, PASSRESTOK_VALIDATION_SUCCESS, PASSRESTOK_VALIDATION_FAILURE,
   GET_ALL_STUDENTS_REQUEST, GET_ALL_STUDENTS_SUCCESS, GET_ALL_STUDENTS_FAILURE, 
   GET_URL_REQUEST, GET_URL_SUCCESS, GET_URL_FAILURE,
-  PASSWORD_RESET_REQUEST, PASSWORD_RESET_SUCCESS, PASSWORD_RESET_FAILURE
+  PASSWORD_RESET_REQUEST, PASSWORD_RESET_SUCCESS, PASSWORD_RESET_FAILURE,
+  DELETE_INSTRUCTOR_SUCCESS, DELETE_INSTRUCTOR_FAILURE,
+  DELETE_STUDENT_SUCCESS, DELETE_STUDENT_FAILURE,
+  USER_ACTIVATION_SUCCESS, USER_ACTIVATION_FAILURE,
+  USER_DEACTIVATION_SUCCESS,USER_DEACTIVATION_FAILURE,
 } from "./constants";
 import { validateSession, getSessionAuthObj } from "./utils/sessions";
 
@@ -98,7 +102,6 @@ export default (state = initialState, action) => {
     case GET_LESSONS_FAILURE:
           return {...state, error: action.payload}
     
-
     case SET_COURSE_IDREQ:
           return {...state, courseId: "", error: null}
     case SET_COURSE_IDSUCCESS:
@@ -238,7 +241,28 @@ export default (state = initialState, action) => {
     case GET_URL_SUCCESS:
        return {...state, url: action.payload, error:null}
     case GET_URL_FAILURE:
-       return {...state, error: action.payload}   
+       return {...state, error: action.payload}
+
+    case DELETE_INSTRUCTOR_SUCCESS:
+      return state
+    case DELETE_INSTRUCTOR_FAILURE:
+      return { ...state, error: action.payload }
+
+    case DELETE_STUDENT_SUCCESS:
+        return state
+    case DELETE_STUDENT_FAILURE:
+        return { ...state, error: action.payload }
+
+    case USER_ACTIVATION_SUCCESS:
+      return state
+    case USER_ACTIVATION_FAILURE:
+      return {...state, error: action.payload}
+
+    case USER_DEACTIVATION_SUCCESS:
+      return state
+    case USER_DEACTIVATION_FAILURE:
+      return {...state, error: action.payload}
+    
     default:
       return state;
   }
