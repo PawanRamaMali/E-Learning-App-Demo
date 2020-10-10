@@ -9,7 +9,10 @@ import {
   GET_LESSONS_REQUEST, GET_LESSONS_SUCCESS, GET_LESSONS_FAILURE,
   SET_COURSE_ID_REQUEST , SET_COURSE_ID_SUCCESS , SET_COURSE_ID_FAILURE,
   GET_ALL_INSTRUCTORS_REQUEST, GET_ALL_INSTRUCTORS_SUCCESS, GET_ALL_INSTRUCTORS_FAILURE,
-  GET_ALL_STUDENTS_REQUEST, GET_ALL_STUDENTS_SUCCESS, GET_ALL_STUDENTS_FAILURE
+  GET_ALL_STUDENTS_REQUEST, GET_ALL_STUDENTS_SUCCESS, GET_ALL_STUDENTS_FAILURE,
+  GET_ROSTER_REQUEST, GET_ROSTER_SUCCESS, GET_ROSTER_FAILURE,
+  PASSRESTOK_VALIDATION_REQUEST, PASSRESTOK_VALIDATION_SUCCESS, PASSRESTOK_VALIDATION_FAILURE,
+  GET_URL_REQUEST, GET_URL_SUCCESS, GET_URL_FAILURE
 } from "./constants";
 import { createSession, destroySession, validateSession } from "./utils/sessions";
 import axios from "axios";
@@ -195,6 +198,41 @@ export const setCourseId = (id) => {
       dispatch(setCourseIdFailure())
     }
 
+  }
+}
+
+
+//Action to get Students Roster
+const getRosterSuccess = (stuRoster) => (
+  {
+    type: GET_ROSTER_SUCCESS,
+    payload: stuRoster
+  }
+)
+const getRosterFailure = (error) => ({
+  type: GET_ROSTER_FAILURE,
+  payload: error
+})
+
+export const getStuRoster = (token) => {
+  return (dispatch, getState) => {
+    dispatch({type: GET_ROSTER_REQUEST})
+    axios
+    .get("/api/user/instructor/courses", {
+      headers: {
+        'x-access-token': token
+      }
+    })
+    .then((response) => {
+      let roster = response.data.data
+      console.log(response.data)
+      dispatch(getRosterSuccess(roster))
+
+      
+    })
+    .catch((error) => {
+      dispatch(getRosterFailure(error.message))
+    })
   }
 }
 
@@ -433,5 +471,79 @@ export const addLessonAttempt = (data, accessToken) => {
       }
   }
   
+
+//Password reset transactions
+const resetPassTokenSuccess = (userId) => ({
+  type:    PASSRESTOK_VALIDATION_SUCCESS,
+  isValidatingPassResTok: false,
+  isValidPassResTok: true,
+  payload: userId,
+});
+
+const resetPassTokenFailed = (error) => ({
+  type:    PASSRESTOK_VALIDATION_FAILURE,
+  isValidatingPassResTok: false,
+  isValidPassResTok: false,
+  payload: error,
+});
+
+export const validateResetPassToken = (tempToken) => {
+    //function receives credentials
+    return (dispatch, getState) => {
+      dispatch({
+        type:    PASSRESTOK_VALIDATION_REQUEST,
+        isValidatingPassResTok: true,
+        isValidPassResTok: false
+      })
+      //use axios to query REST api for add student.
+      axios
+        .get("/api/auth/token", {
+          headers: {
+            "x-access-token": tempToken
+          }
+        })
+        .then( (response) => {
+          //if request is successful, persist a session and dispatch
+          //login success action
+          if(response.status === 200){
+            dispatch(resetPassTokenSuccess(response.data.userId));
+            console.log("token validated", response.data.userId);
+          }
+        })
+        .catch( (error) => {
+          console.log("error validating token");
+          dispatch(resetPassTokenFailed(error.message));
+        });
+      }
+  }
+
+  const getUrlSuccess = (url) => {
+ 
+    return {
+      type: GET_URL_SUCCESS,
+      payload: url
+    }
+  }
+
+  const getUrlfailure = (error) => {
+ 
+    return {
+      type: GET_URL_FAILURE,
+      payload: error
+    }
+  }
+
+  export const getUrl = (url) => {
+    return(dispatch, getState) => {
+      if(url){
+        dispatch(getUrlSuccess(url))
+      }else {
+        dispatch(getUrlfailure())
+      }
+    }
+  }
+
+
+
 
 

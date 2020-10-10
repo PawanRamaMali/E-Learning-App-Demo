@@ -64,3 +64,20 @@
 .lesson-card {
   width: 18rem;
 }
+
+/*Video player CSS */
+.player-wrapper {
+  position: relative;
+  padding-top: 56.25% /* Player ratio: 100 / (1280 / 720) */
+}
+ 
+.react-player {
+  position: relative;
+  top: 0;
+  left: 0;
+}
+
+.video {
+  display: flex;
+  flex-direction: row;
+}

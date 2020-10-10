@@ -7,29 +7,23 @@ import "../App.css";
 
 
 export default function CourseCard(props) {
-
     const dispatch = useDispatch();
     const history = useHistory();
-
     const { courses } = props;
-    // console.log(courses)
-
 
     const redirectRouter = (path) => {
         history.push(path)
     }
 
-    const viewLessons = (e) => {
-            let course_Id = e.currentTarget.id
-            dispatch(setCourseId(course_Id))
-    }
+   const viewLessons = (e) => {
+    let course_Id = e.currentTarget.id
+    console.log(e)
+    dispatch(setCourseId(course_Id))    
+}
 
-
-   
     return (
         <CardGroup className="card-container">
             {courses ? (
-
                     courses.map((course) => (
                         <Card key={ course.id } className="course-card" style={{ width: '18rem' }}>
                                 <Card.Img variant="top" src="..src/img/dolphins2.jpg" />
@@ -45,11 +39,12 @@ export default function CourseCard(props) {
                             </Card.Body>
                         </Card>
                     )     
-                    )):(<p></p>)
+                    )
+                ):(<p></p>)
             } 
         </CardGroup>
     )
-}
+};
 
                     
                     

@@ -10,12 +10,10 @@ import {Jumbotron, Button } from "react-bootstrap"
 export default function InsLessonPage(props) {
     const dispatch = useDispatch()
     //importing global state
-    const [courseId, lessons, authObj, isNewLessonAdded,error] = useSelector((gState) => [
+    const [courseId, lessons, authObj] = useSelector((gState) => [
         gState.courseId,
         gState.lessons,
-        gState.authObj,
-        gState.isNewLessonAdded,
-        gState.error
+        gState.authObj
       ]);
 
     const [showLessonModal, setShowLessonModal] = useState(false);

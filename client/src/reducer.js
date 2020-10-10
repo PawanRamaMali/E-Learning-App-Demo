@@ -7,8 +7,10 @@ import {
   ADD_LESSON_REQUEST, ADD_LESSON_SUCCESS, ADD_LESSON_FAILURE,
   GET_LESSONS_REQUEST, GET_LESSONS_SUCCESS, GET_LESSONS_FAILURE,
   SET_COURSE_ID_REQUEST , SET_COURSE_ID_SUCCESS , SET_COURSE_ID_FAILURE,
+  GET_ROSTER_REQUEST, GET_ROSTER_SUCCESS, GET_ROSTER_FAILURE,
   GET_ALL_INSTRUCTORS_REQUEST, GET_ALL_INSTRUCTORS_SUCCESS, GET_ALL_INSTRUCTORS_FAILURE,
-  GET_ALL_STUDENTS_REQUEST, GET_ALL_STUDENTS_SUCCESS, GET_ALL_STUDENTS_FAILURE
+  PASSRESTOK_VALIDATION_REQUEST, PASSRESTOK_VALIDATION_SUCCESS, PASSRESTOK_VALIDATION_FAILURE,
+  GET_ALL_STUDENTS_REQUEST, GET_ALL_STUDENTS_SUCCESS, GET_ALL_STUDENTS_FAILURE, GET_URL_REQUEST, GET_URL_SUCCESS, GET_URL_FAILURE
 } from "./constants";
 import { validateSession, getSessionAuthObj } from "./utils/sessions";
 
@@ -17,6 +19,8 @@ export const initialState = {
   isAuthenticatedUser: validateSession(),
   isLoggingOut: false,
   isLoggedOutSuccess: false,
+  isValidatingPassResTok: false,
+  isValidPassResTok: false,
   authObj: getSessionAuthObj(),
   isAddingNewCourse: false,
   isNewCourseAdded: false,
@@ -33,6 +37,9 @@ export const initialState = {
   isAddingNewUser: false,
   isNewUserAdded: false,
   stuObj: {},
+  stuRoster: [],
+  resPassUid: {},
+  url: "",
   error: ""
 };
 
@@ -131,6 +138,12 @@ export default (state = initialState, action) => {
     case GET_ALL_STUDENTS_FAILURE:
           return {...state, error: action.payload}
 
+    case GET_ROSTER_REQUEST:
+            return {...state, stuRoster: [], error: null}
+    case GET_ROSTER_SUCCESS:
+            return {...state, stuRoster: action.payload, error: null}
+    case GET_ROSTER_FAILURE:
+            return {...state, error: action.payload}
 
     case LOGOUT_REQUEST:
       return { 
@@ -178,6 +191,41 @@ export default (state = initialState, action) => {
         stuObj: {},
         error: action.payload
       };
+
+    //password reset
+    case PASSRESTOK_VALIDATION_REQUEST:
+      return { 
+        ...state, 
+        isValidatingPassResTok: action.isValidatingPassResTok, 
+        isValidPassResTok: action.isValidPassResTok 
+      }
+
+    //password reset
+    case PASSRESTOK_VALIDATION_SUCCESS:
+      return { 
+        ...state, 
+        isValidatingPassResTok: action.isValidatingPassResTok, 
+        isValidPassResTok: action.isValidPassResTok, 
+        resPassUid: action.payload, 
+        error: "" 
+      }
+
+    //password reset
+    case PASSRESTOK_VALIDATION_FAILURE:
+      return { 
+        ...state, 
+        isValidatingPassResTok: action.isValidatingPassResTok, 
+        isValidPassResTok: action.isValidPassResTok, 
+        error: action.payload, 
+        resPassUid: "" 
+      }
+
+    case GET_URL_REQUEST:
+       return {...state, url: '', error:null}
+    case GET_URL_SUCCESS:
+       return {...state, url: action.payload, error:null}
+    case GET_URL_FAILURE:
+       return {...state, error: action.payload}   
     default:
       return state;
   }

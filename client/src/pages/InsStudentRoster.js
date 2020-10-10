@@ -5,17 +5,26 @@ import AddStudentModal from '../Components/AddStudentModal';
 import {Jumbotron, Button } from "react-bootstrap"
 import AppNavbar from "../Components/AppNavbar";
 import StudentRosterTable from "../Components/StudentRosterTable";
+import { getStuRoster } from "../actions"
 import "../instructor.css";
 
 export default function InsStudentRoster() {
     const dispatch = useDispatch();
     const [showStudentModal, setShowStudentModal] = useState(false);
     //importing global state
-    const [isAuthenticatedUser, authObj, isNewUserAdded] = useSelector((gState) => [
-        gState.isAuthenticatedUser,
+    const [authObj, isNewUserAdded, stuRoster] = useSelector((gState) => [
         gState.authObj, 
-        gState.isNewUserAdded 
+        gState.isNewUserAdded,
+        gState.stuRoster,
+        //added StuRoster and error///Samir
     ]);
+   
+    //Use effect for mounting student Roster
+    useEffect(() => {
+        dispatch(getStuRoster(authObj.accessToken));
+    },[]);
+
+    console.log(stuRoster)
     
     //using useEffect to track isNewUserAdded changes
     //and show add student modal if successfully logged in
@@ -50,7 +59,7 @@ export default function InsStudentRoster() {
                     </p>
                 </div>
             </Jumbotron>
-            <StudentRosterTable />
+            <StudentRosterTable stuRoster = { stuRoster } />
         </React.Fragment>
         
         

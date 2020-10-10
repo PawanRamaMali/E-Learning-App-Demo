@@ -3,14 +3,29 @@ import {Card, Button, CardGroup} from "react-bootstrap"
 import {useEffect, useState} from "react"
 import { Redirect, useHistory } from "react-router-dom"
 import { useDispatch, useSelector } from 'react-redux'
+import { getUrl } from '../actions'
+import Player from "./Player"
+
 export default function LessonCard(props) {
     const { lessons } = props
     
-    const [authObj] = useSelector((gState) => [
-        gState.authObj
-
+    const [authObj, url] = useSelector((gState) => [
+        gState.authObj,
+        gState.url
       ]);   
     const history = useHistory()
+    const dispatch = useDispatch()
+
+    
+
+
+
+   const urlGetter = (e) => {
+    console.log(e.currentTarget.getAttribute("url"))
+    let url = e.currentTarget.getAttribute("url")
+    dispatch(getUrl(url))
+      
+}
 
     const videoRouter = (path) => {
         
@@ -28,7 +43,7 @@ export default function LessonCard(props) {
                                 <Card.Text>
                                 {lesson.description}
                                 </Card.Text>
-                                <Button variant="primary" url={lesson.url} onClick={(e) => videoRouter(e.currentTarget.url)}>Watch Video</Button>{" "}
+                                <Button variant="primary" url={ lesson.url } onClick={(e) => {urlGetter(e) ; videoRouter("/student/courses/lessons")} }>Watch Video</Button>{" "}
                                  {authObj.role === "INSTRUCTOR" ? (
                                      <Button variant="danger" id="delButton" >Delete Lesson</Button>
                                  ):(<p></p>)}
@@ -37,7 +52,7 @@ export default function LessonCard(props) {
                         </Card>
                     )
         
-                    )):(<p></p>)
+                    )):(<p>NO LESSONS UPLOADED BY INSTRUCTOR</p>)
                     
             }
 
