@@ -16,7 +16,8 @@ function AddStudentModal(props) {
     last_name: "",
     email: "",
     role: "STUDENT",
-    crsid: "1"
+    crsid: "1",
+    password: ""
   });
 
   //importing global state
@@ -37,7 +38,7 @@ function AddStudentModal(props) {
     currState[name] = value;
     //update current State backup
     setStudentData(currState);
-    // console.log("This is what we entered in form", currState)
+    console.log("This is what we entered in form", currState)
   }
 
   //handleSubmit function to send student data
@@ -52,8 +53,10 @@ function AddStudentModal(props) {
       return <Alert variant="success">Student Added!</Alert>
     } 
     setValidated(true);
+  
 
     if(error) {return <Alert variant="danger">{error}</Alert>}
+      
   }
 
     return (
@@ -65,7 +68,7 @@ function AddStudentModal(props) {
       >
         <Modal.Header closeButton>
           <Modal.Title className="contained-modal-title-vcenter">
-            Add Student
+            Sign-up
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
@@ -109,7 +112,7 @@ function AddStudentModal(props) {
                       <option value="3">Test Course Three</option>
                     </Form.Control>
                 </Form.Group>
-                {/* <Form.Group className="formBasicPassword">
+                <Form.Group className="formBasicPassword">
                     <Form.Label htmlFor="inputPassword5">Password</Form.Label>
                     <Form.Control
                         type="password"
@@ -141,7 +144,7 @@ function AddStudentModal(props) {
                     <Form.Control.Feedback type="invalid">
                       Please enter valid password
                     </Form.Control.Feedback>
-                </Form.Group> */}
+                </Form.Group>
                 <Button className="primary-button add-student"  onClick={ handleSubmit } >Add Student</Button>
             </Form>
         </Modal.Body>   

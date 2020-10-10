@@ -25,8 +25,8 @@ export default function CourseCard(props) {
         <CardGroup className="card-container">
             {courses ? (
                     courses.map((course) => (
-                        <Card key={ course.id } className="course-card" style={{ width: '18rem' }}>
-                                <Card.Img variant="top" src="..src/img/dolphins2.jpg" />
+                        <Card key={ course.id } className="course-card">
+                                <Card.Img variant="top" className="card-image" />
                                 <Card.Body>
                                 <Card.Title>{ course["course_name"] }</Card.Title>
                                 <Card.Text>

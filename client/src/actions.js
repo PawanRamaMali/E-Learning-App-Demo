@@ -37,7 +37,7 @@ const loginFailed = (error) => ({
 //action: LOGIN_REQUEST  to backend REST api
 export const loginAttempt = (creds) => {
   //function receives credentials
-  return (dispatch, getState) => {
+  return (dispatch) => {
     //dispatch action to notify client
     //of login request in progress
     dispatch({
@@ -77,7 +77,7 @@ const getCourseFailure = (error) => ({
 //courses Api request for instructor
 export const getCourses = (token) => {
  
-  return (dispatch, getState) => {
+  return (dispatch) => {
     dispatch({type: GET_COURSES_REQUEST});
     axios
       .get("/api/user/instructor/courses", {
@@ -98,7 +98,7 @@ export const getCourses = (token) => {
 
 //Get Courses Student API request
 export const getStuCourses = (token) => {
-  return (dispatch, getState) => {
+  return (dispatch) => {
     dispatch({type: GET_COURSES_REQUEST});
     axios
       .get("/api/user/student/courses", {
@@ -135,7 +135,7 @@ const getLessonsFailure = (error) => ({
 
 //courses Api request for instructor
 export const getLessons = (token, id) => {
-  return (dispatch, getState) => {
+  return (dispatch) => {
     dispatch({type: GET_LESSONS_REQUEST});
     axios
       .get("/api/user/instructor/lessons/" + id , {
@@ -156,7 +156,7 @@ export const getLessons = (token, id) => {
 
 //Get Lessons for students pages
 export const getStuLessons = (token, id) => {
-  return (dispatch, getState) => {
+  return (dispatch) => {
     dispatch({type: GET_LESSONS_REQUEST});
     axios
       .get("/api/user/student/courses/" + id +"/lessons", {
@@ -191,7 +191,7 @@ const setCourseIdFailure = (error) => ({
 })
 
 export const setCourseId = (id) => {
-  return (dispatch, getState) => {
+  return (dispatch) => {
     if(id){
       dispatch(setCourseIdSuccess(id))
 
@@ -216,7 +216,7 @@ const getRosterFailure = (error) => ({
 })
 
 export const getStuRoster = (token) => {
-  return (dispatch, getState) => {
+  return (dispatch) => {
     dispatch({type: GET_ROSTER_REQUEST})
     axios
     .get("/api/user/instructor/courses", {
@@ -251,7 +251,7 @@ const getAllInstructorsFailure = (error) => ({
 //view instructor Api request for admin
 export const getAllInstructors = (token) => {
  
-  return (dispatch, getState) => {
+  return (dispatch) => {
     dispatch({type: GET_ALL_INSTRUCTORS_REQUEST});
     axios
       .get("/api/user/admin/view/instructors", {
@@ -284,7 +284,7 @@ const getAllStudentsFailure = (error) => ({
 //view students Api request for admin
 export const getAllStudents = (token) => {
  
-  return (dispatch, getState) => {
+  return (dispatch) => {
     dispatch({type: GET_ALL_STUDENTS_REQUEST});
     axios
       .get("/api/user/admin/view/students", {
@@ -316,7 +316,7 @@ const logoutFail = (error) => ({
 //action: LOGOUT_REQUEST
 export const logoutAttempt = () => {
   //dispatch logout request
-  return (dispatch, getState) => {
+  return (dispatch) => {
     dispatch({
       type: LOGOUT_REQUEST
     });
@@ -352,7 +352,7 @@ const addStudentSuccess = (stuObj) => ({
 //action: ADD_STUDENT_REQUEST to REST API
 export const addStudentAttempt = (data, accessToken) => {
     //function receives credentials
-    return (dispatch, getState) => {
+    return (dispatch) => {
       //dispatch action to notify client 
       //of add student request in progress
       dispatch({ 
@@ -399,7 +399,7 @@ const addCourseSuccess = (courseObj) => ({
 //action: ADD_COURSE_REQUEST to REST API
 export const addCourseAttempt = (data, accessToken) => {
     //function receives credentials
-    return (dispatch, getState) => {
+    return (dispatch) => {
       //dispatch action to notify client 
       //of add student request in progress
       dispatch({ 
@@ -445,7 +445,7 @@ const addLessonSuccess = (lessonObj) => ({
 //action: ADD_COURSE_REQUEST to REST API
 export const addLessonAttempt = (data, accessToken) => {
     //function receives credentials
-    return (dispatch, getState) => {
+    return (dispatch) => {
       //dispatch action to notify client 
       //of add student request in progress
       dispatch({ 
@@ -491,7 +491,7 @@ const resetPassTokenFailed = (error) => ({
 
 export const validateResetPassToken = (tempToken) => {
     //function receives credentials
-    return (dispatch, getState) => {
+    return (dispatch) => {
       dispatch({
         type:    PASSRESTOK_VALIDATION_REQUEST,
         isValidatingPassResTok: true,
@@ -520,7 +520,6 @@ export const validateResetPassToken = (tempToken) => {
   }
 
   const getUrlSuccess = (url) => {
- 
     return {
       type: GET_URL_SUCCESS,
       payload: url
@@ -528,7 +527,6 @@ export const validateResetPassToken = (tempToken) => {
   }
 
   const getUrlfailure = (error) => {
- 
     return {
       type: GET_URL_FAILURE,
       payload: error
@@ -536,7 +534,7 @@ export const validateResetPassToken = (tempToken) => {
   }
 
   export const getUrl = (url) => {
-    return(dispatch, getState) => {
+    return(dispatch) => {
       if(url){
         dispatch(getUrlSuccess(url))
       }else {
@@ -564,7 +562,7 @@ const updateStudentSuccess = (stuObj) => ({
 //action: ADD_STUDENT_REQUEST to REST API
 export const updateStudentAttempt = (data, accessToken) => {
     //function receives credentials
-    return (dispatch, getState) => {
+    return (dispatch) => {
       //dispatch action to notify client 
       //of add student request in progress
       dispatch({ 
@@ -574,7 +572,7 @@ export const updateStudentAttempt = (data, accessToken) => {
         });
       //use axios to query REST api for add student.
       axios
-        .post("/api/auth/signup", data, {
+        .post("/api/auth/update", data, {
           headers: {
             "x-access-token": accessToken
           }
@@ -583,11 +581,11 @@ export const updateStudentAttempt = (data, accessToken) => {
           //if request is successful, persist a session and dispatch
           //login success action
           if(response.status === 200){
-            dispatch(addStudentSuccess(response.data));
+            dispatch(updateStudentSuccess(response.data));
           }
         })
         .catch( (error) => {
-          dispatch(addStudentFailed(error.message));
+          dispatch(updateStudentFailed(error.message));
         });
       }
   }

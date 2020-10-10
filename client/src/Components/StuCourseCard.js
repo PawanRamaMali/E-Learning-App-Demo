@@ -22,8 +22,8 @@ export default function StuCourseCard(props) {
         <CardGroup className="card-container">
             {courses? (
                 courses.map((course) => (
-                    <Card key={ course.Users_Courses.courseId } style={{ width: '18rem' }}>
-                        <Card.Img variant="top" src="holder.js/100px180" />
+                    <Card key={ course.Users_Courses.courseId } className="course-card">
+                        <Card.Img variant="top" className="card-image" />
                         <Card.Body>
                             <Card.Title>{ course["course_name"] }</Card.Title>
                             <Card.Text>

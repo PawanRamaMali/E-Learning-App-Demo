@@ -14,9 +14,8 @@ export default function Player() {
       <div className='player-wrapper'>
           <ReactPlayer
             className='react-player'
+            id='react-player'
             url={url}
-            width='100%'
-            height='100%'
             controls= {true}
           />
       </div>

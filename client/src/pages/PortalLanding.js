@@ -26,8 +26,8 @@ export default function InsLanding() {
         <React.Fragment> 
             <AppNavbar />
             {authObj.role === "INSTRUCTOR" ?(
-                <Jumbotron tag="div" className="InsLanding-background homepage-background">
-                <div className="InsLanding-content homepage-content">
+                <Jumbotron tag="div" className="instructor-landing-hero homepage-background">
+                <div className="instructor-landing-content homepage-content">
                     <h1 tag="div" className="">POD | Instructor Portal</h1>
                     <p tag="div">
                         Manage Students, Courses, and Content all in one place!
@@ -41,14 +41,14 @@ export default function InsLanding() {
             </Jumbotron>
 
             ) :(
-                <Jumbotron tag="div" className="InsLanding-background homepage-background">
-                <div className="InsLanding-content homepage-content">
+                <Jumbotron tag="div" className="student-landing-hero homepage-background">
+                <div className="student-landing-content homepage-content">
                 <h1 className="">POD | Student Portal</h1>
                 <p tag="div">
                     All your Courses in one place!
                 </p>
                 <p tag="div" className="btngroup">
-                    <Button className="MyCourses" onClick={() => redirectRouter("/student/courses")}>My Courses</Button>
+                    <Button className="primary-button MyCourses" onClick={() => redirectRouter("/student/courses")}>My Courses</Button>
                     {/* <Button className="InsBtn AddCourses primary-button" onClick={redirectRouter}>MANAGE COURSES</Button> */}
                     {/* <Button className="InsBtn Dashboard primary-button" onClick={handleInstructorRoutes}>MANAGE CONTENT</Button> */}
                 </p>

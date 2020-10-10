@@ -46,6 +46,7 @@
   justify-content: center;
 }
 
+/* auth styling*/
 .four0three img{
   width: 100%;
 }
@@ -55,29 +56,116 @@
   text-align: center;
 }
 
+/* Instructor Landing Styling*/
+.instructor-landing-hero {
+  background-image: url("img/dolphins4.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  color: white;
+}
+
+.student-landing-hero {
+  background-image: url("img/dolphins10.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  color: white;
+}
+
+.ins-student-roster-hero {
+  background-image: url("img/dolphins6.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ins-courses-hero {
+  background-image: url("img/dolphins8.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ins-lessons-hero {
+  background-image: url("img/dolphins9.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.instructor-landing-content .student-landing-content {
+  padding-top: 75px;
+}
+
+.student-courses-hero {
+  background-image: url("img/dolphins11.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
 .card-container {
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: space-between;
 }
 
-.lesson-card {
-  width: 18rem;
+.course-card .card {
+  /* display: flex; */
+  /* flex-direction: row;
+  justify-content: space-between;
+  width: 100px;
+  margin-right: 20px; */
+}
+
+.card-image {
+  background-image: url("img/dolphins6.jpg");
+  height: 175px;
+  background-size: cover;
 }
 
 /*Video player CSS */
 .player-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   position: relative;
-  padding-top: 56.25% /* Player ratio: 100 / (1280 / 720) */
+  padding-top: 5%; 
+  height: 60vh;
+  
 }
  
 .react-player {
   position: relative;
   top: 0;
   left: 0;
+  height: 120%;
+  width: 60%;
 }
 
 .video {
   display: flex;
   flex-direction: row;
+  height: 200px;
 }
