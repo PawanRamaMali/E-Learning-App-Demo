@@ -132,11 +132,11 @@
 }
 
 .course-card .card {
-  /* display: flex; */
-  /* flex-direction: row;
+  display: flex; 
+  flex-direction: row;
   justify-content: space-between;
   width: 100px;
-  margin-right: 20px; */
+  margin-right: 20px; 
 }
 
 .card-image {
