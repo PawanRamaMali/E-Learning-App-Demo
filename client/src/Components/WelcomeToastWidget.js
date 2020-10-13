@@ -13,7 +13,6 @@ function WelcomeToastWidget (props) {
     ]);
 
     return (
-        < >
             <div
                 aria-live="polite"
                 aria-atomic="true"
@@ -32,14 +31,13 @@ function WelcomeToastWidget (props) {
                         right: 0,
                         backgroundColor: '#2ba6cb'
                         }} 
-                        tag="div"
+                        as="div"
                     >
-                        <Toast.Body tag="div">
-                            <strong tag="div" className="mr-auto">Welcome, {authObj.fname}!</strong>
+                        <Toast.Body as="div">
+                            <strong as="div" className="mr-auto">Welcome, {authObj.fname}!</strong>
                         </Toast.Body>
                     </Toast>
             </div>
-        </>
     ) 
 };
 

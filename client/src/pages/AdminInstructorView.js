@@ -1,11 +1,11 @@
-import React, {useState, useEffect} from 'react'
-import {Jumbotron, Button, Table } from "react-bootstrap"
+import React, {useEffect} from 'react'
+import {Jumbotron, Button} from "react-bootstrap"
 import { useHistory } from 'react-router-dom';
 import AppNavbar from "../Components/AppNavbar";
 import InstructorTable from "../Components/AdminInstructorTable";
 import "../instructor.css";
 import { getAllInstructors, deleteInstructor, activateInstructor, deactivateInstructor } from '../actions'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux';
 
 export default function AdminInstructorList() {
     const history = useHistory()
@@ -13,13 +13,13 @@ export default function AdminInstructorList() {
 
     const dispatch = useDispatch()
   
-    const [allInstructors, error, authObj] = useSelector((gState) => [
+    const [allInstructors, authObj] = useSelector((gState) => [
       gState.allInstructors,
-      gState.error,
       gState.authObj
     ])
   
     useEffect(() => {
+        console.log("auth", authObj)
       dispatch(getAllInstructors(authObj.accessToken))
     }, [])
 

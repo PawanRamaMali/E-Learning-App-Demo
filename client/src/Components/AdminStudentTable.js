@@ -1,14 +1,13 @@
-import React, { useState } from "react";
+import React from "react";
 import { Table, Button } from "react-bootstrap";
-import { useDispatch } from 'react-redux'
-import { useTable, useSortBy } from 'react-table'
+import { useDispatch } from 'react-redux';
+import { useTable, useSortBy } from 'react-table';
 import "../instructor.css";
 
 export default function AdminStudentTable(props) {
   const { allStudents } = props;
 
   return (
-
     <div>
     {allStudents ? (
       allStudents.map((student) => (

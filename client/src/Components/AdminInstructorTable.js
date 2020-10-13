@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import { Table, Button } from "react-bootstrap";
 // import { useDispatch, useSelector } from 'react-redux'
 // import * as ReactBootstrap from "react-bootstrap" 
 // import { useTable } from 'react-table'
+// import { useDispatch, useSelector } from 'react-redux';
 import "../instructor.css";
 
 export default function AdminInstructorTable(props) {

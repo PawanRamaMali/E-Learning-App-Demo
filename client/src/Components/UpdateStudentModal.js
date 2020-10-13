@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { Modal, Form, Button, Alert } from 'react-bootstrap';
 import "../App.css";
-//import addStudentAttempt action
-import { addStudentAttempt } from "../actions";
+//import updateStudentAttempt action
+import { updateStudentAttempt } from "../actions";
 import { useDispatch, useSelector } from "react-redux";
 
-function AddStudentModal(props) {
+function UpdateStudentModal(props) {
   //instantiating dispacther
   const dispatch = useDispatch();
 
@@ -16,8 +16,7 @@ function AddStudentModal(props) {
     last_name: "",
     email: "",
     role: "STUDENT",
-    crsid: "1",
-    // password: ""
+    crsid: "1"
   });
 
   //importing global state
@@ -25,7 +24,6 @@ function AddStudentModal(props) {
     gState.isAuthenticatedUser,
     gState.authObj,
     gState.error
-   
   ]);
 
   //event handlers
@@ -38,7 +36,7 @@ function AddStudentModal(props) {
     currState[name] = value;
     //update current State backup
     setStudentData(currState);
-    console.log("This is what we entered in form", currState)
+    // console.log("This is what we entered in form", currState)
   }
 
   //handleSubmit function to send student data
@@ -49,26 +47,24 @@ function AddStudentModal(props) {
     //checking validation on Submit event
     if(form.checkValidity() !== false && isAuthenticatedUser){
       //dispatch addStudentAttempt action and pass studentData
-      dispatch(addStudentAttempt(studentData, authObj.accessToken));
-      return <Alert variant="success">Student Added!</Alert>
+      dispatch(updateStudentAttempt(studentData, authObj.accessToken));
+      return <Alert variant="success">Student Updated!</Alert>
     } 
     setValidated(true);
-  
 
-    if(error) {return <Alert variant="danger">{error}</Alert>}
-      
+    if(error) {return <Alert variant="danger">{error}</Alert>}  
   }
 
     return (
       <Modal
-        {...props} className="signup-modal"
+        {...props} className="update-modal"
         size="lg"
         aria-labelledby="contained-modal-title-vcenter"
         centered
       >
         <Modal.Header closeButton>
           <Modal.Title className="contained-modal-title-vcenter">
-            Sign-up
+            Update Student
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
@@ -145,11 +141,11 @@ function AddStudentModal(props) {
                       Please enter valid password
                     </Form.Control.Feedback>
                 </Form.Group> */}
-                <Button className="primary-button add-student"  onClick={ handleSubmit } >Add Student</Button>
+                <Button className="primary-button update-student"  onClick={ handleSubmit } >Update Student</Button>
             </Form>
         </Modal.Body>   
       </Modal>
     );
   }
 
-  export default AddStudentModal;
+  export default UpdateStudentModal;

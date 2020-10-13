@@ -184,7 +184,7 @@ exports.updLesson = (req, res) => {
     //logging into console in dev env
     console.log(
       `${
-        process.env.APP_ENV === "developement"
+        process.env.APP_ENV === "development"
           ? "===== Delete Lesson ===="
           : ""
       }`
@@ -196,7 +196,7 @@ exports.updLesson = (req, res) => {
       }
     }).then((lesson) => {
       if (lesson) {
-        res.status(200).send("Lesson Delteted")
+        res.status(200).send("Lesson Deleted")
       }
     }).catch((err) => {
       res.status(500).send(`Error deleting lesson -> ${err}`)
@@ -209,7 +209,7 @@ exports.updLesson = (req, res) => {
     //logging into console in dev env
     console.log(
       `${
-        process.env.APP_ENV === "developement"
+        process.env.APP_ENV === "development"
           ? "===== Delete Course ===="
           : ""
       }`
@@ -267,9 +267,9 @@ exports.addLesson = (req, res) => {
             : ""
         }`
       );
-    //using Course model to save information
+    //using Lesson model to save information
   db.Lesson.create({
-    name: req.body.lesson_name.toUpperCase(),
+    name: req.body.name.toUpperCase(),
     url: req.body.url.toUpperCase(),
     CourseId: req.body.course_id,
   })
