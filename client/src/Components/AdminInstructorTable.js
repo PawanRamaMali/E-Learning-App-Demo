@@ -1,13 +1,20 @@
 import React, { useState } from "react";
 import { Table, Button } from "react-bootstrap";
-import { useDispatch, useSelector } from 'react-redux'
+// import { useDispatch, useSelector } from 'react-redux'
+// import * as ReactBootstrap from "react-bootstrap" 
+// import { useTable } from 'react-table'
 import "../instructor.css";
 
 export default function AdminInstructorTable(props) {
   const { allInstructors } = props;
 
-  return (
 
+
+  
+  return (
+  
+
+    
     <div>
     {allInstructors ? (
       allInstructors.map((instructor) => (
