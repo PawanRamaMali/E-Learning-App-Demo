@@ -33,7 +33,7 @@ export default function StuCoursePage() {
             <AppNavbar />
             <Jumbotron className="student-courses-hero portal-sublanding-background">
                 <div className="student-landing-content homepage-content">
-                    <h1 className="">POD | Student Courses</h1>
+                    <h1 className="">elearn | Student Courses</h1>
                     <p>
                         View and manage your Courses and Lessons!
                     </p>

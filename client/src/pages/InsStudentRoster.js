@@ -48,7 +48,7 @@ export default function InsStudentRoster() {
             <AppNavbar />
             <Jumbotron className="ins-student-roster-hero portal-sublanding-background">
                 <div className="instructor-landing-content homepage-content">
-                    <h1 className="">POD | Student Roster</h1>
+                    <h1 className="">elearn | Student Roster</h1>
                     <p>
                         View and manage your Student Roster globally and by course!
                     </p>

@@ -100,7 +100,7 @@ function Homepage(props) {
         < >
             <Jumbotron className="homepage-background" tag="div">
                 <div className="homepage-content">
-                    <h1 tag="div" className="">POD | E-Learning</h1>
+                    <h1 tag="div" className="">elearn | E-Learning-App-Demo</h1>
                     <p tag="div">
                         Revolutionizing distance learning for small format learning groups of all ages.
                     </p>

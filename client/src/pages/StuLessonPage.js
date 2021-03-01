@@ -34,7 +34,7 @@ export default function StuLessonPage(props) {
             <AppNavbar />
             <Jumbotron className="stu-lessons-hero portal-sublanding-background">
                 <div className="InsLanding-content homepage-content">
-                    <h1 className="">POD | {props.courseName}Student Lessons</h1>
+                    <h1 className="">elearn | {props.courseName}Student Lessons</h1>
                     <p>
                         View and manage your {props.courseName} Lessons!
                     </p>

@@ -36,7 +36,7 @@ export default function AppNavbar() {
    
     return (
         <Navbar bg="dark" expand="lg" variant="dark">
-            <Navbar.Brand href="/">POD | E-Learning</Navbar.Brand>
+            <Navbar.Brand href="/">elearn | E-Learning-App-Demo</Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse className="justify-content-end">
                 <Navbar.Text>Signed in as:</Navbar.Text>

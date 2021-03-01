@@ -34,7 +34,7 @@ export default function InsCoursePage(props) {
             <AppNavbar />
             <Jumbotron className="ins-courses-hero portal-sublanding-background">
                 <div className="instructor-landing-content homepage-content">
-                    <h1 className="">POD | Instructor Courses</h1>
+                    <h1 className="">elearn | Instructor Courses</h1>
                     <p>
                         View and manage your Courses and Lessons!
                     </p>

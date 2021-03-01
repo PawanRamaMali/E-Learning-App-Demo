@@ -15,7 +15,7 @@ export default function InsCourseRoster(props) {
             <AppNavbar />
             <Jumbotron className="InsLanding-background homepage-background">
                 <div className="InsLanding-content homepage-content">
-                    <h1 className="">POD | {props.courseName} Roster</h1>
+                    <h1 className="">elearn | {props.courseName} Roster</h1>
                     <p>
                         Manage your {props.courseName} student roster
                     </p>

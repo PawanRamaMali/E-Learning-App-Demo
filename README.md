@@ -1,12 +1,12 @@
-# POD E-Learning App
+# elearn E-Learning-App-Demo App
 
 ![MIT](https://img.shields.io/static/v1?label=License&message=MIT&color=green)
 
 ## Description
 
-POD is a virtual learning solution that enables instructors and students to engage with course content online.
+elearn is a virtual learning solution that enables instructors and students to engage with course content online.
 
-POD allows instructors to login to a secure portal where they can upload course content, add and manage their student roster. Students can then login to the student portal to view courses and associated content.
+elearn allows instructors to login to a secure portal where they can upload course content, add and manage their student roster. Students can then login to the student portal to view courses and associated content.
 
 ## Table of Content
 
@@ -46,17 +46,17 @@ For development:
 
 ```
 APP_ENV=development
-APP_NAME=POD E-Learning
+APP_NAME=elearn E-Learning-App-Demo
 DB_HOST= --your mysql host--
 DB_USER= --your mysql user--
 DB_PASS= --your mysql pass--
-DB_NAME=POD_DB
+DB_NAME=elearn_DB
 SQL_DIALECT=mysql
 SECRET= -- add a secret keyword for JasonWebToken --
 EMAIL_PASS= -- Contact Repo Admin to get a testing password --
 ```
 
-4. Create POD DB database.
+4. Create elearn DB database.
 5. Change Directory to /client. Client contains frontend react app.
 6. Run npm install inside client to get frontend dependencies.
 7. In development, both the express backend and the react frontend have to be started to run the full app. In the app root folder, execute npm start (or npm run dev to use nodemon).
@@ -96,16 +96,6 @@ Back End
 - Bcryptjs
 - Passport
 
-## Contributing
-
-| Name           | Github           |
-| -------------- | ---------------- |
-| Carmen Johnson | carmenjohnson512 |
-| Gewn Sanabria  | gwensanabria     |
-| Samir Bello    | agnide4          |
-| Trey Perry     | treyjermyn       |
-| Ariel Cuesta   | arielcc88        |
-
 ## Tests
 
 Testing is not integrated at the moment.
@@ -114,6 +104,4 @@ Testing is not integrated at the moment.
 
 MIT
 
-## Questions
 
-Want to get in touch? Report bugs and enhancements? Contact any of the contributors listed above.

@@ -28,7 +28,7 @@ export default function InsLanding() {
             {authObj.role === "INSTRUCTOR" ?(
                 <Jumbotron tag="div" className="instructor-landing-hero homepage-background">
                 <div className="instructor-landing-content homepage-content">
-                    <h1 tag="div" className="">POD | Instructor Portal</h1>
+                    <h1 tag="div" className="">elearn | Instructor Portal</h1>
                     <p tag="div">
                         Manage Students, Courses, and Content all in one place!
                     </p>
@@ -43,7 +43,7 @@ export default function InsLanding() {
             ) :(
                 <Jumbotron tag="div" className="student-landing-hero homepage-background">
                 <div className="student-landing-content homepage-content">
-                <h1 className="">POD | Student Portal</h1>
+                <h1 className="">elearn | Student Portal</h1>
                 <p tag="div">
                     All your Courses in one place!
                 </p>

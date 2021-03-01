@@ -44,7 +44,7 @@ export default function AdminStudentList() {
             <AppNavbar />
             <Jumbotron className="InsLanding-background">
                 <div className="InsLanding-content homepage-content">
-                    <h1 className="">POD | Student View</h1>
+                    <h1 className="">elearn | Student View</h1>
                     <p className="btngroup">
                         <Button className="InsBtn Dashboard primary-button" onClick={() => {history.push(`/admin`)}}>DASHBOARD</Button>{' '}
                     </p>

@@ -3,8 +3,8 @@ const nodemailer = require("nodemailer"); //pkg for sending emails.
 //Sender Options
 const senderOptions = {
     UserRegistration: {
-                        from: "\"POD E-Learning\" <test@nxtlevelbeauty.com>",
-                        subject: "Welcome to POD E-Learning",
+                        from: "\"elearn E-Learning-App-Demo\" <test@nxtlevelbeauty.com>",
+                        subject: "Welcome to elearn E-Learning-App-Demo",
                     }
 }
 
@@ -31,7 +31,7 @@ const mailSender = async (destEmailAdd, htmlTemplate) => {
             from: senderOptions.UserRegistration.from, // sender address
             to: destEmailAdd, // list of receivers
             subject: senderOptions.UserRegistration.subject, // Subject line
-            text: "Welcome to POD E-Learning", // plain text body
+            text: "Welcome to elearn E-Learning-App-Demo", // plain text body
             html: htmlTemplate, // html body
         };
 

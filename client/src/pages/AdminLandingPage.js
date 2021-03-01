@@ -52,7 +52,7 @@ function AdminLandingPage() {
             <AppNavbar />
             <Jumbotron className="InsLanding-background homepage-background">
             <div className="InsLanding-content homepage-content">
-                <h1 className="">POD | Admin Portal</h1>
+                <h1 className="">elearn | Admin Portal</h1>
                 <p>
                     Manage Instructors and Students
                 </p>

@@ -1,5 +1,5 @@
 {
-  "name": "pod_app",
+  "name": "elearn_app",
   "version": "1.0.0",
   "description": "Online Learning App.",
   "main": "server.js",
@@ -14,15 +14,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/arielcc88/POD_APP.git"
+    "url": "git+https://github.com/arielcc88/elearn_APP.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/arielcc88/POD_APP/issues"
+    "url": "https://github.com/arielcc88/elearn_APP/issues"
   },
-  "homepage": "https://github.com/arielcc88/POD_APP#readme",
+  "homepage": "https://github.com/arielcc88/elearn_APP#readme",
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "custom-env": "^2.0.1",
